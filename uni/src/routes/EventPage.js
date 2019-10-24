@@ -9,7 +9,7 @@ class Event extends React.Component {
     }
     render()  {
         return (
-             <h1>This is the event page for event id {this.id} </h1>
+             <h1>This is the Event page for event id {this.id} </h1>
           );
       }
   }

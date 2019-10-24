@@ -9,7 +9,7 @@ class Admin extends React.Component {
     }
     render()  {
         return (
-             <h1>This is the admin page for admin id {this.id} </h1>
+             <h1>This is the Admin page for admin id {this.id} </h1>
           );
       }
   }

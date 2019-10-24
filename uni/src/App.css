@@ -3,20 +3,59 @@
 }
 
 .App-logo {
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  height: 35px;
 }
 
 .App-link {
   color: #09d3ac;
+}
+
+.Header {
+  /* background-color: #282c34; */
+  background-color: white;
+  height: 60px;
+  width: 100vw;
+  display: inline-block;
+  align-items: center;
+  color: white;
+  padding: 5px;
+}
+
+.Header ul {
+  margin: 0px;
+	padding: 3px;
+  text-align: center;
+	/* margin-left: 390px; */
+}
+
+.Header ul li {
+	margin-right: 20px;
+	font-weight: bold;
+	list-style: none; /* Gets rid of list bullet points */
+	text-align: center;
+	
+	/* Add a proper display property: We want the stats to have 
+	a height, but also appear side-by-side */
+
+	/*display: ;*/
+	display: inline-block;
+}
+
+.Header-button {
+  background-color: #00204E; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+}
+
+.Header-button:hover {
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
 }

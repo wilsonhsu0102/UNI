@@ -1,6 +1,6 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Logo from './images/logo.png';
 import Home from './routes/HomePage';
 import Profile from './routes/ProfilePage';
 import Admin from './routes/AdminPage';
@@ -17,31 +17,50 @@ connection.once('open', () => {
     console.log('MongoDB database connection established successfully!');
 });*/
 
-class App extends React.Component{
-  render() {
-    return (
-      <div>
-          <BrowserRouter>
-            <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
-              { /* Each Route below shows a different component depending on the exact path in the URL  */ }
-              <Route exact path='/' component={Home}/>
-            </Switch>
-            <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
-              { /* Each Route below shows a different component depending on the exact path in the URL  */ }
-              <Route exact path='/profile/:profileId' children={<CallWantedProfile/>}/>
-            </Switch>
-            <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
-              { /* Each Route below shows a different component depending on the exact path in the URL  */ }
-              <Route exact path='/admin/:adminId' children={<CallWantedAdmin/>}/>
-            </Switch>
-            <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
-              { /* Each Route below shows a different component depending on the exact path in the URL  */ }
-              <Route exact path="/event/:eventId" children={<CallWantedEvent/>}/>
-            </Switch>
-          </BrowserRouter>
-        </div>
-    );
-  }
+function App() {
+  return (
+    <div id="App">
+      <div class="Header"> 
+        <ul> 
+          <li> 
+            <img class="App-logo" src={Logo}/>
+          </li>
+          <li> 
+            <button class="Header-button"> Home Page </button>
+          </li>
+          <li> 
+            <button class="Header-button"> Search Bar </button>
+          </li>
+          <li> 
+            <button class="Header-button"> Other </button>
+          </li>
+          <li> 
+            <button class="Header-button"> Log in </button>
+          </li>
+        </ul>
+      </div>
+      <div> 
+        <BrowserRouter>
+          <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
+            { /* Each Route below shows a different component depending on the exact path in the URL  */ }
+            <Route exact path='/' component={Home}/>
+          </Switch>
+          <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
+            { /* Each Route below shows a different component depending on the exact path in the URL  */ }
+            <Route exact path='/profile/:profileId' children={<CallWantedProfile/>}/>
+          </Switch>
+          <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
+            { /* Each Route below shows a different component depending on the exact path in the URL  */ }
+            <Route exact path='/admin/:adminId' children={<CallWantedAdmin/>}/>
+          </Switch>
+          <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
+            { /* Each Route below shows a different component depending on the exact path in the URL  */ }
+            <Route exact path="/event/:eventId" children={<CallWantedEvent/>}/>
+          </Switch>
+        </BrowserRouter>
+      </div>
+    </div>
+  );
 }
 
 // Calls the profile page with profileId
