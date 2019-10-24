@@ -1,9 +1,11 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { mongoose } from 'mongoose';
+
 import { constants } from './lib/constants';
-/*mongoose.connect(constants.MONGO_DB_URL);
+/*
+import { mongoose } from 'mongoose';
+mongoose.connect(constants.MONGO_DB_URL);
 
 const connection = mongoose.connection;
 connection.once('open', () => {
