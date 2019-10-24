@@ -3,8 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 import { mongoose } from 'mongoose';
 import { constants } from './lib/constants';
-mongoose.connect(constants.MONGO_DB_URL);
-/*
+/*mongoose.connect(constants.MONGO_DB_URL);
+
 const connection = mongoose.connection;
 connection.once('open', () => {
     console.log('MongoDB database connection established successfully!');
