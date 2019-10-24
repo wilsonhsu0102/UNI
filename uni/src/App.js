@@ -1,9 +1,9 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-
-import { constants } from './lib/constants';
 /*
+import { constants } from './lib/constants';
+
 import { mongoose } from 'mongoose';
 mongoose.connect(constants.MONGO_DB_URL);
 
