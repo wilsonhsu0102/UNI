@@ -10,6 +10,7 @@ class Cards extends Component {
   render() {
  
     return (
+        
         <Flippy
         flipOnHover={false} // default false
         flipOnClick={true} // default false
@@ -19,6 +20,7 @@ class Cards extends Component {
         // and other props, which will go to div
         style={{ width: '400px', height: '600px' , margin: "0 auto"}} /// these are optional style, it is not necessary
       >
+          <div style={{ height: '30px' , width: '100vw'}}></div>
         <FrontSide
           style={{
             backgroundColor: '#f1f1f1',
