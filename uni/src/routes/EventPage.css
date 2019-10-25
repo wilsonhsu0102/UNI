@@ -1,0 +1,129 @@
+.eventPage {
+    margin-top: 20px;
+    width: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.container {
+    margin: 30px auto;
+    height: 600px;
+    left: 100px;
+    position: relative;
+}
+
+.eventBlock {
+    position: relative;
+    float:left;
+}
+
+.sideBlock {
+    float:left;
+    position: relative;
+    top: 18px;
+}
+
+.name {
+    position: relative;
+    top: 70px;
+    font-size: 50px;
+    font-weight: bold;
+    color: #00204E;
+    float: left;
+}
+
+.hostProfile {
+    position: relative;
+    left: -80px;
+    display: flex;
+    flex-direction: row;
+    border-radius: 50%;
+}
+
+.profileButton {
+    border-radius: 50%;
+    background: none;
+    border: 0;
+    padding: 0;
+}
+
+.profileButton img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    border: solid;
+}
+
+.profileButton img:hover {
+    border-color: #EC7063;
+}
+
+.coverPhoto {
+    width: 500px;
+    height: 200px;
+    margin-top: 10px;
+}
+
+.coverPhoto img{
+    height: 200px;
+    width: 500px;
+}
+
+.eventBlock h3 {
+    margin: 5px 0 5px 0;
+}
+
+.description {
+    padding: 5px;
+    width: 500px;
+    height: 200px;
+    transition-duration: 0.4s;
+    background-color: #f3acc9;
+}
+
+.description:hover {
+    
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.googleMap {
+    margin-top: 10px;
+    width: 360px;
+    height: 360px;
+}
+
+.attendees {
+    margin-top: 20px;
+    width: 360px;
+    height: 160px;
+    background-color: #f3acc9;
+    padding: 10px;
+}
+
+.attendees ul {
+    padding: 0;
+    max-height: 100%;
+    overflow: auto;
+}
+
+.buttons li button {
+    text-decoration: none;
+    border: 0;
+    padding: 0;
+    background-color: #f3acc9;
+}
+  
+.buttons li button:hover {
+    color: #EC7063;
+}
+
+.attendees ul li:nth-child(1) {
+    list-style: none;
+    border-bottom: 1px solid grey;
+}
+
+.attendees ul li:not(:nth-child(1)) {
+    text-align: right;
+	outline:none;
+	padding:0;
+}
+
