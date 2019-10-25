@@ -6,8 +6,9 @@ import EventPhoto from './components/EventPhoto';
 import GoogleMap from './components/GoogleMap';
 
 const event2 = {"eventName": "FREE! BBT!", "hostId": "2", "eventCoverPhoto": "N/A"
-, "eventLocation": "SS", "Attendees": [{"name": "Jay Chou"}, {"name": "Rich Brian"}, {"name": "Higher Brothers"}, {"name": "BTS"}, {"name": "Twice"}, {"name": "Black Pink"}, {"name": "Shawn Mendes"}, {"name": "Wilson Hsu"}], 
-"eventDescription": "A random nice guy is giving out free bubble tea to all UofT students, because we're all suffering and sleep deprived."}
+, "eventLocation": "SS", "Attendees": [{"name": "Jay Chou"}, {"name": "Fred Vanvleet"}, {"name": "Pascal Siakam"}, {"name": "Higher Brothers"}, {"name": "BTS"}, {"name": "Twice"}, {"name": "Black Pink"}, {"name": "Shawn Mendes"}, {"name": "Wilson Hsu"}], 
+"eventDescription": "THE MIX & MINGLE PARTY IS BACK AGAIN THIS YEAR!! Already feeling stressed out about school, missing your family and friends from home? Still single and want to meet someone special? Or just wants to have fun but don’t know where to go? DON’T WORRY ROCSAUT got you covered!"
+ + "Next Friday come party with us! With beer pong and other games available! We will be serving ALL YOU CAN DRINK cocktails to test you limit!And maybe you might just be able to meet that special one on Friday night~Don’t miss out on the fun and come join us at the party!!"}
 
 class Event extends React.Component {
     constructor(props) {
