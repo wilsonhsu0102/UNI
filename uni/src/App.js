@@ -20,22 +20,22 @@ connection.once('open', () => {
 function App() {
   return (
     <div id="App">
-      <div class="Header"> 
+      <div className="Header"> 
         <ul> 
           <li> 
-            <img class="App-logo" src={Logo}/>
+            <img className="App-logo" src={Logo} alt="The Logo of our website"/>
           </li>
           <li> 
-            <button class="Header-button"> Home Page </button>
+            <button className="Header-button"> Home Page </button>
           </li>
           <li> 
-            <button class="Header-button"> Search Bar </button>
+            <button className="Header-button"> Search Bar </button>
           </li>
           <li> 
-            <button class="Header-button"> Other </button>
+            <button className="Header-button"> Other </button>
           </li>
           <li> 
-            <button class="Header-button"> Log in </button>
+            <button className="Header-button"> Log in </button>
           </li>
         </ul>
       </div>

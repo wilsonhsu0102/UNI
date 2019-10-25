@@ -2,23 +2,27 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 35px;
+.ExtraSpace {
+  height: 1000px;
 }
 
-.App-link {
-  color: #09d3ac;
+.App-logo {
+  /* position: absolute;
+  top: 12px;
+  left: 70px; */
+  height: 35px;
 }
 
 .Header {
   /* background-color: #282c34; */
+  position: sticky;
   background-color: white;
   height: 60px;
   width: 100vw;
-  display: inline-block;
+  /* display: inline-block;
   align-items: center;
   color: white;
-  padding: 5px;
+  padding: 5px; */
 }
 
 .Header ul {
@@ -30,9 +34,9 @@
 
 .Header ul li {
 	margin-right: 20px;
-	font-weight: bold;
+	/* font-weight: bold; */
 	list-style: none; /* Gets rid of list bullet points */
-	text-align: center;
+	/* text-align: center; */
 	
 	/* Add a proper display property: We want the stats to have 
 	a height, but also appear side-by-side */
@@ -42,6 +46,7 @@
 }
 
 .Header-button {
+  position: relative;
   background-color: #00204E; /* Green */
   border: none;
   color: white;
@@ -52,8 +57,7 @@
   font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;
-  -webkit-transition-duration: 0.4s; /* Safari */
-  transition-duration: 0.4s;
+  transition-duration: 0.5s;
 }
 
 .Header-button:hover {
