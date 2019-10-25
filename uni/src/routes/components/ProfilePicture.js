@@ -1,4 +1,5 @@
 import React from "react";
+import './ProfilePage.css'
 
 export default class ProfilePicture extends React.Component {
 	constructor(props) {

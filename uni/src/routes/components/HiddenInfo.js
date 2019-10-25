@@ -1,4 +1,5 @@
 import React from "react";
+import './ProfilePage.css'
 
 export default class HiddenInfo extends React.Component {
 	constructor(props) {

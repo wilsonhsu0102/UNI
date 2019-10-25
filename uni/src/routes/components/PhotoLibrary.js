@@ -1,4 +1,5 @@
 import React from "react";
+import './ProfilePage.css'
 
 export default class PhotoLibrary extends React.Component {
 	constructor(props) {
