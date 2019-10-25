@@ -1,5 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import SelfIntro from './components/SelfIntro'
+import Bio from './components/Bio'
+import ProfilePicture from './components/ProfilePicture'
+import HiddenInfo from './components/HiddenInfo'
+import PhotoLibrary from './components/PhotoLibrary'
+import './components/ProfilePage.css'
 
 class Profile extends React.Component {
     constructor(props) {
@@ -7,10 +13,9 @@ class Profile extends React.Component {
         this.id = this.props.id;
         console.log("This is the profile page for profile id" + this.id);
     }
-    render()  {
-        return (
-             <h1>This is the Profile page for profile id {this.id} </h1>
-          );
-      }
+
+    render() {
+      return ([<ProfilePicture/>, <SelfIntro/>, <Bio/>, <HiddenInfo/>, <PhotoLibrary/>]);
+    }
   }
 export default Profile;
