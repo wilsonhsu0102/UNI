@@ -11,7 +11,7 @@ export default class ProfilePicture extends React.Component {
 		const name = "Wilson Hsu";
 		return (
 			<div>
-				<img class='profilepic' src={require('./images/profilepic.jpg')}/>
+				<img class='profilepic' src={require('./images/profilepic.jpg')} alt='Me'/>
 				<h1 class='profilename'> {name} </h1>
 			</div>
 		);	
