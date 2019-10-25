@@ -1,0 +1,27 @@
+#body{
+	margin-left: 100px;
+}
+form {
+	font-family: "Helvetica Neue", Helvetica, sans-serif;
+}
+
+form input {
+	margin-right: 5px;
+}
+
+#UserForm {
+	margin-top: 100px;
+}
+
+#UserList{
+	margin-top: 10px;
+}
+
+table, td, th {
+	border-collapse: collapse;
+	border: 1px solid black;
+}
+
+td, th {
+	min-width: 200px;
+}
