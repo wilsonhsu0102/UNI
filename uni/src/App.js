@@ -1,10 +1,11 @@
 import React from 'react';
 import './App.css';
-import Logo from './images/logo.png';
-import Home from './routes/HomePage';
+import NavBar from './components/navbar';
+import Home from './routes/homepage';
 import Profile from './routes/ProfilePage';
 import Admin from './routes/AdminPage';
 import Event from './routes/EventPage';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Switch, BrowserRouter, useRouteMatch, useParams } from 'react-router-dom';
 /*
 import { constants } from './lib/constants';
@@ -20,25 +21,13 @@ connection.once('open', () => {
 function App() {
   return (
     <div id="App">
-      <div class="Header"> 
-        <ul> 
-          <li> 
-            <img class="App-logo" src={Logo}/>
-          </li>
-          <li> 
-            <button class="Header-button"> Home Page </button>
-          </li>
-          <li> 
-            <button class="Header-button"> Search Bar </button>
-          </li>
-          <li> 
-            <button class="Header-button"> Other </button>
-          </li>
-          <li> 
-            <button class="Header-button"> Log in </button>
-          </li>
-        </ul>
-      </div>
+      <link
+        rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous"
+      />
+      <NavBar></NavBar>
       <div> 
         <BrowserRouter>
           <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
