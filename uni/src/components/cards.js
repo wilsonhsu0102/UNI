@@ -4,6 +4,7 @@ import Flippy, { FrontSide, BackSide } from 'react-flippy';
 import ProfilePic from '../images/stock.jpg';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import StarIcon from '@material-ui/icons/Star';
+import CancelIcon from '@material-ui/icons/Cancel';
 
 class Cards extends Component {
   render() {
@@ -25,6 +26,7 @@ class Cards extends Component {
           }}
         >
           <img src={ProfilePic} class='cardProfile'></img>
+          <CancelIcon style={{ position: 'absolute', bottom: '40px', left: '30px', fontSize: '60px', color: 'blue'}}></CancelIcon>
           <FavoriteIcon style={{ position: 'absolute', bottom: '40px', right: '30px', fontSize: '60px', color: 'red'}}></FavoriteIcon>
           </FrontSide>
         <BackSide
