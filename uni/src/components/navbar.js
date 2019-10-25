@@ -15,13 +15,13 @@ class NavBar extends React.Component {
                 </ul>
                 <ul className="right"> 
                 <li> 
-                    <button className="Header-button"> Log in </button>
-                </li>
-                <li> 
                     <button className="Header-button"> Profile </button>
                 </li>
                 <li> 
                     <button className="Header-button"> Other </button>
+                </li>
+                <li> 
+                    <button className="Header-button"> Log in </button>
                 </li>
                 <li> 
                     <img className="App-logo" src={Logo}/>
