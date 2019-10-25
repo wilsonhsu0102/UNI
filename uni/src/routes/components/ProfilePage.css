@@ -63,7 +63,7 @@
 	width: 300px;
 	padding: 10px 10px 10px 10px;
 	margin-right: auto;
-	margin-left: auto;
+	margin-left: 40%;
 }
 
 .selfintro {
@@ -82,7 +82,9 @@
 	bottom: 50%;
 }
 
-	
+#hiddenalbumheader {
+	float:left;
+}
 
 #photoalbumheader {
 	margin-right: 100px;

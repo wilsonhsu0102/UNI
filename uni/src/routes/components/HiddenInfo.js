@@ -13,7 +13,7 @@ export default class HiddenInfo extends React.Component {
 			<div>
 				
 				<table class='hiddenalbum'>
-					<th id='hiddenalbumheader' class='photoalbum'> <h2> More About Me </h2> </th>
+					<th id='hiddenalbumheader' class='photoalbum'> <h2> Interests </h2> </th>
 					<tr>
 						<td> <img class='hiddenlibrary' src={require('./images/hiddenlib1.jpg')} alt='Hidden 1'/> </td>
 						<td> <img class='hiddenlibrary' src={require('./images/hiddenlib2.jpg')} alt='Hidden 2'/> </td>
