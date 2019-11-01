@@ -54,7 +54,9 @@
 }
 
 .profileButton img:hover {
-    border-color: #EC7063;
+    transition-duration: 0.4s;
+    background-color: rgb(248, 213, 218);
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
 .coverPhoto {
@@ -63,35 +65,48 @@
     margin-top: 10px;
 }
 
-.coverPhoto img{
+.coverPhoto:hover {
+    transition-duration: 0.4s;
+    background-color: rgb(248, 213, 218);
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.coverPhoto #eventPic{
     height: 200px;
     width: 500px;
 }
 
 .eventBlock h3 {
-    margin: 5px 0 5px 0;
+    margin: 10px 0 5px 0;
 }
 
 .description {
     padding: 5px;
     width: 500px;
     height: 200px;
-    transition-duration: 0.4s;
-    background-color: #f3acc9;
     overflow: auto;
+    margin-top: 5px;
 }
 
 .description:hover {
-    
+    transition-duration: 0.4s;
+    background-color: rgb(248, 213, 218);
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
-.googleMap {
-    margin-top: 10px;
+.googleMap img {
+    margin-top: 5px;
     width: 360px;
-    height: 360px;
+    height: 330px;
 }
 
+.googleMap img:hover {
+    transition-duration: 0.4s;
+    background-color: rgb(248, 213, 218);
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+/*
+For google map integration later on
 .googleMap .marker {
     position: absolute;
     top: 50%;
@@ -109,41 +124,39 @@
 
 .googleMap .marker:hover {
     z-index: 1;
-}
+} */
 
 .attendees {
-    margin-top: 20px;
+    margin-top: 5px;
     width: 360px;
     height: 160px;
-    background-color: #f3acc9;
     padding: 10px;
-}
-
-.attendees ul {
-    padding: 0;
     max-height: 100%;
     overflow: auto;
 }
 
-.buttons li button {
+.attendees:hover {
+    transition-duration: 0.4s;
+    background-color: rgb(248, 213, 218);
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.attendees .table tbody tr td{
+    font-size: 13px;
+    padding: 10px 0;
+    border: 0;
+    text-align: center; 
+    vertical-align: middle;
+}
+
+.attendees .table tbody tr td button {
     text-decoration: none;
     border: 0;
     padding: 0;
-    background-color: #f3acc9;
+    background-color: transparent;
 }
-  
-.buttons li button:hover {
+
+.attendees .table tbody tr td button:hover {
     color: #EC7063;
-}
-
-.attendees ul li:nth-child(1) {
-    list-style: none;
-    border-bottom: 1px solid grey;
-}
-
-.attendees ul li:not(:nth-child(1)) {
-    text-align: right;
-	outline:none;
-	padding:0;
 }
 
