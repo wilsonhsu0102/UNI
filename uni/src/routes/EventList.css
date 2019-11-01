@@ -1,12 +1,12 @@
 .eventList {
     width: 100vw;
     height: 100%;
-    display: inline-block;
 }
 
 .eventList .container {
     margin: 0 auto;
-    width: 800px;
+    left: 230px; 
+    margin-top: 50px;
 }
 
 .eventList h3 {
@@ -15,7 +15,7 @@
 
 .eventList table {
     border: 2px solid;
-    height: 500px;
+    height: 400px;
 }
 
 .eventList table:hover {
