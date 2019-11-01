@@ -63,6 +63,7 @@
     width: 500px;
     height: 200px;
     margin-top: 10px;
+    border-radius: 15px;
 }
 
 .coverPhoto:hover {
@@ -74,6 +75,7 @@
 .coverPhoto #eventPic{
     height: 200px;
     width: 500px;
+    border-radius: 15px;
 }
 
 .eventBlock h3 {
@@ -81,11 +83,12 @@
 }
 
 .description {
-    padding: 5px;
+    padding: 5px 10px 10px 10px;
     width: 500px;
     height: 200px;
     overflow: auto;
     margin-top: 5px;
+    border-radius: 15px;
 }
 
 .description:hover {
@@ -133,6 +136,8 @@ For google map integration later on
     padding: 10px;
     max-height: 100%;
     overflow: auto;
+    border-radius: 15px;
+    padding: 5px 10px 10px 10px;
 }
 
 .attendees:hover {

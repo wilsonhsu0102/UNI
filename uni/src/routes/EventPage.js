@@ -25,7 +25,7 @@ class Event extends React.Component {
         //     items.push(<td className="item" key={index}> <button className="people"> {value.name} </button> </td>)
         // }
         const rows = [];
-        let length = this.attendees.length;
+        const length = this.attendees.length;
         for (let i = 0; i < Math.ceil(length / 3); i++) {
             let items = [];
             for (let j = 0; (i * 3 + j < length) && j < 3; j++) {
