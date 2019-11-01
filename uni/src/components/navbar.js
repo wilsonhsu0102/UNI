@@ -14,6 +14,9 @@ class NavBar extends React.Component {
                 </li>
                 </ul>
                 <ul className="right"> 
+                <li>
+                <input type="text" className="input" onChange={this.handleChange} placeholder="Search..." />
+                </li>
                 <li> 
                     <button className="Header-button"> Profile </button>
                 </li>
