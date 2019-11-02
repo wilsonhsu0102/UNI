@@ -15,13 +15,26 @@ class EventList extends React.Component {
         this.eventList = eventList;
     }
 
+    goToEvent(eventId) {
+        window.location.href='http://localhost:3000/event/' + eventId;
+    }
+
     render() {
         const rows = [];
         const length = this.eventList.length;
         for (let i = 0; i < length; i++) {
-            const name = <td className='eventListName'> <button className="eventListButton"> {this.eventList[i].eventName} </button> </td>
-            const location = <td className='eventListLocation'> <button className="eventListButton"> {this.eventList[i].location} </button> </td>
-            const date = <td className='eventListDate'> <button className="eventListButton"> {this.eventList[i].date} </button> </td>
+            let name;
+            let location;
+            let date;
+            if (i === 0) {
+                name = <td className='eventListName'> <button className="eventListButton" onClick={this.goToEvent.bind(this, i)}> {this.eventList[i].eventName} </button> </td>
+                location = <td className='eventListLocation'> <button className="eventListButton" onClick={this.goToEvent.bind(this, i)}> {this.eventList[i].location} </button> </td>
+                date = <td className='eventListDate'> <button className="eventListButton" onClick={this.goToEvent.bind(this, i)}> {this.eventList[i].date} </button> </td>
+            } else {
+                name = <td className='eventListName'> <button className="eventListButton"> {this.eventList[i].eventName} </button> </td>
+                location = <td className='eventListLocation'> <button className="eventListButton"> {this.eventList[i].location} </button> </td>
+                date = <td className='eventListDate'> <button className="eventListButton"> {this.eventList[i].date} </button> </td>
+            }
             rows.push(<tr className="eventListRow" key={i}> {name} {location} {date} </tr>)
         }
         return (
