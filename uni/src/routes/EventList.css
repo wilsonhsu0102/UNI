@@ -35,17 +35,19 @@
 }
 
 .eventListHeaderRow {
-    display:table;
+    display: table;
     width: 700px;
     height: 40px;
     border-bottom: 1px solid black;
+    table-layout: fixed;
 }
 
 .eventListRow  {
-    display:table;
+    display: table;
     width: 700px;
     height: 40px;
     border-bottom: 1px solid black;
+    table-layout: fixed;
 }
 
 .eventListRow:hover {
@@ -53,15 +55,24 @@
 }
 
 .eventListName {
+    max-width: 400px;
     width: 400px;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .eventListLocation {
-    width: 120px;
+    max-width: 100px;
+    width: 100px;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .eventListDate {
+    max-width: 200px;
     width: 200px;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .eventListButton {
