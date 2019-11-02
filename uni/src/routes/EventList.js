@@ -30,7 +30,7 @@ class EventList extends React.Component {
                     <h3> All Events: </h3>
                     <table>
                         <thead>
-                            <tr className="eventListRow">
+                            <tr className="eventListHeaderRow">
                                 <th className='eventListName'> Name </th>
                                 <th className='eventListLocation'> Location </th>
                                 <th className='eventListDate'> Date Time </th>
