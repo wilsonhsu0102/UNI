@@ -73,7 +73,7 @@ export default function SwipeableTemporaryDrawer(userid) {
         <ListItemText primary="Connections" />
         </ListItem>
         </Nav.Link>
-        <Nav.Link href="/profile/1/edit">
+        <Nav.Link href="/profile/0/edit">
         <ListItem button>
         <ListItemIcon>
         <SettingsIcon />

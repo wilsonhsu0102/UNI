@@ -93,6 +93,6 @@ function CallWantedAdmin() {
 // Calls the event page with eventId
 function CallWantedEvent() {
   let { eventId } = useParams();
-  return <Event id={0}/>;
+  return <Event id={eventId}/>;
 }
 export default App;
