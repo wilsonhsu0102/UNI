@@ -73,6 +73,7 @@ class Event extends React.Component {
     }
 
     renderCondition() {
+        console.log("render condition event list", this.props)
         if (this.props.location == null){
             return <PermissionDenied></PermissionDenied>
         }
