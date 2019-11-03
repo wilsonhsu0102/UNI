@@ -27,7 +27,7 @@
 	overflow: auto;
 	/* height: 400px; */
 	max-height: 400px;
-	width: 620px;
+	width: 653px;
 }
 
 #UserList td, #UserList th, #AdminEventList td, #AdminEventList th,
@@ -94,6 +94,7 @@
 
 .TableButtonCell {
 	min-width: 100px;
+	padding: 10px;
 }
 
 .TableButton {
