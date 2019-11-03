@@ -19,32 +19,41 @@
 
 #UserList{
 	display: inline-block;
-	margin-top: 10px;
+	margin-top: 30px;
 	border-collapse: collapse;
 	border: 1px solid black;
 	overflow: auto;
-	height: 400px;
-	width: 603px;
+	/* height: 400px; */
+	max-height: 400px;
+	width: 620px;
 }
 
 #UserList td, #UserList th, #AdminEventList td, #AdminEventList th,
 #OverallStatsTable td, #OverallStatsTable th{
-	height: 30px;
+	/* height: 30px; */
 	max-height: 30px;
 	border: 1px solid black;
+}
+
+#UserList th, #AdminEventList th, #OverallStatsTable th {
+	background-color: pink;
+  	color: white;
 }
 
 #AdminEventList{
 	display: inline-block;
 	margin-top: 10px;
-	float: right;
+	/* float: right; */
 	position: relative;
 	right: 97px;
 	border-collapse: collapse;
 	border: 1px solid black;
 	overflow: auto;
-	height: 400px;
+	/* height: 400px; */
 	width: 903px;
+	left: 1px;
+	max-height: 400px;
+	top: 50px;
 }
 
 #AdminEventListHeader{
@@ -64,17 +73,23 @@
 
 #OverallStatsTable{
 	display: inline-block;
-	margin-top: 10px;
+	/* margin-top: 10px; */
 	border-collapse: collapse;
 	border: 1px solid black;
 	overflow: auto;
-	height: 400px;
-	width: 400px;
+	/* height: 200px; */
+	width: 403px;
+	max-height: 400px;
 }
 
 .TableContents {
 	min-width: 200px;
-	
+	padding: 10px;
+  	text-align: left;
+}
+
+.TableContents:hover {
+	background-color: #f5f5f5;
 }
 
 .TableButtonCell {
@@ -83,4 +98,25 @@
 
 .TableButton {
 	width: 96px;
+	-webkit-transition-duration: 0.4s; /* Safari */
+	transition-duration: 0.4s;
+	border-radius: 8px;
+    background-color: #555555;
+	color:white;
+}
+
+.TableButton:hover {
+	background-color: white;
+	color: black;
+	box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  }
+
+#PageHeader {
+	position: relative;
+	top: 50px;
+	right: 25px;
+}
+
+#AdminId {
+	color: #e880d3;
 }
