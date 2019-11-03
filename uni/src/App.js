@@ -5,8 +5,9 @@ import Home from './routes/homepage';
 import Profile from './routes/ProfilePage';
 import Admin from './routes/AdminPage';
 import Event from './routes/EventPage';
-import EventList from './routes/EventList';
+import EventList from './routes/EventList'; 
 import Connections from './routes/Connections';
+import EditProfile from './routes/EditProfile';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Switch, BrowserRouter, useRouteMatch, useParams } from 'react-router-dom';
 /*
@@ -31,7 +32,7 @@ function App() {
       />
       <NavBar></NavBar>
       <div> 
-        <BrowserRouter>
+        <BrowserRouter> 
           <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
             { /* Each Route below shows a different component depending on the exact path in the URL  */ }
             <Route exact path='/' component={Home}/>
@@ -47,14 +48,17 @@ function App() {
           <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
             { /* Each Route below shows a different component depending on the exact path in the URL  */ }
             <Route exact path="/event/:eventId" children={<CallWantedEvent/>}/>
-          </Switch>
+          </Switch> 
           <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
             { /* Each Route below shows a different component depending on the exact path in the URL  */ }
             <Route exact path="/eventList" component={EventList}/>
           </Switch>
           <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
             { /* Each Route below shows a different component depending on the exact path in the URL  */ }
+          <Switch> 
             <Route exact path="/connections" component={Connections}/>
+          </Switch>
+            <Route exact path="/profile/:profileId/edit" component={EditProfile}/>
           </Switch>
         </BrowserRouter>
       </div>
@@ -62,7 +66,7 @@ function App() {
   );
 }
 
-// Calls the profile page with profileId
+// Calls the profile page with profileId 
 function CallWantedProfile() {
   let { profileId } = useParams();
   return <Profile id={profileId}/>;

@@ -5,6 +5,7 @@ import Bio from './components/Bio'
 import ProfilePicture from './components/ProfilePicture'
 import HiddenInfo from './components/HiddenInfo'
 import PhotoLibrary from './components/PhotoLibrary'
+import ProfileEdit from './components/ProfileEdit'
 import './components/ProfilePage.css'
 
 class Profile extends React.Component {
@@ -15,7 +16,7 @@ class Profile extends React.Component {
     }
 
     render() {
-      return ([<ProfilePicture/>, <SelfIntro/>, <Bio/>, <HiddenInfo/>, <PhotoLibrary/>]);
+      return ([<ProfilePicture/>, <SelfIntro/>, <Bio/>, <HiddenInfo/>, <PhotoLibrary/>, <ProfileEdit/>]);
     }
   }
 export default Profile;
