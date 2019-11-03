@@ -29,7 +29,9 @@ class NavBar extends React.Component {
                     </Link>
                 </li>
                 <li> 
-                    <button className="Header-button"> Log in </button>
+                    <Link to={{pathname:'/', state: { id:this.props.id }}}>
+                        <button className="Header-button"> Log Out </button>
+                    </Link>
                 </li>
                 <li> 
                     <Link to={{pathname:'/home', state: { id:this.props.id }}}>

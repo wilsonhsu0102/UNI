@@ -1,8 +1,6 @@
 import React from 'react';
 import './EventList.css'
 import NavBar from '../components/navbar';
-import PermissionDenied from '../routes/PermissionDenied'
-
 
 const eventList = [{'eventName': 'Free BBT', 'location': 'SS', 'date': '2019/01/01 13:00:00'}, {'eventName': 'Free Donuts', 'location': 'SS', 'date': '2019/01/04 13:00:00'}, 
 {'eventName': 'Free Shirts', 'location': 'BA', 'date': '2019/01/01 13:00:00'}, {'eventName': 'Free Pants', 'location': 'SS', 'date': '2019/01/01 13:00:00'}, 
@@ -40,24 +38,22 @@ class EventList extends React.Component {
                 location = <td className='eventListLocation'> <button className="eventListButton"> {this.eventList[i].location} </button> </td>
                 date = <td className='eventListDate'> <button className="eventListButton"> {this.eventList[i].date} </button> </td>
             }
-            this.rows.push(<tr className="eventListRow" key={i}> {name} {location} {date} </tr>)
+            this.rows.push(<tr className="eventListRow" key={i}>{name}{location}{date}</tr>)
         }
     }
-
-    renderCondition() {
-        if (this.props.id == null && this.props.location == null){
-            return <PermissionDenied></PermissionDenied>
-        }
-        if (parseInt(this.props.location.state.id) >= 0) {
-            return [<NavBar id = {this.props.location.state.id}></NavBar>,<div className="eventList">
+    
+    render() {
+        this.setUpEventList();
+        return (
+            [<NavBar id = {this.props.location.state.id} key={"NavBar"}></NavBar>,<div className="eventList" key="eventList">
                         <div className="container"> 
                             <h3> All Events: </h3>
                             <table>
                                 <thead>
                                     <tr className="eventListHeaderRow">
-                                        <th className='eventListName'> Name </th>
-                                        <th className='eventListLocation'> Location </th>
-                                        <th className='eventListDate'> Date Time </th>
+                                        <th className='eventListName'>Name</th>
+                                        <th className='eventListLocation'>Location</th>
+                                        <th className='eventListDate'>Date Time</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -66,15 +62,6 @@ class EventList extends React.Component {
                             </table>
                         </div>
                     </div>]
-        } else {
-            return <PermissionDenied></PermissionDenied>
-        }
-    }
-
-    render() {
-        this.setUpEventList();
-        return (
-            this.renderCondition()
         );
     }
 }

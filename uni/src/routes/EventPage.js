@@ -4,7 +4,6 @@ import HostProfile from '../components/HostProfile';
 import EventPhoto from '../components/EventPhoto';
 import GoogleMapMock from '../components/GoogleMap';
 import NavBar from '../components/navbar';
-import PermissionDenied from '../routes/PermissionDenied'
 
 
 const event1 = {"eventName": "FREE! BBT!", "hostId": "1", "eventCoverPhoto": "N/A"
@@ -71,57 +70,45 @@ class Event extends React.Component {
         }
     }
 
-    renderCondition() {
-        console.log("render condition event list", this.props)
-        if (this.props.location == null){
-            return <PermissionDenied></PermissionDenied>
-        }
-        if (parseInt(this.props.location.state.id) >= 0) {
-            return <div className="eventPage"> 
-                        <div className="container"> 
-                            <div className="eventBlock"> 
-                                <div className="name"> 
-                                    {this.eventName}
-                                </div>
-                                <div className="hostProfile"> 
-                                    <h3> Hosted by: </h3>
-                                    <HostProfile id={this.id}/>
-                                </div>
-                                <div className="coverPhoto"> 
-                                    <EventPhoto photo={this.photo}/> 
-                                </div>
-                                <h3> Event Description: </h3>
-                                <div className="description">
-                                    {this.description}
-                                </div>
-
-                            </div>
-                            <div className="sideBlock">
-                                <h3> Event Location: </h3>
-                                <div className="googleMap">
-                                    <GoogleMapMock/>
-                                    
-                                </div>
-                                <h3> Attendees: </h3>
-                                <div className="attendees">
-                                    <table className="table">
-                                        <tbody> 
-                                            {this.rows}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-        } else {
-            return <PermissionDenied></PermissionDenied>
-        }
-    }
-
     render()  {
         this.setUpAttendees();
         return (
-            [<NavBar></NavBar>, this.renderCondition()]
+            [<NavBar key={"NavBar"}></NavBar>, <div className="eventPage" key={"eventPage" + this.id}> 
+            <div className="container"> 
+                <div className="eventBlock"> 
+                    <div className="name"> 
+                        {this.eventName}
+                    </div>
+                    <div className="hostProfile"> 
+                        <h3> Hosted by: </h3>
+                        <HostProfile id={this.id}/>
+                    </div>
+                    <div className="coverPhoto"> 
+                        <EventPhoto photo={this.photo}/> 
+                    </div>
+                    <h3> Event Description: </h3>
+                    <div className="description">
+                        {this.description}
+                    </div>
+
+                </div>
+                <div className="sideBlock">
+                    <h3> Event Location: </h3>
+                    <div className="googleMap">
+                        <GoogleMapMock/>
+                        
+                    </div>
+                    <h3> Attendees: </h3>
+                    <div className="attendees">
+                        <table className="table">
+                            <tbody> 
+                                {this.rows}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>]
         );
       }
   }
