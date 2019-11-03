@@ -49,7 +49,7 @@ class EventList extends React.Component {
         if (this.props.id == null && this.props.location == null){
             return <PermissionDenied></PermissionDenied>
         }
-        if (parseInt(this.props.location.state.id) > 0) {
+        if (parseInt(this.props.location.state.id) >= 0) {
             return [<NavBar id = {this.props.location.state.id}></NavBar>,<div className="eventList">
                         <div className="container"> 
                             <h3> All Events: </h3>

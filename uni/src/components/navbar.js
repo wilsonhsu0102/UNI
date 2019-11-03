@@ -20,6 +20,7 @@ class NavBar extends React.Component {
                 </li>
                 <li> 
                     <Link to={{pathname:"/profile/"+this.props.id, state: { id:this.props.id }}}>
+
                         <button className="Header-button"> Profile </button>
                     </Link>
                 </li>

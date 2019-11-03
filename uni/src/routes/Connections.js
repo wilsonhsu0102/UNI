@@ -17,7 +17,7 @@ class CardQueue extends React.Component {
       if (this.props.id == null && this.props.location == null){
           return <PermissionDenied></PermissionDenied>
       }
-      if (parseInt(this.props.location.state.id) > 0) {
+      if (parseInt(this.props.location.state.id) >= 0) {
           return [<NavBar id ={this.props.location.state.id}></NavBar>,<ConnectionsList students = {this.state.connections}></ConnectionsList>]
       } else {
           return <PermissionDenied></PermissionDenied>

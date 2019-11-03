@@ -62,7 +62,7 @@ export default function SwipeableTemporaryDrawer(userid) {
         <ListItemIcon>
           <ChatIcon />
         </ListItemIcon>
-        <ListItemText primary="Messages" />
+        <ListItemText primary="Make Connections" />
         </ListItem>
         </Link>
         <Link to={{pathname:"/eventList", state: { id: userid.id }}}>

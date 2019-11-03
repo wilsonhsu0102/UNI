@@ -46,7 +46,7 @@ class CardQueue extends React.Component {
 
   renderCondition = (id) => {
     console.log("renderCondition",id)
-    if (parseInt(id) > 0) {
+    if (parseInt(id) >= 0) {
       console.log("id > 0",id)
       return <CardList id = {id} students={ this.state.students } rejectStudent = {this.rejectStudent} connectStudent = {this.connectStudent}></CardList>
     }

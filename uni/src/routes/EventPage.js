@@ -76,7 +76,7 @@ class Event extends React.Component {
         if (this.props.location == null){
             return <PermissionDenied></PermissionDenied>
         }
-        if (parseInt(this.props.location.state.id) > 0) {
+        if (parseInt(this.props.location.state.id) >= 0) {
             return <div className="eventPage"> 
                         <div className="container"> 
                             <div className="eventBlock"> 

@@ -28,7 +28,7 @@ export default function AlignItemsList(key, student) {
                 >
                   {student.name}
                 </Typography>
-                <span style={{color: "#f3acc9"}}> {student.email}</span>
+                <span style={{color: "#f3acc"}}> {student.email}</span>
                 
               </React.Fragment>
             }
