@@ -1,10 +1,10 @@
 import React from 'react';
-import Cards from '../components/cards'
+import CardQueue from '../components/CardQueue'
 
 class Home extends React.Component {
     render()  {
         return (
-            <Cards></Cards>
+            <CardQueue></CardQueue>
           );
       } 
   }

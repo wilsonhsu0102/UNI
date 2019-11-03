@@ -6,6 +6,7 @@ import Profile from './routes/ProfilePage';
 import Admin from './routes/AdminPage';
 import Event from './routes/EventPage';
 import EventList from './routes/EventList';
+import Connections from './routes/Connections';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Switch, BrowserRouter, useRouteMatch, useParams } from 'react-router-dom';
 /*
@@ -50,6 +51,10 @@ function App() {
           <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
             { /* Each Route below shows a different component depending on the exact path in the URL  */ }
             <Route exact path="/eventList" component={EventList}/>
+          </Switch>
+          <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
+            { /* Each Route below shows a different component depending on the exact path in the URL  */ }
+            <Route exact path="/connections" component={Connections}/>
           </Switch>
         </BrowserRouter>
       </div>
