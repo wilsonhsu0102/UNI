@@ -112,9 +112,11 @@
   }
 
 #PageHeader {
+	/*
 	position: relative;
 	top: 50px;
 	right: 25px;
+	*/
 }
 
 #AdminId {
