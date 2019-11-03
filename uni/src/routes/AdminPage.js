@@ -25,21 +25,21 @@ class Admin extends React.Component {
 		let id = 0;
 		for (const [index, value] of this.users.entries()) {
 			emptyUserList.push(<tr id={'User:' + value.name + 'ID:' + id} key={'User:' + value.name + 'ID:' + id}>
-								<td class = 'TableContents'>{value.name}</td>
-								<td class = 'TableButtonCell'>{id++}</td>
-								<td class = 'TableButtonCell'><button class = 'TableButton' onClick = {this.goToProfile}>To Profile</button></td>
-								<td class = 'TableButtonCell'><button class = 'TableButton' onClick = {this.removeUser}>X</button></td></tr>);	
+								<td className = 'TableContents'>{value.name}</td>
+								<td className = 'TableButtonCell'>{id++}</td>
+								<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.goToProfile}>To Profile</button></td>
+								<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.removeUser}>X</button></td></tr>);	
 		}
 		let emptyEventList = [];
 		let cEID = 0;
 		for (let i = 0; i < this.startEvents.length; i++) {
 			emptyEventList.push(<tr id={'Event:' + this.startEvents[i].eventName + 'EventID:' + cEID} key={'Event:' + this.startEvents[i].eventName + 'EventID:' + cEID}>
-								<td class = 'TableContents'>{this.startEvents[i].eventName}</td>
-								<td class = 'TableButtonCell'>{cEID++}</td>
-								<td class = 'TableContents'>{this.startEvents[i].hostName}</td>
-								<td class = 'TableButtonCell'><button class = 'TableButton' onClick = {this.goToEvent}>To Event</button></td>
-								<td class = 'TableButtonCell'><button class = 'TableButton' onClick = {this.goToProfile}>To Profile</button></td>
-								<td class = 'TableButtonCell'><button class = 'TableButton' onClick = {this.removeEvent}>X</button></td></tr>);
+								<td className = 'TableContents'>{this.startEvents[i].eventName}</td>
+								<td className = 'TableButtonCell'>{cEID++}</td>
+								<td className = 'TableContents'>{this.startEvents[i].hostName}</td>
+								<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.goToEvent}>To Event</button></td>
+								<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.goToProfile}>To Profile</button></td>
+								<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.removeEvent}>X</button></td></tr>);
 		}
 		this.state = {
 			adminLoggedIn: true,
@@ -53,11 +53,11 @@ class Admin extends React.Component {
 		}
 		let beginStats = [];
 		this.state.statsTable.push(<tr id={'AdminStatisticTNU'} key={'AdminStatisticTNU'}>
-						<td class = 'TableContents'> {'Total Number of Users'}</td>
-						<td class = 'TableContents'>{ this.state.numUsers }</td></tr>);
+						<td className = 'TableContents'> {'Total Number of Users'}</td>
+						<td className = 'TableContents'>{ this.state.numUsers }</td></tr>);
 		this.state.statsTable.push(<tr id={'AdminStatisticTNE'} key={'AdminStatisticTNE'}>
-						<td class = 'TableContents'> {'Total Number of Events'}</td>
-						<td class = 'TableContents'>{ this.state.numEvents }</td></tr>);
+						<td className = 'TableContents'> {'Total Number of Events'}</td>
+						<td className = 'TableContents'>{ this.state.numEvents }</td></tr>);
 		
         console.log('Admin ID: ' + this.id);
     }
@@ -88,10 +88,10 @@ class Admin extends React.Component {
 	    if(this.state.adminLoggedIn == true){
             console.log('adding user');
 			currUsers.push(<tr id={'User:' + userFullName + 'ID:' + currId} key={'User:' + userFullName + 'ID:' + currId}>
-							<td class = 'TableContents'>{userFullName}</td>
-							<td class = 'TableButtonCell'>{currId}</td>
-							<td class = 'TableButtonCell'><button class = 'TableButton' onClick = {this.goToProfile}>To Profile</button></td>
-							<td class = 'TableButtonCell'><button class = 'TableButton' onClick = {this.removeUser}>X</button></td></tr>);	
+							<td className = 'TableContents'>{userFullName}</td>
+							<td className = 'TableButtonCell'>{currId}</td>
+							<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.goToProfile}>To Profile</button></td>
+							<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.removeUser}>X</button></td></tr>);	
 			currId++;
 			currNumUsers++;
 			currStatsTable = this.updateTable([...this.state.statsTable], 'AdminStatisticTNU', 'Total Number of Users', currNumUsers);
@@ -148,12 +148,12 @@ class Admin extends React.Component {
 	    if(this.state.adminLoggedIn == true){
             console.log('adding event');
 			currEvents.push(<tr id={'Event:' + newEventName + 'EventID:' + currId} key={'Event:' + newEventName + 'EventID:' + currId}>
-							<td class = 'TableContents'>{newEventName}</td>
-							<td class = 'TableButtonCell'>{currId}</td>
-							<td class = 'TableContents'>{newHostName}</td>
-							<td class = 'TableButtonCell'><button class = 'TableButton' onClick = {this.goToEvent}>To Event</button></td>
-							<td class = 'TableButtonCell'><button class = 'TableButton' onClick = {this.goToProfile}>To Profile</button></td>
-							<td class = 'TableButtonCell'><button class = 'TableButton' onClick = {this.removeEvent}>X</button></td></tr>);	
+							<td className = 'TableContents'>{newEventName}</td>
+							<td className = 'TableButtonCell'>{currId}</td>
+							<td className = 'TableContents'>{newHostName}</td>
+							<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.goToEvent}>To Event</button></td>
+							<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.goToProfile}>To Profile</button></td>
+							<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.removeEvent}>X</button></td></tr>);	
 			currId++;
 			currNumEvents++;
 			currStatsTable = this.updateTable([...this.state.statsTable], 'AdminStatisticTNE', 'Total Number of Events', currNumEvents);
@@ -199,8 +199,8 @@ class Admin extends React.Component {
 		for(let i = 0; i < statTable.length; i++){
 			if(statTable[i].key === statKey){
 				statTable.splice(i, 1, <tr id={statKey} key={statKey}>
-									   <td class = 'TableContents'> {statName}</td>
-									   <td class = 'TableContents'>{ newValue }</td></tr>);
+									   <td className = 'TableContents'> {statName}</td>
+									   <td className = 'TableContents'>{ newValue }</td></tr>);
 			}
 		}
 		return statTable;
@@ -216,27 +216,27 @@ class Admin extends React.Component {
 			<br></br>
 			<form id='UserForm'>
 				<input id='newUser' type='text' placeholder='Full Name'/>
-				<button class='TableButton' onClick={ this.addUser }>Add User</button>
+				<button className='TableButton' onClick={ this.addUser }>Add User</button>
 			</form>
 			<form id='EventAddForm'>
 				<input id='newEventName' type='text' placeholder='Event Name'/>
 				<input id='newHostName' type='text' placeholder='Host Name'/>
-				<button class='TableButton' onClick={ this.addEvent }>Add Event</button>
+				<button className='TableButton' onClick={ this.addEvent }>Add Event</button>
 			</form>
 			<br></br>
 			<table id='UserList'>
 				<tbody>
 					<tr>
-						<th class = 'TableContents'>
+						<th className = 'TableContents'>
 							Name
 						</th>
-						<th class = 'TableButtonCell'>
+						<th className = 'TableButtonCell'>
 							UserID
 						</th>
-						<th class = 'TableButtonCell'>
+						<th className = 'TableButtonCell'>
 							Profile Link
 						</th>
-						<th class = 'TableButtonCell'>
+						<th className = 'TableButtonCell'>
 							Remove
 						</th>
 					</tr>
@@ -246,22 +246,22 @@ class Admin extends React.Component {
 			<table id='AdminEventList'>
 				<tbody>
 					<tr>
-						<th class = 'TableContents'>
+						<th className = 'TableContents'>
 							Event Name
 						</th>
-						<th class = 'TableButtonCell'>
+						<th className = 'TableButtonCell'>
 							EventID
 						</th>
-						<th class = 'TableContents'>
+						<th className = 'TableContents'>
 							Host Name
 						</th>
-						<th class = 'TableButtonCell'>
+						<th className = 'TableButtonCell'>
 							Event Link
 						</th>
-						<th class = 'TableButtonCell'>
+						<th className = 'TableButtonCell'>
 							Profile Link
 						</th>
-						<th class = 'TableButtonCell'>
+						<th className = 'TableButtonCell'>
 							Remove
 						</th>
 					</tr>
@@ -274,10 +274,10 @@ class Admin extends React.Component {
 			<table id='OverallStatsTable'>
 				<tbody>
 					<tr>
-						<th class = 'TableContents'>
+						<th className = 'TableContents'>
 							Statistic Name
 						</th>
-						<th class = 'TableContents'>
+						<th className = 'TableContents'>
 							Statistic
 						</th>
 					</tr>
