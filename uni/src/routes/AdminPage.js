@@ -2,6 +2,8 @@ import React from 'react';
 import '../components/AdminPage.css'
 import { Link } from 'react-router-dom';
 import NavBar from '../components/navbar';
+import PermissionDenied from '../routes/PermissionDenied'
+
 
 const mockUsers = [{'name': 'Wilson Hsu'}, {'name': 'Twice'}, {'name': 'Higher Brothers'}, {'name': 'BTS'},
 				   {'name': 'Rich Brian'}, {'name': 'Blackpink'}, {'name': 'Shawn Mendes'}, {'name': 'Jay Chou'},
@@ -199,95 +201,95 @@ class Admin extends React.Component {
 		}
 		return statTable;
 	}
+
+	renderCondition() {
+		console.log("render condition connections", this.props)
+		if (parseInt(this.props.id) == 0) {
+			return [<NavBar id={this.props.id}></NavBar>,<div id='AdminBody'>
+			<h1>Admin ID: {this.id}</h1>
+			<h4 id='UserListHeader'>User List</h4>
+			<h4 id='AdminEventListHeader'>Event List</h4>
+			<br></br>
+			<form id='UserForm'>
+				<input id='newUser' type='text' placeholder='Full Name'/>
+				<button onClick={ this.addUser }>Add User</button>
+			</form>
+			<form id='EventAddForm'>
+				<input id='newEventName' type='text' placeholder='Event Name'/>
+				<input id='newHostName' type='text' placeholder='Host Name'/>
+				<button onClick={ this.addEvent }>Add Event</button>
+			</form>
+			<br></br>
+			<table id='UserList'>
+				<tbody>
+					<tr>
+						<th class = 'TableContents'>
+							Name
+						</th>
+						<th class = 'TableContents'>
+							UserID
+						</th>
+						<th class = 'TableButtonCell'>
+							Profile Link
+						</th>
+						<th class = 'TableButtonCell'>
+							Remove
+						</th>
+					</tr>
+					{ this.state.userList }
+				</tbody>
+			</table>
+			<table id='AdminEventList'>
+				<tbody>
+					<tr>
+						<th class = 'TableContents'>
+							Event Name
+						</th>
+						<th class = 'TableContents'>
+							EventID
+						</th>
+						<th class = 'TableContents'>
+							Host Name
+						</th>
+						<th class = 'TableButtonCell'>
+							Event Link
+						</th>
+						<th class = 'TableButtonCell'>
+							Profile Link
+						</th>
+						<th class = 'TableButtonCell'>
+							Remove
+						</th>
+					</tr>
+					{ this.state.eventList }
+				</tbody>
+			</table>
+			<br></br>
+			<h4 id='OverallStatsHeader'>Overall Stats</h4>
+			<br></br>
+			<table id='OverallStatsTable'>
+				<tbody>
+					<tr>
+						<th class = 'TableContents'>
+							Statistic Name
+						</th>
+						<th class = 'TableContents'>
+							Statistic
+						</th>
+					</tr>
+					{this.state.statsTable}
+				</tbody>
+			</table>
+		</div>]
+		} else {
+			return <PermissionDenied></PermissionDenied>
+		}
+	}
 	
     render()  {
-		if(this.adminLoggedIn == false){
-			return (
-            <div id='AdminDenied'>
-				<h1>PERMISSION DENIED</h1>
-			 </div>
-          );
-		}
-		else{
-			return (
-				[<NavBar></NavBar>,<div id='AdminBody'>
-					<h1>Admin ID: {this.id}</h1>
-					<h4 id='UserListHeader'>User List</h4>
-					<h4 id='AdminEventListHeader'>Event List</h4>
-					<br></br>
-					<form id='UserForm'>
-						<input id='newUser' type='text' placeholder='Full Name'/>
-						<button onClick={ this.addUser }>Add User</button>
-					</form>
-					<form id='EventAddForm'>
-						<input id='newEventName' type='text' placeholder='Event Name'/>
-						<input id='newHostName' type='text' placeholder='Host Name'/>
-						<button onClick={ this.addEvent }>Add Event</button>
-					</form>
-					<br></br>
-					<table id='UserList'>
-						<tbody>
-							<tr>
-								<th class = 'TableContents'>
-									Name
-								</th>
-								<th class = 'TableContents'>
-									UserID
-								</th>
-								<th class = 'TableButtonCell'>
-									Profile Link
-								</th>
-								<th class = 'TableButtonCell'>
-									Remove
-								</th>
-							</tr>
-							{ this.state.userList }
-						</tbody>
-					</table>
-					<table id='AdminEventList'>
-						<tbody>
-							<tr>
-								<th class = 'TableContents'>
-									Event Name
-								</th>
-								<th class = 'TableContents'>
-									EventID
-								</th>
-								<th class = 'TableContents'>
-									Host Name
-								</th>
-								<th class = 'TableButtonCell'>
-									Event Link
-								</th>
-								<th class = 'TableButtonCell'>
-									Profile Link
-								</th>
-								<th class = 'TableButtonCell'>
-									Remove
-								</th>
-							</tr>
-							{ this.state.eventList }
-						</tbody>
-					</table>
-					<br></br>
-					<h4 id='OverallStatsHeader'>Overall Stats</h4>
-					<br></br>
-					<table id='OverallStatsTable'>
-						<tbody>
-							<tr>
-								<th class = 'TableContents'>
-									Statistic Name
-								</th>
-								<th class = 'TableContents'>
-									Statistic
-								</th>
-							</tr>
-							{this.state.statsTable}
-						</tbody>
-					</table>
-				</div>]
-			);
-		}
+		return (
+			this.renderCondition()
+		);
     }
   }
 export default Admin;

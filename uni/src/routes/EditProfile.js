@@ -14,7 +14,7 @@ class EditProfile extends React.Component {
  
  
     render() {
-        return ([<NavBar></NavBar>,<EditProfilePicture id={this.id}/>, <EditProfileInfo id={this.id}/>, <EditPhotoLibrary id={this.id}/>, <EditHiddenLibrary id={this.id}/>]);
+        return ([<NavBar id={this.id}></NavBar>,<EditProfilePicture id={this.id}/>, <EditProfileInfo id={this.id}/>, <EditPhotoLibrary id={this.id}/>, <EditHiddenLibrary id={this.id}/>]);
     }
 }
 

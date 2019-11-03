@@ -2,6 +2,7 @@ import React from 'react';
 import Logo from '../images/logo.png';
 import SwipeableTemporaryDrawer from './SwipeableTemporaryDrawer'
 import {  Nav } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 class NavBar extends React.Component {
     render()  {
@@ -10,7 +11,7 @@ class NavBar extends React.Component {
             
                 <ul className="left"> 
                 <li>
-                    <SwipeableTemporaryDrawer></SwipeableTemporaryDrawer>
+                    <SwipeableTemporaryDrawer id={this.props.id}></SwipeableTemporaryDrawer>
                 </li>
                 </ul>
                 <ul className="right"> 
@@ -18,22 +19,22 @@ class NavBar extends React.Component {
                 <input type="text" className="input" onChange={this.handleChange} placeholder="Search..." />
                 </li>
                 <li> 
-                    <Nav.Link href={"/profile/"+this.props.id}>
+                    <Link to={{pathname:"/profile/"+this.props.id, state: { id:this.props.id }}}>
                         <button className="Header-button"> Profile </button>
-                    </Nav.Link>
+                    </Link>
                 </li>
                 <li> 
-                    <Nav.Link href="/eventList">
+                    <Link to={{pathname:'/eventList', state: { id:this.props.id }}}>
                         <button className="Header-button"> Events </button>
-                    </Nav.Link>
+                    </Link>
                 </li>
                 <li> 
                     <button className="Header-button"> Log in </button>
                 </li>
                 <li> 
-                    <Nav.Link href="/home">
+                    <Link to={{pathname:'/home', state: { id:this.props.id }}}>
                         <img className="App-logo" src={Logo}/>
-                    </Nav.Link>
+                    </Link>
                 </li>
                 </ul>
             </div>

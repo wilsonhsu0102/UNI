@@ -15,20 +15,41 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useHistory } from "react-router-dom";
+import { withStyles } from '@material-ui/styles';
 
-
-export default class Login extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-          username: "",
-          password: ""
-        };
-
-        this.handleSubmit = this.handleSubmit.bind(this);
+const styles = theme => ({
+  '@global': {
+    body: {
+      backgroundColor: "white",
+    },
+  },
+  paper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    color:'#EC7063'
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    color: '#EC7063',
+    
+  },
+  submit: {
+    backgroundColor: '#f3acc9',
+    "&:hover": {
+      backgroundColor: '#EC7063 !important'
     }
+  },
+  links: {
+    color:'#EC7063'
+  },
+  inputFocused: {
+    backgroundColor: '#f3acc9',
+    borderColor: '#f3acc9'
+  }
+});
 
+class Login extends React.Component {
 
     Copyright = () => {
         return (
@@ -60,24 +81,30 @@ export default class Login extends React.Component {
         if (connectionData.accounts.credentials.username == this.state.username
           && connectionData.accounts.credentials.password == this.state.password) {
             console.log(true)
-            this.props.history.push({pathname: `/home`, user: 1, admin: 0})
+            this.props.history.push({pathname:`/home`, state: { id: 1}})
+          } else if (connectionData.admin.credentials.username == this.state.username
+            && connectionData.admin.credentials.password == this.state.password){
+              this.props.history.push({pathname:`/admin/`+this.state.username, state: { id: 0}})
+          } else {
+            alert("incorrect credentials")
           }
     }
 
    
     render() {
+        const { classes } = this.props;
         return (
-            <Container component="main" maxWidth="xs">
+            <Container style={{marginTop:"100px"}} component="main" maxWidth="xs">
       <CssBaseline />
-      <div>
+      <div className={classes.paper}>
         <Avatar >
           <LockOutlinedIcon />
-        </Avatar>
+        </Avatar >
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form noValidate>
-          <TextField
+        <form className={classes.form} classes={{ focus: classes.inputFocused}} noValidate>
+          <TextField 
             variant="outlined"
             margin="normal"
             required
@@ -106,22 +133,23 @@ export default class Login extends React.Component {
             control={<Checkbox value="remember" />}
             label="Remember me"
           />
-          <Button
+          <Button 
             fullWidth
             variant="contained"
             color="primary"
+            className={classes.submit}
             onClick={this.handleSubmit}
           >
             Sign In
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
+              <Link className={classes.links} href="#" variant="body2">
                 Forgot password?
               </Link>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link className={classes.links} href="#" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
@@ -129,9 +157,10 @@ export default class Login extends React.Component {
         </form>
       </div>
       <Box mt={8}>
-        Copyright()
+        {this.Copyright()}
       </Box>
     </Container>
         );
     }
 }
+export default withStyles(styles)(Login);

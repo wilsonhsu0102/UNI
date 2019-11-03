@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import Flippy, { FrontSide, BackSide } from 'react-flippy';
 import CardList from './CardList';
 import {getUnconnectedStudents, getConnectedStudents, updateNewConnection} from '../lib/students';
+import PermissionDenied from '../routes/PermissionDenied'
 
 class CardQueue extends React.Component {
   state = {
@@ -10,7 +11,7 @@ class CardQueue extends React.Component {
     connections: getConnectedStudents()
   }
 
-
+  
   
   connectStudent = (student) => {
     
@@ -43,11 +44,21 @@ class CardQueue extends React.Component {
 
   }
 
+  renderCondition = (id) => {
+    console.log("renderCondition",id)
+    if (parseInt(id) > 0) {
+      console.log("id > 0",id)
+      return <CardList id = {id} students={ this.state.students } rejectStudent = {this.rejectStudent} connectStudent = {this.connectStudent}></CardList>
+    }
+    return <PermissionDenied></PermissionDenied>
+  }
+
   render() {
-    
+    const { id } = this.props
+
     return (
       //<div></div>
-      <CardList students={ this.state.students } rejectStudent = {this.rejectStudent} connectStudent = {this.connectStudent}></CardList>
+      this.renderCondition(id)
     );
   }
 }

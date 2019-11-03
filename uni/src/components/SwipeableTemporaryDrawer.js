@@ -14,18 +14,13 @@ import TodayIcon from '@material-ui/icons/Today';
 import GroupIcon from '@material-ui/icons/Group';
 import SettingsIcon from '@material-ui/icons/Settings';
 import {  Nav } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
-const useStyles = makeStyles({
-  list: {
-    width: 350,
-  },
-  fullList: {
-    width: 'auto',
-  },
-});
+
+
 
 export default function SwipeableTemporaryDrawer(userid) {
-  const classes = useStyles();
+  console.log("SwipeableTemporaryDrawer", userid)
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -41,51 +36,66 @@ export default function SwipeableTemporaryDrawer(userid) {
     setState({ ...state, [side]: open });
   };
 
+  const getExtraButton = () => {
+    console.log("extra button")
+    return <Link to={{pathname:"/admin/"+userid.id, state: { id: userid.id }}}>
+            <ListItem button>
+            <ListItemIcon>
+            <SettingsIcon />
+            </ListItemIcon>
+            <ListItemText primary="Admin" />
+            </ListItem>
+           </Link>
+  }
+
   const sideList = side => (
+    
     <div
-      className={classes.list}
       role="presentation"
       onClick={toggleDrawer(side, false)}
       onKeyDown={toggleDrawer(side, false)}
+      style={{width: "350px"}}
     >
       <List>
-      <Nav.Link href="/home">
+      <Link to={{pathname:"/home", state: { id: userid.id }}}>
       <ListItem button>
         <ListItemIcon>
           <ChatIcon />
         </ListItemIcon>
         <ListItemText primary="Messages" />
         </ListItem>
-        </Nav.Link>
-        <Nav.Link href="/eventList">
+        </Link>
+        <Link to={{pathname:"/eventList", state: { id: userid.id }}}>
         <ListItem button>
         <ListItemIcon>
         <TodayIcon />
         </ListItemIcon>
         <ListItemText primary="Events" />
         </ListItem>
-        </Nav.Link>
-        <Nav.Link href="/connections">
+        </Link>
+        <Link to={{pathname:"/connections", state: { id: userid.id }}}>
         <ListItem button>
         <ListItemIcon>
         <GroupIcon />
         </ListItemIcon>
         <ListItemText primary="Connections" />
         </ListItem>
-        </Nav.Link>
-        <Nav.Link href="/profile/1/edit">
+        </Link>
+        <Link to={{pathname:"/profile/"+userid.id+"/edit", state: { id: userid.id }}}>
         <ListItem button>
         <ListItemIcon>
         <SettingsIcon />
         </ListItemIcon>
         <ListItemText primary="Settings" />
         </ListItem>
-        </Nav.Link>
+        </Link>
+        {parseInt(userid.id) == 0 ? getExtraButton() : null}
       </List>
       
     </div>
   );
 
+  
   return (
     <div>
       <Button className='menu' onClick={toggleDrawer('left', true)}>☰</Button>

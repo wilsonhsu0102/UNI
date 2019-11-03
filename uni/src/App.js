@@ -95,4 +95,9 @@ function CallWantedEvent() {
   let { eventId } = useParams();
   return <Event id={0}/>;
 }
+
+// Calls the home page with eventId
+function HomeWantedEvent() {
+  return <Home user={0}/>;
+}
 export default App;
