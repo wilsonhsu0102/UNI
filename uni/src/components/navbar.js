@@ -1,7 +1,6 @@
 import React from 'react';
 import Logo from '../images/logo.png';
 import SwipeableTemporaryDrawer from './SwipeableTemporaryDrawer'
-import {  Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 class NavBar extends React.Component {
@@ -34,7 +33,7 @@ class NavBar extends React.Component {
                 </li>
                 <li> 
                     <Link to={{pathname:'/home', state: { id:this.props.id }}}>
-                        <img className="App-logo" src={Logo}/>
+                        <img className="App-logo" src={Logo} alt="app logo"/>
                     </Link>
                 </li>
                 </ul>
