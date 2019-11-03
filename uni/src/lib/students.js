@@ -1,7 +1,6 @@
 /* A Basic Node JSON api */
 import connectionData from '../data/dummyData'
 
-const log = console.log
 
 // Adding a student
 export function updateNewConnection(student) {

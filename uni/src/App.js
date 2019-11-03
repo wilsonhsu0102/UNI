@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import NavBar from './components/navbar';
 import Home from './routes/homepage';
 import Profile from './routes/ProfilePage';
 import Admin from './routes/AdminPage';
@@ -10,7 +9,7 @@ import Connections from './routes/Connections';
 import EditProfile from './routes/EditProfile';
 import Login from './routes/Login';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Route, Switch, BrowserRouter, useRouteMatch, useParams } from 'react-router-dom';
+import { Route, Switch, BrowserRouter, useParams } from 'react-router-dom';
 /*
 import { constants } from './lib/constants';
  
@@ -93,7 +92,7 @@ function CallWantedEvent() {
 }
 
 // Calls the home page with eventId
-function HomeWantedEvent() {
-  return <Home user={0}/>;
-}
+// function HomeWantedEvent() {
+//   return <Home user={0}/>;
+// }
 export default App;
