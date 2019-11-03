@@ -38,3 +38,8 @@ username: `admin`
 password: `admin`
 
 For an admin, ...
+
+# Event Instructions
+You can find a list of all upcoming events by clicking the `Events` button on the Navigation bar on top of the window. 
+Even though there are many events shown on list, but only the first two event are linked to an existing event page. By clicking on the event, you will be taken to the existing event page.
+Inside event page you will find more information regarding the event, (Name, Host Profile, Cover Photo, Description, Location, Attendees) The Host profile image is linked to the existing profile page for that host. For names in `Attendees` table, only the first one is linked to an existing profile page for demonstration purpose. 
