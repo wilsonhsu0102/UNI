@@ -1,7 +1,7 @@
 #AdminBody {
 	margin-left: 100px;
 	font-family: "Helvetica Neue", Helvetica, sans-serif;
-	width: 1420px;
+	min-width: 1320px;
 	overflow: auto;
 }
 
@@ -27,7 +27,7 @@
 	overflow: auto;
 	/* height: 400px; */
 	max-height: 400px;
-	width: 537px;
+	width: 487px;
 }
 
 #UserList td, #UserList th, #AdminEventList td, #AdminEventList th,
@@ -51,7 +51,7 @@
 	border: 1px solid black;
 	overflow: auto;
 	/* height: 400px; */
-	width: 854px;
+	width: 754px;
 	max-height: 400px;
 }
 
@@ -60,14 +60,14 @@
 	width: 200px;
 	float: right;
 	position: relative;
-	right: 653px;
+	right: 553px;
 	text-decoration: underline;
 }
 
 #EventAddForm{
 	float: right;
 	position: relative;
-	right: 350px;
+	right: 250px;
 }
 
 #OverallStatsTable{
@@ -82,7 +82,7 @@
 }
 
 .TableContents {
-	min-width: 200px;
+	min-width: 150px;
 	padding: 10px;
   	text-align: left;
 }
