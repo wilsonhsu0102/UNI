@@ -86,7 +86,16 @@
 	position: absolute;
 	left: 85%;
 	bottom: 85%;
+	color:black;
+    border-radius: 8px;
+    background-color: #555555;
+	color:white;
+	width: 150px;
 }
+
+#editprofilebutton:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  }
 
 #hiddenalbumheader {
 	float:left;
