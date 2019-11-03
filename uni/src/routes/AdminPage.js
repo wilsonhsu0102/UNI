@@ -1,6 +1,5 @@
 import React from 'react';
 import '../components/AdminPage.css'
-import { Link } from 'react-router-dom';
 import NavBar from '../components/navbar';
 import PermissionDenied from '../routes/PermissionDenied'
 
@@ -23,9 +22,9 @@ class Admin extends React.Component {
 		//Fills in mock data
 		let emptyUserList = [];
 		let id = 0;
-		for (const [index, value] of this.users.entries()) {
-			emptyUserList.push(<tr id={'User:' + value.name + 'ID:' + id} key={'User:' + value.name + 'ID:' + id}>
-								<td className = 'TableContents'>{value.name}</td>
+		for (let i = 0; i < this.users.length; i++) {
+			emptyUserList.push(<tr id={'User:' + this.users[i].name + 'ID:' + id} key={'User:' + this.users[i].name + 'ID:' + id}>
+								<td className = 'TableContents'>{this.users[i].name}</td>
 								<td className = 'TableButtonCell'>{id++}</td>
 								<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.goToProfile}>To Profile</button></td>
 								<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.removeUser}>X</button></td></tr>);	
@@ -42,7 +41,6 @@ class Admin extends React.Component {
 								<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.removeEvent}>X</button></td></tr>);
 		}
 		this.state = {
-			adminLoggedIn: true,
 			userList: emptyUserList,
 			userId: id,
 			numUsers: id,
@@ -51,7 +49,6 @@ class Admin extends React.Component {
 			eventList: emptyEventList,
 			statsTable: []
 		}
-		let beginStats = [];
 		this.state.statsTable.push(<tr id={'AdminStatisticTNU'} key={'AdminStatisticTNU'}>
 						<td className = 'TableContents'> {'Total Number of Users'}</td>
 						<td className = 'TableContents'>{ this.state.numUsers }</td></tr>);
@@ -85,20 +82,15 @@ class Admin extends React.Component {
 		let currNumUsers = this.state.numUsers;
 		let currStatsTable = [...this.state.statsTable];
 		const userFullName = document.querySelector('#newUser').value;
-	    if(this.state.adminLoggedIn == true){
-            console.log('adding user');
-			currUsers.push(<tr id={'User:' + userFullName + 'ID:' + currId} key={'User:' + userFullName + 'ID:' + currId}>
-							<td className = 'TableContents'>{userFullName}</td>
-							<td className = 'TableButtonCell'>{currId}</td>
-							<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.goToProfile}>To Profile</button></td>
-							<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.removeUser}>X</button></td></tr>);	
-			currId++;
-			currNumUsers++;
+        console.log('adding user');
+		currUsers.push(<tr id={'User:' + userFullName + 'ID:' + currId} key={'User:' + userFullName + 'ID:' + currId}>
+						<td className = 'TableContents'>{userFullName}</td>
+						<td className = 'TableButtonCell'>{currId}</td>
+						<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.goToProfile}>To Profile</button></td>
+						<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.removeUser}>X</button></td></tr>);	
+		currId++;
+		currNumUsers++;
 			currStatsTable = this.updateTable([...this.state.statsTable], 'AdminStatisticTNU', 'Total Number of Users', currNumUsers);
-		}
-		else{
-			console.log('Not logged in as an Admin')
-		}
 		this.setState({
         	userList: currUsers,
 			userId: currId,
@@ -113,18 +105,13 @@ class Admin extends React.Component {
 		let currUsers = [...this.state.userList];
 		let currNumUsers = this.state.numUsers;
 		let currStatsTable = [...this.state.statsTable];
-	    if(this.state.adminLoggedIn == true){
-            for (let i = 0; i < currUsers.length; i++){
-				if (currUsers[i].key === rowId){
-					console.log('Deleting User');
-					currUsers.splice(i,1);
-					currNumUsers--;
-					currStatsTable = this.updateTable([...this.state.statsTable], 'AdminStatisticTNU', 'Total Number of Users', currNumUsers);
-				}
+           for (let i = 0; i < currUsers.length; i++){
+			if (currUsers[i].key === rowId){
+				console.log('Deleting User');
+				currUsers.splice(i,1);
+				currNumUsers--;
+				currStatsTable = this.updateTable([...this.state.statsTable], 'AdminStatisticTNU', 'Total Number of Users', currNumUsers);
 			}
-		}
-		else{
-			console.log('Not logged in as an Admin')
 		}
 		this.setState({
         	userList: currUsers,
@@ -141,26 +128,20 @@ class Admin extends React.Component {
 		let currStatsTable = [...this.state.statsTable];
 		const newEventName = document.querySelector('#newEventName').value;
 		let newHostName = document.querySelector('#newHostName').value;
-		console.log(newHostName);
 		if (newHostName === ''){
 			newHostName = 'Admin' + this.id;
 		}
-	    if(this.state.adminLoggedIn == true){
-            console.log('adding event');
-			currEvents.push(<tr id={'Event:' + newEventName + 'EventID:' + currId} key={'Event:' + newEventName + 'EventID:' + currId}>
-							<td className = 'TableContents'>{newEventName}</td>
-							<td className = 'TableButtonCell'>{currId}</td>
-							<td className = 'TableContents'>{newHostName}</td>
-							<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.goToEvent}>To Event</button></td>
-							<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.goToProfile}>To Profile</button></td>
-							<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.removeEvent}>X</button></td></tr>);	
-			currId++;
-			currNumEvents++;
-			currStatsTable = this.updateTable([...this.state.statsTable], 'AdminStatisticTNE', 'Total Number of Events', currNumEvents);
-		}
-		else{
-			console.log('Not logged in as an Admin')
-		}
+        console.log('adding event');
+		currEvents.push(<tr id={'Event:' + newEventName + 'EventID:' + currId} key={'Event:' + newEventName + 'EventID:' + currId}>
+						<td className = 'TableContents'>{newEventName}</td>
+						<td className = 'TableButtonCell'>{currId}</td>
+						<td className = 'TableContents'>{newHostName}</td>
+						<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.goToEvent}>To Event</button></td>
+						<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.goToProfile}>To Profile</button></td>
+						<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.removeEvent}>X</button></td></tr>);	
+		currId++;
+		currNumEvents++;
+		currStatsTable = this.updateTable([...this.state.statsTable], 'AdminStatisticTNE', 'Total Number of Events', currNumEvents);
 		this.setState({
         	eventList: currEvents,
 			eventId: currId,
@@ -175,18 +156,13 @@ class Admin extends React.Component {
 		let currNumEvents = this.state.numEvents;
 		let currEvents = [...this.state.eventList];
 		let currStatsTable = [...this.state.statsTable];
-	    if(this.state.adminLoggedIn == true){
-            for (let i = 0; i < currEvents.length; i++){
-				if (currEvents[i].key === rowId){
-					console.log('Deleting Event');
-					currEvents.splice(i,1);
-					currNumEvents--;
-					currStatsTable = this.updateTable([...this.state.statsTable], 'AdminStatisticTNE', 'Total Number of Events', currNumEvents);
-				}
+        for (let i = 0; i < currEvents.length; i++){
+			if (currEvents[i].key === rowId){
+				console.log('Deleting Event');
+				currEvents.splice(i,1);
+				currNumEvents--;
+				currStatsTable = this.updateTable([...this.state.statsTable], 'AdminStatisticTNE', 'Total Number of Events', currNumEvents);
 			}
-		}
-		else{
-			console.log('Not logged in as an Admin')
 		}
 		this.setState({
         	eventList: currEvents,
@@ -208,7 +184,7 @@ class Admin extends React.Component {
 
 	renderCondition() {
 		console.log("render condition connections", this.props)
-		if (parseInt(this.id) == 0) {
+		if (parseInt(this.id) === 0) {
 			return [<NavBar id={this.id}></NavBar>,<div id='AdminBody'>
 			<h4 id='PageHeader'>Admin Dashboard - Your ID: <span id='AdminId'><strong>{this.id}</strong></span></h4>
 			<h4 id='UserListHeader'>User List</h4>
