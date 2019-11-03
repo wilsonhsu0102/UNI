@@ -1,5 +1,7 @@
 import React from 'react';
 import './EventList.css'
+import NavBar from '../components/navbar';
+
 
 const eventList = [{'eventName': 'Free BBT', 'location': 'SS', 'date': '2019/01/01 13:00:00'}, {'eventName': 'Free Donuts', 'location': 'SS', 'date': '2019/01/04 13:00:00'}, 
 {'eventName': 'Free Shirts', 'location': 'BA', 'date': '2019/01/01 13:00:00'}, {'eventName': 'Free Pants', 'location': 'SS', 'date': '2019/01/01 13:00:00'}, 
@@ -44,7 +46,7 @@ class EventList extends React.Component {
     render() {
         this.setUpEventList();
         return (
-            <div className="eventList">
+            [<NavBar></NavBar>, <div className="eventList">
                 <div className="container"> 
                     <h3> All Events: </h3>
                     <table>
@@ -60,7 +62,7 @@ class EventList extends React.Component {
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </div>]
         );
     }
 }

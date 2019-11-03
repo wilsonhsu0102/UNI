@@ -18,7 +18,7 @@ class NavBar extends React.Component {
                 <input type="text" className="input" onChange={this.handleChange} placeholder="Search..." />
                 </li>
                 <li> 
-                    <Nav.Link href="/profile/1">
+                    <Nav.Link href={"/profile/"+this.props.id}>
                         <button className="Header-button"> Profile </button>
                     </Nav.Link>
                 </li>

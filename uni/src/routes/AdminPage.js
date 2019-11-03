@@ -1,6 +1,7 @@
 import React from 'react';
 import '../components/AdminPage.css'
 import { Link } from 'react-router-dom';
+import NavBar from '../components/navbar';
 
 const mockUsers = [{'name': 'Wilson Hsu'}, {'name': 'Twice'}, {'name': 'Higher Brothers'}, {'name': 'BTS'},
 				   {'name': 'Rich Brian'}, {'name': 'Blackpink'}, {'name': 'Shawn Mendes'}, {'name': 'Jay Chou'},
@@ -209,7 +210,7 @@ class Admin extends React.Component {
 		}
 		else{
 			return (
-				<div id='AdminBody'>
+				[<NavBar></NavBar>,<div id='AdminBody'>
 					<h1>Admin ID: {this.id}</h1>
 					<h4 id='UserListHeader'>User List</h4>
 					<h4 id='AdminEventListHeader'>Event List</h4>
@@ -284,7 +285,7 @@ class Admin extends React.Component {
 							{this.state.statsTable}
 						</tbody>
 					</table>
-				</div>
+				</div>]
 			);
 		}
     }

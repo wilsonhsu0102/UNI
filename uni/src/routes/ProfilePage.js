@@ -7,6 +7,7 @@ import HiddenInfo from '../components/HiddenInfo'
 import PhotoLibrary from '../components/PhotoLibrary'
 import ProfileEdit from '../components/ProfileEdit'
 import '../components/ProfilePage.css'
+import NavBar from '../components/navbar';
 
 class Profile extends React.Component {
     constructor(props) {
@@ -16,7 +17,8 @@ class Profile extends React.Component {
     }
 
     render() {
-      return ([<ProfilePicture id={this.profileId} key={0}/>, <SelfIntro id={this.profileId} key={1}/>, <Bio id={this.profileId} key={2}/>, <HiddenInfo id={this.profileId} key={3}/>, <PhotoLibrary id={this.profileId} key={4}/>, <ProfileEdit id={this.profileId} key={5}/>]);
+      return ([
+        <NavBar></NavBar>, <ProfilePicture id={this.profileId} key={0}/>, <SelfIntro id={this.profileId} key={1}/>, <Bio id={this.profileId} key={2}/>, <HiddenInfo id={this.profileId} key={3}/>, <PhotoLibrary id={this.profileId} key={4}/>, <ProfileEdit id={this.profileId} key={5}/>]);
     } 
   }
 export default Profile;

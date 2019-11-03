@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import HostProfile from '../components/HostProfile';
 import EventPhoto from '../components/EventPhoto';
 import GoogleMapMock from '../components/GoogleMap';
+import NavBar from '../components/navbar';
+
 
 const event1 = {"eventName": "FREE! BBT!", "hostId": "1", "eventCoverPhoto": "N/A"
 , "eventLocation": "SS", "Attendees": [{'name': 'Wilson Hsu'}, {'name': 'Johnny Depp'}, {'name': 'Arnold Schwarzenegger'}, {'name': 'Jim Carrey'}, {'name': 'Emma Watson'}, {'name': 'Daniel Radcliffe'}, {'name': 'Leonardo DiCaprio'}, {'name': 'Tom Cruise'}, {'name': 'Brad Pitt'}, {'name': 'Morgan Freeman'}, {'name': 'Tom Hanks'}], 
@@ -72,6 +74,7 @@ class Event extends React.Component {
     render()  {
         this.setUpAttendees();
         return (
+            [<NavBar></NavBar>,
             <div className="eventPage"> 
                 <div className="container"> 
                     <div className="eventBlock"> 
@@ -107,7 +110,7 @@ class Event extends React.Component {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>]
         );
       }
   }

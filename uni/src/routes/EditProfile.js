@@ -4,7 +4,8 @@ import EditHiddenLibrary from '../components/EditHiddenLibrary'
 import EditProfileInfo from '../components/EditProfileInfo'
 import EditProfilePicture from '../components/EditProfilePicture'
 import '../components/EditProfile.css'
- 
+import NavBar from '../components/navbar';
+
 class EditProfile extends React.Component {
     constructor(props) {
         super(props);
@@ -13,7 +14,7 @@ class EditProfile extends React.Component {
  
  
     render() {
-        return ([<EditProfilePicture id={this.id}/>, <EditProfileInfo id={this.id}/>, <EditPhotoLibrary id={this.id}/>, <EditHiddenLibrary id={this.id}/>]);
+        return ([<NavBar></NavBar>,<EditProfilePicture id={this.id}/>, <EditProfileInfo id={this.id}/>, <EditPhotoLibrary id={this.id}/>, <EditHiddenLibrary id={this.id}/>]);
     }
 }
 
