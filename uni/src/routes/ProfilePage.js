@@ -21,7 +21,7 @@ class Profile extends React.Component {
     renderCondition() {
         console.log("rendercondition profile page", parseInt(this.props.id))
 
-        if (parseInt(this.props.id) > 0) {
+        if (parseInt(this.props.id) >= 0) {
             return [<NavBar id ={this.props.id}></NavBar>,<ProfilePicture id={this.profileId} key={0}/>, <SelfIntro id={this.profileId} key={1}/>, <Bio id={this.profileId} key={2}/>, <HiddenInfo id={this.profileId} key={3}/>, <PhotoLibrary id={this.profileId} key={4}/>, <ProfileEdit id={this.profileId} key={5}/>]
         } else {
             return <PermissionDenied></PermissionDenied>
