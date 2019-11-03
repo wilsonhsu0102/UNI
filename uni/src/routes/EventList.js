@@ -28,10 +28,10 @@ class EventList extends React.Component {
             let name;
             let location;
             let date;
-            if (i === 0) {
-                name = <td className='eventListName'> <button className="eventListButton" onClick={this.goToEvent.bind(this, i)}> {this.eventList[i].eventName} </button> </td>
+            if (i === 0 || i === 1) {
+                name = <td className='eventListName'> <button className="eventListButton" onClick={this.goToEvent.bind(this, 1 - i)}> {this.eventList[i].eventName} </button> </td>
                 location = <td className='eventListLocation'> <button className="eventListButton" onClick={this.goToEvent.bind(this, i)}> {this.eventList[i].location} </button> </td>
-                date = <td className='eventListDate'> <button className="eventListButton" onClick={this.goToEvent.bind(this, i)}> {this.eventList[i].date} </button> </td>
+                date = <td className='eventListDate'> <button className="eventListButton" onClick={this.goToEvent.bind(this, 1 - i)}> {this.eventList[i].date} </button> </td>
             } else {
                 name = <td className='eventListName'> <button className="eventListButton"> {this.eventList[i].eventName} </button> </td>
                 location = <td className='eventListLocation'> <button className="eventListButton"> {this.eventList[i].location} </button> </td>
