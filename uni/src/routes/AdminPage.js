@@ -97,7 +97,8 @@ class Admin extends React.Component {
 		this.setState({
         	userList: currUsers,
 			userId: currId,
-			numUsers: currNumUsers
+			numUsers: currNumUsers,
+			statsTable: currStatsTable
       	});
 	}
 	
