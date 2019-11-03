@@ -48,7 +48,7 @@ function App() {
           </Switch>
           <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
             { /* Each Route below shows a different component depending on the exact path in the URL  */ }
-            <Route exact path='/admin/:adminId' children={<CallWantedAdmin/>}/>
+            <Route exact path='/admin/:adminId' component={Admin}/>
           </Switch>
           <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
             { /* Each Route below shows a different component depending on the exact path in the URL  */ }
@@ -84,11 +84,7 @@ function CallWantedProfileEdit() {
   return <EditProfile id={profileId}/>;
 }
 
-// Calls the admin page with adminId
-function CallWantedAdmin() {
-  let { adminId } = useParams();
-  return <Admin id={0}/>;
-}
+
 
 // Calls the event page with eventId
 function CallWantedEvent() {

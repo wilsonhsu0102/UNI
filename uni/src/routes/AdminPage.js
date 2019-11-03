@@ -205,7 +205,7 @@ class Admin extends React.Component {
 
 	renderCondition() {
 		console.log("render condition connections", this.props)
-		if (parseInt(this.props.id) == 0) {
+		if (parseInt(this.id) == 0) {
 			return [<NavBar id={this.props.id}></NavBar>,<div id='AdminBody'>
 			<h4 id='PageHeader'>Admin Dashboard - Your ID: <span id='AdminId'><strong>{this.id}</strong></span></h4>
 			<h4 id='UserListHeader'>User List</h4>
