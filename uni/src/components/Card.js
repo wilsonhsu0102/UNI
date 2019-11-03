@@ -2,7 +2,6 @@
 import React, {Component} from 'react';
 import Flippy, { FrontSide, BackSide } from 'react-flippy';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import StarIcon from '@material-ui/icons/Star';
 import CancelIcon from '@material-ui/icons/Cancel';
 
 class Cards extends Component {

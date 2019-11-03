@@ -13,7 +13,7 @@ We currently have 8 different views associated with our web application UNI. Eac
 To manually reach each view you may add the following extensions to `localhost:3000`.
 
 1. Login View: `localhost:3000`
-2. Admin View: `localhost:3000/admin/0`
+2. Admin View: `localhost:3000/admin/admin`
 3. Home View: `localhost:3000/home`
 4. Profile View: `localhost:3000/profile/0`
 5. Profile Editing View: `localhost:3000/profile/0/edit`

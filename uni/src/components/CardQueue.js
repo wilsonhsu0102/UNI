@@ -1,6 +1,5 @@
 
-import React, {Component} from 'react';
-import Flippy, { FrontSide, BackSide } from 'react-flippy';
+import React from 'react';
 import CardList from './CardList';
 import {getUnconnectedStudents, getConnectedStudents, updateNewConnection} from '../lib/students';
 import PermissionDenied from '../routes/PermissionDenied'

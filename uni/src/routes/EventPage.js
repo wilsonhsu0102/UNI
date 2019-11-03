@@ -1,6 +1,5 @@
 import React from 'react';
 import './EventPage.css'
-import { Link } from 'react-router-dom';
 import HostProfile from '../components/HostProfile';
 import EventPhoto from '../components/EventPhoto';
 import GoogleMapMock from '../components/GoogleMap';

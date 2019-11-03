@@ -1,5 +1,5 @@
 
-import React, {Component} from 'react';
+import React from 'react';
 import ConnectionsList from '../components/ConnectionsList'
 import {getConnectedStudents} from '../lib/students';
 import NavBar from '../components/navbar';

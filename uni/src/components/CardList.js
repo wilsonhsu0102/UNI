@@ -11,7 +11,7 @@ class CardList extends React.Component {
         const { students, connectStudent, rejectStudent } = this.props
         // Outer loop to create parent
         for (let i = 0; i < students.length; i++) {
-            if (i == 0){
+            if (i === 0){
                 cards.push(<Cards key={uid(students[i])} student={students[i]} connectStudent={connectStudent} rejectStudent={rejectStudent} show="block"></Cards>)
             } else {
                 cards.push(<Cards key={uid(students[i])} student={students[i]} connectStudent={connectStudent} rejectStudent={rejectStudent} show="none"></Cards>)
