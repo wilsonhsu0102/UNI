@@ -14,7 +14,10 @@ const mockEvents = [{'eventName': 'Free BBT', 'hostName': 'Wilson Hsu' }, {'even
 class Admin extends React.Component {
     constructor(props) {
         super(props);
-        this.id = this.props.id;
+		this.id = this.props.id;
+		if (this.id == null){
+			this.id = this.props.location.state.id
+		}
 		this.users = mockUsers;
 		this.startEvents = mockEvents;
 		//Fills in mock data
@@ -206,7 +209,7 @@ class Admin extends React.Component {
 	renderCondition() {
 		console.log("render condition connections", this.props)
 		if (parseInt(this.id) == 0) {
-			return [<NavBar id={this.props.id}></NavBar>,<div id='AdminBody'>
+			return [<NavBar id={this.id}></NavBar>,<div id='AdminBody'>
 			<h4 id='PageHeader'>Admin Dashboard - Your ID: <span id='AdminId'><strong>{this.id}</strong></span></h4>
 			<h4 id='UserListHeader'>User List</h4>
 			<h4 id='AdminEventListHeader'>Event List</h4>
