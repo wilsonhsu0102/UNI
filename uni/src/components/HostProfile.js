@@ -8,7 +8,7 @@ class HostProfile extends React.Component {
 
     render() {
         return (
-                <button className="profileButton" onClick={this.goToProfile.bind(this, 1)}> <img src={require("./images/coverPhoto1.jpg")} alt="profile for host"/> </button>
+                <button className="profileButton" onClick={this.goToProfile.bind(this, 1)}> <img src={require("../images/coverPhoto1.jpg")} alt="profile for host"/> </button>
         );
     }
 }

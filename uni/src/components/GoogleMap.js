@@ -50,7 +50,7 @@ import React from 'react';
 
 class GoogleMapMock extends React.Component {
   render() {
-    return <img src={require('./images/map.png')} alt="Google map of the location"/>
+    return <img src={require('../images/map.png')} alt="Google map of the location"/>
   }
 }
 

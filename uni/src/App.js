@@ -8,6 +8,7 @@ import Event from './routes/EventPage';
 import EventList from './routes/EventList'; 
 import Connections from './routes/Connections';
 import EditProfile from './routes/EditProfile';
+import Login from './routes/Login';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Switch, BrowserRouter, useRouteMatch, useParams } from 'react-router-dom';
 /*
@@ -35,7 +36,11 @@ function App() {
         <BrowserRouter> 
           <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
             { /* Each Route below shows a different component depending on the exact path in the URL  */ }
-            <Route exact path='/' component={Home}/>
+            <Route exact path='/' component={Login}/>
+          </Switch>
+          <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
+            { /* Each Route below shows a different component depending on the exact path in the URL  */ }
+            <Route exact path='/home' component={Home}/>
           </Switch>
           <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
             { /* Each Route below shows a different component depending on the exact path in the URL  */ }
@@ -75,13 +80,13 @@ function CallWantedProfile() {
 // Calls the admin page with adminId
 function CallWantedAdmin() {
   let { adminId } = useParams();
-  return <Admin id={adminId}/>;
+  return <Admin id={0}/>;
 }
 
 // Calls the event page with eventId
 function CallWantedEvent() {
   let { eventId } = useParams();
-  return <Event id={eventId}/>;
+  return <Event id={0}/>;
 }
 
 export default App;

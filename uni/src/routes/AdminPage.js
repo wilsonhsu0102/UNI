@@ -1,5 +1,5 @@
 import React from 'react';
-import './components/AdminPage.css'
+import '../components/AdminPage.css'
 import { Link } from 'react-router-dom';
 
 const users = [{"name": "Wilson Hsu"}, {"name": "Twice"}, {"name": "Higher Brothers"}, {"name": "BTS"}, {"name": "Rich Brian"}, {"name": "Black Pink"}, {"name": "Shawn Mendes"}, {"name": "Jay Chou"}, {"name": "Victor Huang"}, {"name": "Got7"}, {"name": "Day6"}, {"name": "Itzy"} ]

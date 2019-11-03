@@ -13,6 +13,7 @@ import ChatIcon from '@material-ui/icons/Chat';
 import TodayIcon from '@material-ui/icons/Today';
 import GroupIcon from '@material-ui/icons/Group';
 import SettingsIcon from '@material-ui/icons/Settings';
+import {  Nav } from 'react-bootstrap';
 
 const useStyles = makeStyles({
   list: {
@@ -23,7 +24,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function SwipeableTemporaryDrawer() {
+export default function SwipeableTemporaryDrawer(userid) {
   const classes = useStyles();
   const [state, setState] = React.useState({
     top: false,
@@ -48,30 +49,38 @@ export default function SwipeableTemporaryDrawer() {
       onKeyDown={toggleDrawer(side, false)}
     >
       <List>
+      <Nav.Link href="/home">
       <ListItem button>
         <ListItemIcon>
           <ChatIcon />
         </ListItemIcon>
         <ListItemText primary="Messages" />
         </ListItem>
+        </Nav.Link>
+        <Nav.Link href="/eventList">
         <ListItem button>
         <ListItemIcon>
         <TodayIcon />
         </ListItemIcon>
         <ListItemText primary="Events" />
         </ListItem>
+        </Nav.Link>
+        <Nav.Link href="/connections">
         <ListItem button>
         <ListItemIcon>
         <GroupIcon />
         </ListItemIcon>
         <ListItemText primary="Connections" />
         </ListItem>
+        </Nav.Link>
+        <Nav.Link href="/profile/1/edit">
         <ListItem button>
         <ListItemIcon>
         <SettingsIcon />
         </ListItemIcon>
         <ListItemText primary="Settings" />
         </ListItem>
+        </Nav.Link>
       </List>
       
     </div>

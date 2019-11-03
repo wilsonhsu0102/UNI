@@ -1,7 +1,7 @@
 import React from 'react';
 import Logo from '../images/logo.png';
 import SwipeableTemporaryDrawer from './SwipeableTemporaryDrawer'
-import MenuIcon from '@material-ui/icons/Menu';
+import {  Nav } from 'react-bootstrap';
 
 class NavBar extends React.Component {
     render()  {
@@ -18,16 +18,22 @@ class NavBar extends React.Component {
                 <input type="text" className="input" onChange={this.handleChange} placeholder="Search..." />
                 </li>
                 <li> 
-                    <button className="Header-button"> Profile </button>
+                    <Nav.Link href="/profile/1">
+                        <button className="Header-button"> Profile </button>
+                    </Nav.Link>
                 </li>
                 <li> 
-                    <button className="Header-button"> Other </button>
+                    <Nav.Link href="/eventList">
+                        <button className="Header-button"> Events </button>
+                    </Nav.Link>
                 </li>
                 <li> 
                     <button className="Header-button"> Log in </button>
                 </li>
                 <li> 
-                    <img className="App-logo" src={Logo}/>
+                    <Nav.Link href="/home">
+                        <img className="App-logo" src={Logo}/>
+                    </Nav.Link>
                 </li>
                 </ul>
             </div>

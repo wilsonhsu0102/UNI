@@ -6,8 +6,8 @@ export default class PhotoLibrary extends React.Component {
 		super()
 		this.id = this.props
 		// will retrieve photos from database 
-		this.pictures = [require('./images/photolib1.jpg'), require('./images/photolib2.jpg'), require('./images/photolib3.jpg'), 
-			require('./images/photolib4.jpg'), require('./images/photolib5.jpg'), require('./images/photolib6.jpg')]
+		this.pictures = [require('../images/photolib1.jpg'), require('../images/photolib2.jpg'), require('../images/photolib3.jpg'), 
+			require('../images/photolib4.jpg'), require('../images/photolib5.jpg'), require('../images/photolib6.jpg')]
 		console.log("This is the PhotoLibrary for " + this.id);
 	}
 

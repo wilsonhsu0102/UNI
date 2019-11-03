@@ -6,8 +6,8 @@ export default class HiddenInfo extends React.Component {
 		super()
 		this.id = this.props
 		// will retrieve photos stored in database
-		this.pictures = [require('./images/hiddenlib1.jpg'), require('./images/hiddenlib2.jpg'), require('./images/hiddenlib3.jpg'),
-			require('./images/hiddenlib4.jpg'), require('./images/hiddenlib5.jpg'), require('./images/hiddenlib6.jpg')]
+		this.pictures = [require('../images/hiddenlib1.jpg'), require('../images/hiddenlib2.jpg'), require('../images/hiddenlib3.jpg'),
+			require('../images/hiddenlib4.jpg'), require('../images/hiddenlib5.jpg'), require('../images/hiddenlib6.jpg')]
 		console.log("This is the PhotoLibrary for " + this.id);
 	}
 

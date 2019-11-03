@@ -7,7 +7,7 @@ export default class ProfilePicture extends React.Component {
 		this.id = this.props
 		// will retrieve name and profile image data from database
 		this.name = 'Wilson Hsu'
-		this.ProfilePicture = require('./images/profilepic.jpg')
+		this.ProfilePicture = require('../images/profilepic.jpg')
 		console.log("This is the ProfilePicture for " + this.id);
 	}
 
