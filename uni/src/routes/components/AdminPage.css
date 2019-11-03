@@ -1,27 +1,42 @@
-/*#body{
+#AdminBody {
 	margin-left: 100px;
 }
-form {
-	font-family: "Helvetica Neue", Helvetica, sans-serif;
-}
 
-form input {
-	margin-right: 5px;
-}
 
 #UserForm {
 	margin-top: 100px;
+	font-family: "Helvetica Neue", Helvetica, sans-serif;
+}
+
+#UserForm input {
+	margin-right: 5px;
 }
 
 #UserList{
+	display: inline-block;
 	margin-top: 10px;
+	border-collapse: collapse;
+	border: 1px solid black;
+	overflow: auto;
+	max-height: 400px;
+	width: 603px;
 }
 
-table, td, th {
-	border-collapse: collapse;
+#UserList td, #UserList th {
+	height: 30px;
+	max-height: 30px;
 	border: 1px solid black;
 }
 
-td, th {
+.TableContents {
 	min-width: 200px;
-}*/
+	
+}
+
+.TableButtonCell {
+	min-width: 100px;
+}
+
+.TableButton {
+	width: 96px;
+}

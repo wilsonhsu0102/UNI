@@ -2,46 +2,72 @@ import React from 'react';
 import './components/AdminPage.css'
 import { Link } from 'react-router-dom';
 
-const users = [{"name": "Jay Chou"}, {"name": "Rich Brian"}, {"name": "Higher Brothers"}, {"name": "BTS"}, {"name": "Twice"}, {"name": "Black Pink"}, {"name": "Shawn Mendes"}, {"name": "Wilson Hsu"}]
+const users = [{"name": "Wilson Hsu"}, {"name": "Twice"}, {"name": "Higher Brothers"}, {"name": "BTS"}, {"name": "Rich Brian"}, {"name": "Black Pink"}, {"name": "Shawn Mendes"}, {"name": "Jay Chou"}, {"name": "Victor Huang"}, {"name": "Got7"}, {"name": "Day6"}, {"name": "Itzy"} ]
 
 class Admin extends React.Component {
     constructor(props) {
         super(props);
         this.id = this.props.id;
 		this.users = users;
-        console.log("This is the admin page for admin id" + this.id);
-    }
-
-	state = {
-		adminLoggedIn: false,
-		userList: [],
-		userId: 0
-	}
-		
-	adminCheck = (e) => {
-		e.preventDefault();
-        console.log('Check')
-		let currLog = this.state.adminLoggedIn;
-		const username = document.querySelector('#adminName').value;
-		const password = document.querySelector('#adminPassword').value;
-	    if(username === "admin" && password === "admin"){
-			console.log('Successfully Logged In');
-			currLog = true;
+		//Fills in mock data
+		let emptyUserList = [];
+		let id = 0;
+		for (const [index, value] of users.entries()) {
+			emptyUserList.push(<tr id={"User:" + value.name + "ID:" + id} key={"User:" + value.name + "ID:" + id}>
+								<td class = 'TableContents'>{value.name}</td>
+								<td class = 'TableContents'>{id++}</td>
+								<td class = 'TableButtonCell'><button class = 'TableButton' onClick = {this.goToProfile}>To Profile</button></td>
+								<td class = 'TableButtonCell'><button class = 'TableButton' onClick = {this.removeUser}>X</button></td></tr>);	
 		}
-		this.setState({
-        	adminLoggedIn: currLog
-      	});
-		
-	}
+		this.state = {
+			adminLoggedIn: true,
+			userList: emptyUserList,
+			userId: id
+		}
+        console.log("Admin ID: " + this.id);
+    }
+	
+	goToProfile(e) {
+		let rowId = e.target.parentElement.parentElement.id;
+		if(rowId === "User:Wilson HsuID:0"){
+			window.location.href='http://localhost:3000/profile/0';
+		}
+    }
 	
 	addUser = (e) => {
 		e.preventDefault();
-		let currUsers = this.state.userList;
+		let currUsers = [...this.state.userList];
+		let currId = this.state.userId;
 		const userFullName = document.querySelector('#newUser').value;
 	    if(this.state.adminLoggedIn == true){
             console.log('adding user');
-			currUsers.push(<tr key={userFullName}><td>{userFullName}</td><td>{this.state.userId++}</td></tr>);
-			console.log(currUsers);
+			currUsers.push(<tr id={"User:" + userFullName + "ID:" + currId} key={"User:" + userFullName + "ID:" + currId}>
+							<td>{userFullName}</td>
+							<td>{currId}</td>
+							<td class = 'TableButtonCell'><button class = 'TableButton' onClick = {this.goToProfile}>To Profile</button></td>
+							<td class = 'TableButtonCell'><button class = 'TableButton' onClick = {this.removeUser}>X</button></td></tr>);	
+			currId++;
+		}
+		else{
+			console.log('Not logged in as an Admin')
+		}
+		this.setState({
+        	userList: currUsers,
+			userId: currId
+      	});
+	}
+	
+	removeUser = (e) => {
+		let rowId = e.target.parentElement.parentElement.id;
+		e.preventDefault();
+		let currUsers = [...this.state.userList];
+	    if(this.state.adminLoggedIn == true){
+            for (let i = 0; i < currUsers.length; i++){
+				if (currUsers[i].key === rowId){
+					console.log("Deleting User");
+					currUsers.splice(i,1);
+				}
+			}
 		}
 		else{
 			console.log('Not logged in as an Admin')
@@ -49,41 +75,48 @@ class Admin extends React.Component {
 		this.setState({
         	userList: currUsers
       	});
-		console.log(this.state.userList);
 	}
 
     render()  {
-		for (const [index, value] of this.users.entries()) {
-			this.state.userList.push(<tr key={value.name}><td>{value.name}</td><td>{this.state.userId++}</td></tr>);	
-		}
-        return (
-            <div id='body'>
-                <h1>This is the Admin page for admin id {this.id} </h1>
-                <form id='AdminLogin'>
-                    <input id='adminName' type="text" placeholder="Username"/>
-                    <input id='adminPassword' type="text" placeholder="Password"/>
-                    <button onClick={ this.adminCheck }>Login</button>
-                </form>
-				 
-                <form id='UserForm'>
-                    <input id='newUser' type="text" placeholder="Full Name"/>
-                    <button onClick={ this.addUser }>Add User</button>
-                </form>
-				<table id='UserList'>
- 		            <tbody>
-	 		           <tr>
-	 			           <th>
-	 				           Name
-	 			           </th>
-						   <th>
-	 				            UserID
-	 			           </th>
-	 		           </tr>
-					   { this.state.userList }
- 		             </tbody>
- 	             </table>
+		if(this.adminLoggedIn == false){
+			return (
+            <div id='AdminDenied'>
+				<h1> PERMISSION DENIED</h1>
 			 </div>
           );
-      }
+		}
+		else{
+			return (
+				<div id='AdminBody'>
+					<h1>Admin ID: {this.id}</h1>
+					<form id='UserForm'>
+						<input id='newUser' type="text" placeholder="Full Name"/>
+						<button onClick={ this.addUser }>Add User</button>
+					</form>
+					<div id = 'UserTableDiv'>
+						<table id='UserList'>
+							<tbody>
+								<tr>
+									<th class = 'TableContents'>
+										Name
+									</th>
+									<th class = 'TableContents'>
+										UserID
+									</th>
+									<th class = 'TableButton'>
+										Profile
+									</th>
+									<th class = 'TableButton'>
+										Remove
+									</th>
+								</tr>
+								{ this.state.userList }
+							</tbody>
+						</table>
+					</div>
+				</div>
+			);
+		}
+    }
   }
 export default Admin;
