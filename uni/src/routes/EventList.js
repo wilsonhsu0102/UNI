@@ -19,24 +19,30 @@ class EventList extends React.Component {
         window.location.href='http://localhost:3000/event/' + eventId;
     }
 
-    render() {
-        const rows = [];
+    setUpEventList() {
+        /// Get events from server
+        // code below requires server call
+        this.rows = [];
         const length = this.eventList.length;
         for (let i = 0; i < length; i++) {
             let name;
             let location;
             let date;
-            if (i === 0) {
-                name = <td className='eventListName'> <button className="eventListButton" onClick={this.goToEvent.bind(this, i)}> {this.eventList[i].eventName} </button> </td>
+            if (i === 0 || i === 1) {
+                name = <td className='eventListName'> <button className="eventListButton" onClick={this.goToEvent.bind(this, 1 - i)}> {this.eventList[i].eventName} </button> </td>
                 location = <td className='eventListLocation'> <button className="eventListButton" onClick={this.goToEvent.bind(this, i)}> {this.eventList[i].location} </button> </td>
-                date = <td className='eventListDate'> <button className="eventListButton" onClick={this.goToEvent.bind(this, i)}> {this.eventList[i].date} </button> </td>
+                date = <td className='eventListDate'> <button className="eventListButton" onClick={this.goToEvent.bind(this, 1 - i)}> {this.eventList[i].date} </button> </td>
             } else {
                 name = <td className='eventListName'> <button className="eventListButton"> {this.eventList[i].eventName} </button> </td>
                 location = <td className='eventListLocation'> <button className="eventListButton"> {this.eventList[i].location} </button> </td>
                 date = <td className='eventListDate'> <button className="eventListButton"> {this.eventList[i].date} </button> </td>
             }
-            rows.push(<tr className="eventListRow" key={i}> {name} {location} {date} </tr>)
+            this.rows.push(<tr className="eventListRow" key={i}> {name} {location} {date} </tr>)
         }
+    }
+
+    render() {
+        this.setUpEventList();
         return (
             <div className="eventList">
                 <div className="container"> 
@@ -50,7 +56,7 @@ class EventList extends React.Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {rows}
+                            {this.rows}
                         </tbody>
                     </table>
                 </div>

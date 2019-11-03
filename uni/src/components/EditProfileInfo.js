@@ -3,7 +3,12 @@ import React from 'react';
 class EditProfileInfo extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {intro: 'Add a new bio.', year: 3, major: 'Computer Science', campus: 'St. George'};
+        // will retrieve data from database 
+        if (this.props.id !== "1") {
+            this.state = {intro: 'Add a new bio.', year: 3, major: 'Computer Science', campus: 'St. George'};
+        } else {
+            this.state = {intro: 'Add a new bio.', year: 5, major: 'Social Science', campus: 'Missisauga'};
+        }
     }
  
     handleChange(event, field) {

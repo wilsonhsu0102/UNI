@@ -5,18 +5,33 @@ import HostProfile from '../components/HostProfile';
 import EventPhoto from '../components/EventPhoto';
 import GoogleMapMock from '../components/GoogleMap';
 
-const event2 = {"eventName": "FREE! BBT!", "hostId": "2", "eventCoverPhoto": "N/A"
+const event1 = {"eventName": "FREE! BBT!", "hostId": "1", "eventCoverPhoto": "N/A"
 , "eventLocation": "SS", "Attendees": [{'name': 'Wilson Hsu'}, {'name': 'Johnny Depp'}, {'name': 'Arnold Schwarzenegger'}, {'name': 'Jim Carrey'}, {'name': 'Emma Watson'}, {'name': 'Daniel Radcliffe'}, {'name': 'Leonardo DiCaprio'}, {'name': 'Tom Cruise'}, {'name': 'Brad Pitt'}, {'name': 'Morgan Freeman'}, {'name': 'Tom Hanks'}], 
 "eventDescription": "SAMPLE POST: THE FREE BBT PARTY IS BACK AGAIN THIS YEAR!! Already feeling stressed out about school, missing your family and friends from home? Still single and want to meet someone special? Or just wants to have fun but don’t know where to go? DON’T WORRY We got you covered!"
  + "Next Friday come party with us! With bbt pong and other games available! We will be serving ALL YOU CAN DRINK bbt to test you limit! And maybe you might just be able to meet that special one on Friday night~ Don’t miss out on the fun and come join us at the party!!"}
+
+ const event2 = {"eventName": "FREE! Donuts!", "hostId": "2", "eventCoverPhoto": './images/coverPhoto3.jpg'
+, "eventLocation": "BA", "Attendees": [{'name': 'Wilson Hsu'}, {'name': 'Johnny Depp'}, {'name': 'Arnold Schwarzenegger'}, {'name': 'Jim Carrey'}, {'name': 'Emma Watson'}, {'name': 'Daniel Radcliffe'}, {'name': 'Leonardo DiCaprio'}, {'name': 'Tom Cruise'}, {'name': 'Brad Pitt'}, {'name': 'Morgan Freeman'}, {'name': 'Tom Hanks'}], 
+"eventDescription": "SAMPLE POST: THE FREE Donuts PARTY IS BACK AGAIN THIS YEAR!! Already feeling stressed out about school, missing your family and friends from home? Still single and want to meet someone special? Or just wants to have fun but don’t know where to go? DON’T WORRY We got you covered!"
+ + "Next Friday come party with us! With Donuts pong and other games available! We will be serving ALL YOU CAN EAT Donuts to test you limit! And maybe you might just be able to meet that special one on Friday night~ Don’t miss out on the fun and come join us at the party!!"}
 
 class Event extends React.Component {
     constructor(props) {
         super(props);
         this.id = Number(this.props.id);
-        this.eventName = event2.eventName;
-        this.description = event2.eventDescription;
-        this.attendees = event2.Attendees;
+        /// Get event info from server
+        if (this.id === 1) {
+            this.eventName = event1.eventName;
+            this.description = event1.eventDescription;
+            this.attendees = event1.Attendees;
+            this.photo = event1.eventCoverPhoto;
+        } else {
+            this.eventName = event2.eventName;
+            this.description = event2.eventDescription;
+            this.attendees = event2.Attendees;
+            this.photo = event2.eventCoverPhoto;
+        }
+        
     }
 
     // componentDidMount () {
@@ -35,12 +50,10 @@ class Event extends React.Component {
         window.location.href='http://localhost:3000/profile/' + profileId;
     }
 
-    render()  {
-        // const items = [];
-        // for (const [index, value] of this.attendees.entries()) {
-        //     items.push(<td className="item" key={index}> <button className="people"> {value.name} </button> </td>)
-        // }
-        const rows = [];
+    setUpAttendees() {
+        /// Get attendees from server
+        // code below requires server call
+        this.rows = [];
         const length = this.attendees.length;
         for (let i = 0; i < Math.ceil(length / 3); i++) {
             const items = [];
@@ -52,8 +65,12 @@ class Event extends React.Component {
                 }
                 
             }
-            rows.push(<tr key={i}>{items}</tr>)
+            this.rows.push(<tr key={i}>{items}</tr>)
         }
+    }
+
+    render()  {
+        this.setUpAttendees();
         return (
             <div className="eventPage"> 
                 <div className="container"> 
@@ -63,10 +80,10 @@ class Event extends React.Component {
                         </div>
                         <div className="hostProfile"> 
                             <h3> Hosted by: </h3>
-                            <HostProfile/>
+                            <HostProfile id={this.id}/>
                         </div>
                         <div className="coverPhoto"> 
-                            <EventPhoto/> 
+                            <EventPhoto photo={this.photo}/> 
                         </div>
                         <h3> Event Description: </h3>
                         <div className="description">
@@ -84,7 +101,7 @@ class Event extends React.Component {
                         <div className="attendees">
                             <table className="table">
                                 <tbody> 
-                                    {rows}
+                                    {this.rows}
                                 </tbody>
                             </table>
                         </div>

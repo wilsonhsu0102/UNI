@@ -1,14 +1,19 @@
 #AdminBody {
 	margin-left: 100px;
-}
-
-
-#UserForm {
-	margin-top: 100px;
 	font-family: "Helvetica Neue", Helvetica, sans-serif;
 }
 
-#UserForm input {
+#UserListHeader, #OverallStatsHeader{
+	margin-top: 100px;
+	width: 200px;
+	text-decoration: underline;
+	display: inline-block;
+}
+
+#UserForm {
+	display: inline-block;
+}
+#UserForm input, #EventAddForm input{
 	margin-right: 5px;
 }
 
@@ -18,14 +23,53 @@
 	border-collapse: collapse;
 	border: 1px solid black;
 	overflow: auto;
-	max-height: 400px;
+	height: 400px;
 	width: 603px;
 }
 
-#UserList td, #UserList th {
+#UserList td, #UserList th, #AdminEventList td, #AdminEventList th,
+#OverallStatsTable td, #OverallStatsTable th{
 	height: 30px;
 	max-height: 30px;
 	border: 1px solid black;
+}
+
+#AdminEventList{
+	display: inline-block;
+	margin-top: 10px;
+	float: right;
+	position: relative;
+	right: 97px;
+	border-collapse: collapse;
+	border: 1px solid black;
+	overflow: auto;
+	height: 400px;
+	width: 903px;
+}
+
+#AdminEventListHeader{
+	margin-top: 100px;
+	width: 200px;
+	float: right;
+	position: relative;
+	right: 800px;
+	text-decoration: underline;
+}
+
+#EventAddForm{
+	float: right;
+	position: relative;
+	right: 546px;
+}
+
+#OverallStatsTable{
+	display: inline-block;
+	margin-top: 10px;
+	border-collapse: collapse;
+	border: 1px solid black;
+	overflow: auto;
+	height: 400px;
+	width: 400px;
 }
 
 .TableContents {

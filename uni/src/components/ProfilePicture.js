@@ -3,19 +3,24 @@ import './ProfilePage.css'
 
 export default class ProfilePicture extends React.Component {
 	constructor(props) {
-		super()
-		this.id = this.props
+		super(props);
+		this.profileId = Number(this.props.id);
 		// will retrieve name and profile image data from database
-		this.name = 'Wilson Hsu'
-		this.ProfilePicture = require('../images/profilepic.jpg')
-		console.log("This is the ProfilePicture for " + this.id);
+
+		if (this.profileId !== 1) {
+			this.name = 'Wilson Hsu'
+			this.ProfilePicture = require('../images/profilepic.jpg')
+		} else {
+			this.name = 'Authur Fleck'
+			this.ProfilePicture = require('../images/coverPhoto1.jpg')
+		}
 	}
 
 	render() {
 		return (
 			<div>
-				<img class='profilepic' src={this.ProfilePicture} alt='Me'/>
-				<h1 class='profilename'> {this.name} </h1>
+				<img className='profilepic' src={this.ProfilePicture} alt='Me'/>
+				<h1 className='profilename'> {this.name} </h1>
 			</div>
 		);	
 	}
