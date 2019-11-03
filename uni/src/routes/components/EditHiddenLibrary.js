@@ -27,7 +27,6 @@ class EditHiddenLibrary extends React.Component {
                     onChange={this.onDrop}
                     imgExtension={['.jpg', '.gif', '.png', '.gif']}
                     maxFileSize={5242880}
-                    accept="accept=image/*"
                 />
             </div>
         );
