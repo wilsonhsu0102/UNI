@@ -1,19 +1,18 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
+// import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+// import InboxIcon from '@material-ui/icons/MoveToInbox';
+// import MailIcon from '@material-ui/icons/Mail';
 import ChatIcon from '@material-ui/icons/Chat';
 import TodayIcon from '@material-ui/icons/Today';
 import GroupIcon from '@material-ui/icons/Group';
 import SettingsIcon from '@material-ui/icons/Settings';
-import {  Nav } from 'react-bootstrap';
+// import {  Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 
@@ -89,7 +88,7 @@ export default function SwipeableTemporaryDrawer(userid) {
         <ListItemText primary="Settings" />
         </ListItem>
         </Link>
-        {parseInt(userid.id) == 0 ? getExtraButton() : null}
+        {parseInt(userid.id) === 0 ? getExtraButton() : null}
       </List>
       
     </div>

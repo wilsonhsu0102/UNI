@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import Home from './homepage';
+import React from "react";
+// import Home from './homepage';
 import connectionData from '../data/dummyData'
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -12,9 +12,7 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { useHistory } from "react-router-dom";
 import { withStyles } from '@material-ui/styles';
 
 const styles = theme => ({
@@ -78,12 +76,12 @@ class Login extends React.Component {
 
     handleSubmit = event => {
         // Do Stuff
-        if (connectionData.accounts.credentials.username == this.state.username
-          && connectionData.accounts.credentials.password == this.state.password) {
+        if (connectionData.accounts.credentials.username === this.state.username
+          && connectionData.accounts.credentials.password === this.state.password) {
             console.log(true)
             this.props.history.push({pathname:`/home`, state: { id: 1}})
-          } else if (connectionData.admin.credentials.username == this.state.username
-            && connectionData.admin.credentials.password == this.state.password){
+          } else if (connectionData.admin.credentials.username === this.state.username
+            && connectionData.admin.credentials.password === this.state.password){
               this.props.history.push({pathname:`/admin/`+this.state.username, state: { id: 0}})
           } else {
             alert("incorrect credentials")
