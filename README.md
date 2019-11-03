@@ -2,7 +2,7 @@
 Members: Chris On, Crystal Yip, Wilson Wei-Shang Hsu, Victor Huang
 
 # Instructions to run
-Clone the repository and cd into the directory folder. In the terminal:
+Clone the repository. Using the terminal, cd into the directory folder. Then do the following:
 1. Run `npm install`
 2. Run `npm start`
 3. A page should automatically open; however, if it does not, you can open the web application manually on the browser and access our entry point using the following URL `localhost:3000`
