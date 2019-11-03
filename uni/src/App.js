@@ -58,7 +58,7 @@ function App() {
             <Route exact path="/connections" component={Connections}/>
           </Switch>
           <Switch>
-            <Route exact path="/profile/:profileId/edit" component={EditProfile}/>
+            <Route exact path="/profile/:profileId/edit" children={<CallWantedProfileEdit/>}/>
           </Switch>
         </BrowserRouter>
       </div>
@@ -69,7 +69,14 @@ function App() {
 // Calls the profile page with profileId 
 function CallWantedProfile() {
   let { profileId } = useParams();
+  console.log("cur profileId= " + profileId);
   return <Profile id={profileId}/>;
+}
+
+// Calls the event page with eventId
+function CallWantedProfileEdit() {
+  let { profileId } = useParams();
+  return <EditProfile id={profileId}/>;
 }
 
 // Calls the admin page with adminId
@@ -83,5 +90,4 @@ function CallWantedEvent() {
   let { eventId } = useParams();
   return <Event id={eventId}/>;
 }
-
 export default App;

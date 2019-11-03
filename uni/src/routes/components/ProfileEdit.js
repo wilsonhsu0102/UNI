@@ -4,16 +4,15 @@ import './ProfilePage.css'
 
 class ProfileEdit extends React.Component {
 	constructor(props) {
-		super()
-        this.id = this.props
+		super(props)
+        this.id = Number(this.props.id)
         this.routeChange = this.routeChange.bind(this)
         console.log("This is the profile edit button for " + this.id);
-        this.name = "user";
     }
     
     // add event listener to route to new profile editing page
     routeChange() {
-        let path = this.name + "/edit";
+        let path = this.id + "/edit";
         this.props.history.push(path);
     }
 

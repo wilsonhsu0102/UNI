@@ -8,11 +8,12 @@ import './components/EditProfile.css'
 class EditProfile extends React.Component {
     constructor(props) {
         super(props);
+        this.id = this.props.id;
     }
  
  
     render() {
-        return ([<EditProfilePicture/>, <EditProfileInfo/>, <EditPhotoLibrary/>, <EditHiddenLibrary/>]);
+        return ([<EditProfilePicture id={this.id}/>, <EditProfileInfo id={this.id}/>, <EditPhotoLibrary id={this.id}/>, <EditHiddenLibrary id={this.id}/>]);
     }
 }
 

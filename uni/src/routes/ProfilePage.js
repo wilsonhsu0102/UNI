@@ -11,12 +11,12 @@ import './components/ProfilePage.css'
 class Profile extends React.Component {
     constructor(props) {
         super(props);
-        this.id = this.props.id;
-        console.log("This is the profile page for profile id" + this.id);
+        this.profileId = this.props.id;
+        console.log("This is the profile page for profile id" + this.profileId);
     }
 
     render() {
-      return ([<ProfilePicture/>, <SelfIntro/>, <Bio/>, <HiddenInfo/>, <PhotoLibrary/>, <ProfileEdit/>]);
-    }
+      return ([<ProfilePicture id={this.profileId} key={0}/>, <SelfIntro id={this.profileId} key={1}/>, <Bio id={this.profileId} key={2}/>, <HiddenInfo id={this.profileId} key={3}/>, <PhotoLibrary id={this.profileId} key={4}/>, <ProfileEdit id={this.profileId} key={5}/>]);
+    } 
   }
 export default Profile;

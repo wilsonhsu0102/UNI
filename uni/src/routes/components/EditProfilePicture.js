@@ -4,8 +4,13 @@ import ImageUploader from 'react-images-upload';
 class EditProfilePicture extends React.Component {
     constructor(props) {
         super(props);
-         this.state = { pictures: [require('./images/profilepic.jpg')] };
-         this.onDrop = this.onDrop.bind(this);
+        // will retrieve photos from database 
+        if (this.props.id !== "1") {
+            this.state = { pictures: [require('./images/profilepic.jpg')] };
+        } else {
+            this.state = { pictures: [require('./images/coverPhoto1.jpg')] };
+        }
+        this.onDrop = this.onDrop.bind(this);
     }
  
     onDrop(picture) {

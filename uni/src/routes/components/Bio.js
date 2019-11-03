@@ -3,29 +3,38 @@ import './ProfilePage.css'
 
 export default class Bio extends React.Component {
 	constructor(props) {
-		super()
-		this.id = this.props
+		super(props)
+		this.id = Number(this.props.id)
 
 		// will retrieve current user info and set year major and campus from retrieved data
-		this.year = 3;
-		this.major = "Computer Science"
-		this.campus = "St. George"
+		if (this.id !== 1) {
+			this.year = 3;
+			this.major = "Computer Science"
+			this.campus = "St. George"
+		} else {
+			this.year = 5;
+			this.major = "Social Science"
+			this.campus = "Missisauga"	
+		}
+		
 		console.log("This is the bio information for " + this.id);
 	}
 
 	render() {
 		return (
-			<div class='userinfo'>
+			<div className='userinfo'>
 				<table>
-					<tr>
-						<td class='biotags'>Year of Study </td><td class='bioinput'> {this.year} </td>
-					</tr>
-					<tr>
-						<td class='biotags'>Major </td><td class='bioinput'> {this.major} </td>
-					</tr>
-					<tr>
-						<td class='biotags'>Campus </td><td class='bioinput'> {this.campus} </td>
-					</tr>
+					<tbody> 
+						<tr>
+							<td className='biotags'>Year of Study </td><td className='bioinput'> {this.year} </td>
+						</tr>
+						<tr>
+							<td className='biotags'>Major </td><td className='bioinput'> {this.major} </td>
+						</tr>
+						<tr>
+							<td className='biotags'>Campus </td><td className='bioinput'> {this.campus} </td>
+						</tr>
+					</tbody>
 				</table>
 			</div>
 		);
