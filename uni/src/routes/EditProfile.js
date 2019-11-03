@@ -1,6 +1,8 @@
 import React from 'react';
-import EditPhotoLibary from './components/EditPhotoLibrary'
+import EditPhotoLibrary from './components/EditPhotoLibrary'
+import EditHiddenLibrary from './components/EditHiddenLibrary'
 import EditProfileInfo from './components/EditProfileInfo'
+import EditProfilePicture from './components/EditProfilePicture'
 import './components/EditProfile.css'
  
 class EditProfile extends React.Component {
@@ -10,7 +12,7 @@ class EditProfile extends React.Component {
  
  
     render() {
-        return ([<EditPhotoLibary/>, <EditProfileInfo/>]);
+        return ([<EditProfilePicture/>, <EditProfileInfo/>, <EditPhotoLibrary/>, <EditHiddenLibrary/>]);
     }
 }
 
