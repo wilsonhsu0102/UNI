@@ -82,6 +82,12 @@
 	bottom: 50%;
 }
 
+#editprofilebutton {
+	position: absolute;
+	left: 85%;
+	bottom: 85%;
+}
+
 #hiddenalbumheader {
 	float:left;
 }
