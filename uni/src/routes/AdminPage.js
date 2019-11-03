@@ -21,7 +21,7 @@ class Admin extends React.Component {
 		for (const [index, value] of this.users.entries()) {
 			emptyUserList.push(<tr id={'User:' + value.name + 'ID:' + id} key={'User:' + value.name + 'ID:' + id}>
 								<td class = 'TableContents'>{value.name}</td>
-								<td class = 'TableContents'>{id++}</td>
+								<td class = 'TableButtonCell'>{id++}</td>
 								<td class = 'TableButtonCell'><button class = 'TableButton' onClick = {this.goToProfile}>To Profile</button></td>
 								<td class = 'TableButtonCell'><button class = 'TableButton' onClick = {this.removeUser}>X</button></td></tr>);	
 		}
@@ -30,7 +30,7 @@ class Admin extends React.Component {
 		for (let i = 0; i < this.startEvents.length; i++) {
 			emptyEventList.push(<tr id={'Event:' + this.startEvents[i].eventName + 'EventID:' + cEID} key={'Event:' + this.startEvents[i].eventName + 'EventID:' + cEID}>
 								<td class = 'TableContents'>{this.startEvents[i].eventName}</td>
-								<td class = 'TableContents'>{cEID++}</td>
+								<td class = 'TableButtonCell'>{cEID++}</td>
 								<td class = 'TableContents'>{this.startEvents[i].hostName}</td>
 								<td class = 'TableButtonCell'><button class = 'TableButton' onClick = {this.goToEvent}>To Event</button></td>
 								<td class = 'TableButtonCell'><button class = 'TableButton' onClick = {this.goToProfile}>To Profile</button></td>
@@ -84,7 +84,7 @@ class Admin extends React.Component {
             console.log('adding user');
 			currUsers.push(<tr id={'User:' + userFullName + 'ID:' + currId} key={'User:' + userFullName + 'ID:' + currId}>
 							<td class = 'TableContents'>{userFullName}</td>
-							<td class = 'TableContents'>{currId}</td>
+							<td class = 'TableButtonCell'>{currId}</td>
 							<td class = 'TableButtonCell'><button class = 'TableButton' onClick = {this.goToProfile}>To Profile</button></td>
 							<td class = 'TableButtonCell'><button class = 'TableButton' onClick = {this.removeUser}>X</button></td></tr>);	
 			currId++;
@@ -144,7 +144,7 @@ class Admin extends React.Component {
             console.log('adding event');
 			currEvents.push(<tr id={'Event:' + newEventName + 'EventID:' + currId} key={'Event:' + newEventName + 'EventID:' + currId}>
 							<td class = 'TableContents'>{newEventName}</td>
-							<td class = 'TableContents'>{currId}</td>
+							<td class = 'TableButtonCell'>{currId}</td>
 							<td class = 'TableContents'>{newHostName}</td>
 							<td class = 'TableButtonCell'><button class = 'TableButton' onClick = {this.goToEvent}>To Event</button></td>
 							<td class = 'TableButtonCell'><button class = 'TableButton' onClick = {this.goToProfile}>To Profile</button></td>
@@ -232,7 +232,7 @@ class Admin extends React.Component {
 								<th class = 'TableContents'>
 									Name
 								</th>
-								<th class = 'TableContents'>
+								<th class = 'TableButtonCell'>
 									UserID
 								</th>
 								<th class = 'TableButtonCell'>
@@ -251,7 +251,7 @@ class Admin extends React.Component {
 								<th class = 'TableContents'>
 									Event Name
 								</th>
-								<th class = 'TableContents'>
+								<th class = 'TableButtonCell'>
 									EventID
 								</th>
 								<th class = 'TableContents'>
