@@ -85,7 +85,7 @@
 .description {
     padding: 5px 10px 10px 10px;
     width: 500px;
-    height: 200px;
+    height: 210px;
     overflow: auto;
     margin-top: 5px;
     border-radius: 15px;
@@ -132,7 +132,7 @@ For google map integration later on
 .attendees {
     margin-top: 5px;
     width: 360px;
-    height: 160px;
+    height: 180px;
     padding: 10px;
     max-height: 100%;
     overflow: auto;
