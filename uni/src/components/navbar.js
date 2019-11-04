@@ -15,7 +15,7 @@ class NavBar extends React.Component {
                 </ul>
                 <ul className="right"> 
                 <li>
-                <input type="text" className="input" onChange={this.handleChange} placeholder="Search..." />
+                <input style={{width: "400px", fontSize: "11pt", height:"32px"}} type="text" className="input" onChange={this.handleChange} placeholder=" Search..." />
                 </li>
                 <li> 
                     <Link to={{pathname:"/profile/"+this.props.id, state: { id:this.props.id }}}>
