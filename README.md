@@ -1,5 +1,5 @@
 # Team 22 - UNI React Project
-Members: Chris On, Crystal Yip, Wilson Wei-Shang Hsu, Victor Huang
+Members: Chris On, Crystal Yip, Wilson Wei-Sheng Hsu, Victor Huang
 
 # Instructions to run
 Clone the repository. Using the terminal, cd into the directory folder. Then do the following:
