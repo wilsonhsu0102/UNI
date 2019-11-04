@@ -27,7 +27,7 @@ Note: Other than the Login View, you must log in to reach other pages(cannot man
 5. Profile Editing View: Click on the `Settings` button of the side navigation bar,
 					     or if you are on the Profile View, you can click the `Edit Profile` button
 						 
-6. Events View: Click on the first or second event in the Events List View
+6. Events View: Click on the first event in the Events List View
 
 7. Events List View: Click on the `Events` button either on the top or the side navigation bar
 
