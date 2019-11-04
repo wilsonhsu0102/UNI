@@ -73,7 +73,7 @@ class Event extends React.Component {
     render()  {
         this.setUpAttendees();
         return (
-            [<NavBar key={"NavBar"}></NavBar>, <div className="eventPage" key={"eventPage" + this.id}> 
+            [<NavBar id={this.id} key={"NavBar"}></NavBar>, <div className="eventPage" key={"eventPage" + this.id}> 
             <div className="container"> 
                 <div className="eventBlock"> 
                     <div className="name"> 
