@@ -1,27 +1,19 @@
 import React from 'react';
 import './App.css';
-import Home from './routes/homepage';
-import Profile from './routes/ProfilePage';
-import Admin from './routes/AdminPage';
-import Event from './routes/EventPage';
-import EventList from './routes/EventList'; 
-import Connections from './routes/Connections';
-import EditProfile from './routes/EditProfile';
-import Login from './routes/Login';
+import Home from './pages/homepage';
+import Profile from './pages/ProfilePage';
+import Admin from './pages/AdminPage';
+import Event from './pages/EventPage';
+import EventList from './pages/EventList'; 
+import Connections from './pages/Connections';
+import EditProfile from './pages/EditProfile';
+import Login from './pages/Login';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Switch, BrowserRouter, useParams } from 'react-router-dom';
-/*
-import { constants } from './lib/constants';
- 
-import { mongoose } from 'mongoose';
-mongoose.connect(constants.MONGO_DB_URL);
 
-const connection = mongoose.connection;
-connection.once('open', () => {
-    console.log('MongoDB database connection established successfully!');
-});*/
 
 function App() {
+  
   return (
     <div id="App">
       <link
@@ -35,7 +27,7 @@ function App() {
           <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
             { /* Each Route below shows a different component depending on the exact path in the URL  */ }
             
-            <Route exact path='/' component={Login}/>
+            <Route exact path='/login' component={Login}/>
           </Switch>
           <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
             { /* Each Route below shows a different component depending on the exact path in the URL  */ }

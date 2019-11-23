@@ -1,5 +1,39 @@
 /* A Basic Node JSON api */
 import connectionData from '../data/dummyData'
+import constants from '../lib/constants'
+
+function requestUsers(){
+    return new Promise((resolve, reject) => {
+        fetch(constants.HTTP + constants.HOST + constants.PORT + '/eventList/all', {
+            method: "GET",
+            headers: {
+            "access-control-allow-origin" : "*",
+            "Content-type": "application/json; charset=UTF-8"
+            }})
+            .then(res => res.json())
+            .then(
+                
+            (result) => {
+                resolve({
+                    users: result
+                })
+            },
+            (error) => {
+                reject('issue with getting resource')
+            }
+        )
+    })
+}
+
+function getUsers(){
+    requestUsers.then((result) => {
+        return result.users
+    }).catch((error) => {
+        console.log(error)  // handle any rejects that come up in the chain.
+        return []
+    })
+}
+
 
 
 // Adding a student

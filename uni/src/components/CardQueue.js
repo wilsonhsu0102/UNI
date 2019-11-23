@@ -2,7 +2,8 @@
 import React from 'react';
 import CardList from './CardList';
 import {getUnconnectedStudents, getConnectedStudents, updateNewConnection} from '../lib/students';
-import PermissionDenied from '../routes/PermissionDenied'
+import PermissionDenied from '../pages/PermissionDenied'
+import { SessionContext, getSessionCookie, setSessionCookie } from "../session";
 
 class CardQueue extends React.Component {
   state = {
@@ -44,10 +45,10 @@ class CardQueue extends React.Component {
   }
 
   renderCondition = (id) => {
-    console.log("renderCondition",id)
-    if (parseInt(id) >= 0) {
-      console.log("id > 0",id)
-      return <CardList id = {id} students={ this.state.students } rejectStudent = {this.rejectStudent} connectStudent = {this.connectStudent}></CardList>
+    const session = getSessionCookie()
+    if (session) {
+      console.log("session",session)
+      return <CardList students={ this.state.students } rejectStudent = {this.rejectStudent} connectStudent = {this.connectStudent}></CardList>
     }
     return <PermissionDenied></PermissionDenied>
   }
