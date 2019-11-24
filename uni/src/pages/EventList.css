@@ -1,0 +1,86 @@
+.eventList {
+    width: 100vw;
+    height: 100%;
+}
+
+.eventList .container {
+    margin: 0 auto;
+    left: 230px; 
+    margin-top: 50px;
+}
+
+.eventList h3 {
+    max-height: 10%;
+}
+
+.eventList table {
+    border: 2px solid;
+    height: 400px;
+}
+
+.eventList table:hover {
+    transition-duration: 0.4s;
+    background-color: rgb(248, 213, 218);
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.eventList table thead {
+    border-bottom: 2px solid;
+}
+
+.eventList table tbody {
+    display:block;
+    max-height: 400px;
+    overflow:auto;
+}
+
+.eventListHeaderRow {
+    display: table;
+    width: 700px;
+    height: 40px;
+    border-bottom: 1px solid black;
+    table-layout: fixed;
+}
+
+.eventListRow  {
+    display: table;
+    width: 700px;
+    height: 40px;
+    border-bottom: 1px solid black;
+    table-layout: fixed;
+}
+
+.eventListRow:hover {
+    background-color: rgb(245, 150, 164);
+}
+
+.eventListName {
+    max-width: 400px;
+    width: 400px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.eventListLocation {
+    max-width: 100px;
+    width: 100px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.eventListDate {
+    max-width: 200px;
+    width: 200px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.eventListButton {
+    border-radius: 50%;
+    background: none;
+    text-align: left;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    padding: 0 0 0 5px;
+}
