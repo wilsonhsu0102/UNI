@@ -95,7 +95,7 @@ class Login extends React.Component {
                 .then((result) => {
                     if (result.success) {
                       console.log('login successful')
-                      setSessionCookie({ email });
+                      setSessionCookie({ email: email,  id: result.id});
                       this.props.history.push({pathname:`/home`})
                     } else {
                       alert('The email or password you provided was incorrect')
