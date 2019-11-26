@@ -99,12 +99,12 @@ class CardQueue extends React.Component {
   rejectStudent = (student) => {
     console.log('removing student from cards')
 
-    const filteredStudents = this.state.students.filter((s) => {
+    const filteredStudents = this.state.deck.filter((s) => {
       return s !== student 
     })
 
     this.setState({
-      students: filteredStudents
+      deck: filteredStudents
     })
 
   }
