@@ -16,6 +16,7 @@
 .eventList table {
     border: 2px solid;
     height: 400px;
+    background-color: rgba(248, 213, 218, 0.75);
 }
 
 .eventList table:hover {
