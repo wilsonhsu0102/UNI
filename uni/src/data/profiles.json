@@ -1,4 +1,6 @@
-[
-    // ex.
-    // {"profileName": "Wilson Hsu", "description": "blah blah", ... anything else you add in the mongoose schema here}
+[   
+    {"profileName": "Wilson Hsu", "description": "blah howdy partner", "email": "cleanm@mail.utoronto.ca", "pictures": {"photolib:": ["photolib1.jpg", "photolib2.jpg", "photolib3.jpg", "photolib4.jpg", "photolib5.jpg", "photolib6.jpg"], "hiddenlib": ["hiddenlib1.jpg", "hiddenlib2.jpg", "hiddenlib3.jpg", "hiddenlib4.jpg", "hiddenlib5.jpg", "hiddenlib6.jpg"]} },  
+    {"profileName": "Tzuyu Chou", "description": "I am Twice!!!", "email": "scottm@mail.utoronto.ca", "pictures": {"photolib:": ["photolib1.jpg", "photolib2.jpg", "photolib3.jpg"], "hiddenlib": ["hiddenlib4.jpg", "hiddenlib5.jpg", "hiddenlib6.jpg"]} },
+    {"profileName": "Jay Chou", "description": "Great singer.", "email": "halpertj@mail.utoronto.ca", "pictures": {"photolib:": [], "hiddenlib": ["hiddenlib1.jpg", "hiddenlib2.jpg", "hiddenlib3.jpg", "hiddenlib4.jpg", "hiddenlib5.jpg", "hiddenlib6.jpg"]} },  
+    {"profileName": "Jay Park", "description": "Jay Parkitrightthere.", "email": "jaypark@email.com", "pictures": {"photolib:": ["photolib1.jpg", "photolib2.jpg", "photolib3.jpg", "photolib4.jpg", "photolib5.jpg", "photolib6.jpg"], "hiddenlib": []} }
 ]

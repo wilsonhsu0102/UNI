@@ -10,13 +10,13 @@ import constants from '../lib/constants'
 
 class EditProfile extends React.Component {
     state = {
-        id: null
+        id: null,
     }
 
     componentDidMount(){
         this.getProfile().then((result) => {
             this.setState({
-              id: result.id
+              id: result.id,
             })
             
         }).catch((error) => {
@@ -28,6 +28,7 @@ class EditProfile extends React.Component {
           return new Promise((resolve, reject) => {
               fetch(constants.HTTP + constants.HOST + constants.PORT + '/student/getProfile', {
                   method: "GET",
+                  credentials: 'include',
                   headers: {
                   "access-control-allow-origin" : "*",
                   "Content-type": "application/json; charset=UTF-8"

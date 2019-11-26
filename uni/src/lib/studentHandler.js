@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var constants = require('./constants');
 const Account = mongoose.model('Account');
 const ObjectID = require('mongodb').ObjectID
+const Profile = mongoose.model('Profile');
 
 console.log(Account)
 module.exports = {
@@ -92,19 +93,13 @@ module.exports = {
 
         db.once( 'open', () => console.log('connected to the database'));
         console.log(id)
-        Account.findById({"_id": ObjectID(id)}).then((accounts) => {
-            let result = []
+        Account.findById({"_id": ObjectID(id)}).then((account) => {
+            const connections = account.connections
             
-            for (let i = 0; i < accounts.length; i++) {
-                this.getStudentByID(id).then((student) => {
-                    if (student) {
-                        result.push(student)
-                    }
-                })
-            }
-
-            res.json({
-                accounts: result
+            Account.find({ '_id' : {$in:connections}}).then((students) => {
+                console.log('LOG: found students->', students)
+                res.json(students)
+            
             })
             
         }).catch((error) => {
@@ -142,9 +137,10 @@ module.exports = {
             this.returnConnected(id).then((result) => {
                 connected = result.res
                 let notConnected = []
-                console.log('allStudents!!!!!!!!', allStudents, connected)
+                console.log('connected!!!!!!!!', connected)
                 for (let i = 0; i < allStudents.length; i++) {
                     if (!connected.includes(allStudents[i]._id)) {
+                        console.log(allStudents[i]._id)
                         notConnected.push(allStudents[i])
                     }
                 }
@@ -152,20 +148,89 @@ module.exports = {
 
             }).catch((error) => {
                 console.log(error)  // handle any rejects that come up in the chain.
+                res.send("An error has occurred")
             })
 
             
 
         }).catch((error) => {
             console.log(error)  // handle any rejects that come up in the chain.
+            res.send("An error has occurred")
         })
         
         
     },
-    addConnection: function(adderId, connectionId) {
+    addConnection: function(adderId, connectionId, req, res) {
+        console.log('LOG: studentHandler->addConnection')
+        let connected = []
+        this.returnConnected(adderId).then((result) => {
+            connected = result.res
+            connected.push(connectionId)
+
+            let connected2 = []
+            this.returnConnected(connectionId).then((result) => {
+                connected2 = result.res
+                connected2.push(adderId)
+                //res.json({success: true})
+
+                mongoose.connect(constants.MONGO_DB_URL, { useNewUrlParser: true })
+
+                var db = mongoose.connection;
+                db.on( 'error', console.error.bind( console, 'connection error:' ) );
+
+                db.once( 'open', () => console.log('connected to the database'));
+
+                const query = { _id: connectionId}
+                const update = { $set: {connections: connected2 }}
+                Account.updateOne( query, update ).then((accounts) => {
+                    console.log("1 document updated");
+                }).catch((error) => {
+                    console.warn('WARN: No accounts found!');
+                    res.json({ success: false})
+                })
+
+                const query2 = { _id: adderId}
+                const update2 = { $set: {connections: connected }}
+                Account.updateOne( query2, update2 ).then((accounts) => {
+                    console.log("1 document updated");
+                }).catch((error) => {
+                    console.warn('WARN: No accounts found!');
+                    res.json({ success: false})
+                })
+
+
+            }).then((result) => { 
+                res.json({ success: true})
+            }).catch((error) => {
+                console.log(error)  // handle any rejects that come up in the chain.
+                res.send("An error has occurred")
+            })
+
+        }).catch((error) => {
+            console.log(error)  // handle any rejects that come up in the chain.
+            res.send("An error has occurred")
+        })
+
+        
 
     },
     getProfilebyEmail: function(email) {
+        console.log('LOG: studentHandler->getProfilebyEmail');
+        mongoose.connect(constants.MONGO_DB_URL, {useNewUrlParser: true})
+
+        var db = mongoose.connection
+        db.on( 'error', console.error.bind(console, 'connection error:'))
+
+        db.once('open', () => console.log('connected to the database'))
+        console.log(email)
+        return new Promise((resolve, reject) => {
+            Profile.findOne({"email": email}).then((result) => {
+                resolve(result)
+            }).catch((error) => {
+                console.warn('WARN: This email is not correct!')
+                reject()
+            })
+        })
 
     },
     returnConnected: function(id) {
@@ -178,16 +243,9 @@ module.exports = {
         db.once( 'open', () => console.log('connected to the database'));
         console.log(id)
         return new Promise((resolve, reject) => { 
-            Account.findById({"_id": ObjectID(id)}).then((accounts) => {
-                let result = []
-                
-                for (let i = 0; i < accounts.length; i++) {
-                    this.getStudentByID(id).then((student) => {
-                        if (student) {
-                            result.push(student)
-                        }
-                    })
-                }
+            Account.findById({"_id": ObjectID(id)}).then((account) => {
+                const result = account.connections
+                console.log(result)
 
                 resolve({res: result})
                 

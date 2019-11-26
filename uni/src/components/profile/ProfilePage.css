@@ -1,0 +1,111 @@
+.biotags {
+	color: grey;
+	position: relative;
+	left: 10px;
+	text-align: center;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.bioinput {
+	padding-left: 10%;
+	color: grey;
+	text-align: center;
+}
+
+.hiddenalbum {
+	float: left;
+	margin-left: 5%;
+}
+
+.hiddenlibrary {
+	border-radius: 8px;
+	height: 200px;
+	width: 180px;
+	bottom: 200px;
+	margin-right: 5px;
+	opacity: 0.05;
+	border-style: solid;
+}
+
+.hiddenlibrary:hover {
+	opacity: 1;
+	transform: scale(1.5);
+	transition: .3s ease;
+}
+
+.photoalbum {
+	float: right;
+	margin-right: 5%;
+}
+
+.photolibrary {
+	border-radius: 8px;
+	height: 200px;
+	width: 180px;
+	bottom: 200px;
+	margin-right: 5px;
+}
+
+.photolibrary:hover {
+	transform: scale(1.5);
+	transition: .3s ease;
+}
+
+.profilename {
+	text-align: center;
+}
+
+.profilepic {
+	display: block;
+	border-radius: 50%;
+	height: 350px;
+	width: 300px;
+	padding: 10px 10px 10px 10px;
+	margin-right: auto;
+	margin-left: 40%;
+}
+
+.selfintro {
+	text-align: center;
+	padding-left: 100px;
+	padding-right: 100px;
+}
+
+.userinfo {
+	width: 50%;
+	margin: auto;
+	padding: 10px 10px 10px 10px;
+	height: 200px;
+	position: absolute;
+	left: 75%;
+	bottom: 50%;
+}
+
+#editprofilebutton {
+	position: absolute;
+	left: 85%;
+	bottom: 85%;
+	color:black;
+    border-radius: 8px;
+    background-color: #555555;
+	color:white;
+	width: 150px;
+}
+
+#editprofilebutton:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  }
+
+#hiddenalbumheader {
+	float:left;
+}
+
+#photoalbumheader {
+	margin-right: 100px;
+}
+
+#selfintrodiv {
+	padding-top: 10px;
+	padding-bottom: 25px;
+}

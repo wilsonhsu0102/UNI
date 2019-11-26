@@ -122,6 +122,7 @@ class Login extends React.Component {
 
    
     render() {
+        // reomveSessionCookie()
         const { classes } = this.props;
         return (
             <Container style={{marginTop:"100px"}} component="main" maxWidth="xs">

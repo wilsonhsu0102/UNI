@@ -22,19 +22,21 @@ class CardQueue extends React.Component {
         console.log(error)  // handle any rejects that come up in the chain.
     })
 }
-
+  
   getConnections(){
       return new Promise((resolve, reject) => {
           fetch(constants.HTTP + constants.HOST + constants.PORT + '/student/getConnections', {
               method: "GET",
+              credentials: 'include',
               headers: {
-              "access-control-allow-origin" : "*",
+              "Access-Control-Allow-Credentials": "true",
               "Content-type": "application/json; charset=UTF-8"
               }})
               .then(res => res.json())
               .then(
                   
               (result) => {
+                  console.log('connections: ', result)
                   resolve({
                       connections: result
                   })
