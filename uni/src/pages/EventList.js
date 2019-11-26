@@ -36,8 +36,9 @@ class EventList extends React.Component {
         return new Promise((resolve, reject) => {
             fetch(constants.HTTP + constants.HOST + constants.PORT + '/eventList/all', {
                 method: "GET",
+                credentials: 'include',
                 headers: {
-                "access-control-allow-origin" : "*",
+                "Access-Control-Allow-Credentials": "true",
                 "Content-type": "application/json; charset=UTF-8"
                 }})
                 .then(res => res.json())
