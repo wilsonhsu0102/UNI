@@ -8,7 +8,7 @@ console.log('MONGO_DB_URL', constants.MONGO_DB_URL)
 var fs = require('fs');
 var accountList = JSON.parse(fs.readFileSync("src/data/init.json"));
 var eventList = JSON.parse(fs.readFileSync("src/data/events.json"));
-//const profileList = JSON.parse(fs.readFileSync("src/data/profiles.json"));
+const profileList = JSON.parse(fs.readFileSync("src/data/profiles.json"));
 module.exports = {
     init: function() {
         console.log('LOG: db->init');
@@ -36,14 +36,14 @@ module.exports = {
         }
 
         // once the connection is established we define our schemas
-        /*
+        
         db.once( 'open', function callback() {
             console.log("connected")
             Profile.collection.insertMany(profileList, function(err,r) {
                 console.log('LOG: Profile collection has been created!');
                 db.close();
             })
-        });*/
+        });
     }
 }
 require('make-runnable');

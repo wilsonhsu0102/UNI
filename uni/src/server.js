@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const constants = require('./lib/constants');
 require('./models/event')
 const Account = require('./models/account')
+const Profile = require('./models/profile')
 console.log('required')
 var eventListRouter = require('./routes/events');
 var studentListRouter = require('./routes/students');
