@@ -46,7 +46,7 @@ router.get('/getConnections', authenticate, (req, res) => {
     const id = req.session.user
     console.log(id)
     if (id) {
-        students.getNotConnected(id, req, res)
+        students.getConnections(id, req, res)
     } else {
         res.sendFile(__dirname + '/permDenied.html')
     }
@@ -66,7 +66,7 @@ router.get('/getDeck', authenticate, (req, res) => {
 })
 
 router.get('/getProfile', authenticate, (req, res) => {
-    const email = req.user.email
+    const email = req.session.email
     console.log(email)
     if (email) {
         students.getProfilebyEmail(email)
@@ -75,5 +75,14 @@ router.get('/getProfile', authenticate, (req, res) => {
     }
 })
 
+router.post('/connect', authenticate, (req, res) => {
+    const id = req.session.user
+    const connectId = req.body.id
+    if (id) {
+        students.addConnection(id, connectId, req, res)
+    } else {
+        res.sendFile(__dirname + '/permDenied.html')
+    }
+})
 
 module.exports = router;

@@ -53,7 +53,7 @@ class CardQueue extends React.Component {
   connectStudent = (student) => {
     
     console.log('connecting with student')
-
+    /*
       const newConnection = this.props
       this.state.connections.push(newConnection)
       const filteredStudents = this.state.students.filter((s) => {
@@ -66,6 +66,34 @@ class CardQueue extends React.Component {
       updateNewConnection(student)
       console.log("student", this.state.students)
       console.log("filtered", filteredStudents)
+      */
+     const opts = {
+      id: student._id
+    }
+    fetch(constants.HTTP + constants.HOST + constants.PORT + '/student/connect', {
+          method: 'post',
+          credentials: 'include',
+          body: JSON.stringify(opts),
+          headers: {
+          "Access-Control-Allow-Credentials": "true",
+          "Content-type": "application/json; charset=UTF-8"
+          }})
+          .then(res => res.json())
+          .then(
+          (result) => {
+              const filteredDeck = this.state.deck.filter((s) => {
+                return s !== student 
+              })
+        
+              this.setState({
+                deck: filteredDeck
+              })
+          },
+          (error) => {
+              alert("An error has occured")
+          }
+      )
+
   }
 
   rejectStudent = (student) => {
