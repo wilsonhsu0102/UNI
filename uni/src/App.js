@@ -5,6 +5,7 @@ import Profile from './pages/ProfilePage';
 import Admin from './pages/AdminPage';
 import Event from './pages/EventPage';
 import EventList from './pages/EventList'; 
+import EventCreate from './pages/EventCreate';
 import Connections from './pages/Connections';
 import EditProfile from './pages/EditProfile';
 import Login from './pages/Login';
@@ -43,11 +44,15 @@ function App() {
           </Switch>
           <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
             { /* Each Route below shows a different component depending on the exact path in the URL  */ }
-            <Route exact path="/event/:eventId" children={<CallWantedEvent/>}/>
+            <Route exact path="/createEvent" component={EventCreate}/>
           </Switch> 
           <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
             { /* Each Route below shows a different component depending on the exact path in the URL  */ }
             <Route exact path="/eventList" component={EventList}/>
+          </Switch>
+          <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
+            { /* Each Route below shows a different component depending on the exact path in the URL  */ }
+            <Route exact path="/event/:eventId" children={<CallWantedEvent/>}/>
           </Switch>
           <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
             { /* Each Route below shows a different component depending on the exact path in the URL  */ }
@@ -74,8 +79,6 @@ function CallWantedProfileEdit() {
   let { profileId } = useParams();
   return <EditProfile id={profileId}/>;
 }
-
-
 
 // Calls the event page with eventId
 function CallWantedEvent() {

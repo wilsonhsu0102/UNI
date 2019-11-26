@@ -11,3 +11,21 @@ router.get('/all', function(req, res, next) {
         res.json(eventList)
     })
 });
+
+router.get('/:eventId', function(req, res, next) {
+    const eventId = req.params.eventId
+    events.getEventById(eventId, function(response) {
+        event = response
+        console.log(event)
+        res.json(event)
+    })
+});
+
+router.get('/create', function(req, res, next) {
+    const user = req.body.user
+    events.getEventById(user, function(response) {
+        event = response
+        console.log(event)
+        res.json(event)
+    })
+});
