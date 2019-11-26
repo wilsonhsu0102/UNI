@@ -6,13 +6,48 @@ import NavBar from '../components/navbar'
 import {getUnconnectedStudents, getConnectedStudents, updateNewConnection} from '../lib/students';
 import PermissionDenied from '../pages/PermissionDenied'
 import { SessionContext, getSessionCookie, setSessionCookie } from "../session";
+import constants from '../lib/constants'
 
 class CardQueue extends React.Component {
   state = {
-    students: getUnconnectedStudents(),
-    connections: getConnectedStudents()
+    deck: []
   }
 
+  componentDidMount(){
+    this.getDeck().then((result) => {
+        this.setState({
+          deck: result.deck
+        })
+        
+    }).catch((error) => {
+        console.log(error)  // handle any rejects that come up in the chain.
+    })
+}
+
+  getDeck(){
+      return new Promise((resolve, reject) => {
+          fetch(constants.HTTP + constants.HOST + constants.PORT + '/student/getDeck', {
+              method: "GET",
+              credentials: 'include',
+              headers: {
+              "Access-Control-Allow-Credentials": "true",
+              "Content-type": "application/json; charset=UTF-8"
+              }})
+              .then(res => res.json())
+              .then(
+                  
+              (result) => {
+                  resolve({
+                      deck: result.notConnected
+                  })
+              },
+              (error) => {
+                  reject('issue with getting resource')
+              }
+          )
+      })
+      
+  }
   
   
   connectStudent = (student) => {
@@ -58,7 +93,7 @@ class CardQueue extends React.Component {
   render() {
     const { id } = this.props
 
-    return [<NavBar id = {id}></NavBar>, <CardList students={ this.state.students } rejectStudent = {this.rejectStudent} connectStudent = {this.connectStudent}></CardList>]
+    return [<NavBar id = {id}></NavBar>, <CardList students={ this.state.deck } rejectStudent = {this.rejectStudent} connectStudent = {this.connectStudent}></CardList>]
 
   }
 }

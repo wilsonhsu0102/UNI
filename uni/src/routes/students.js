@@ -2,14 +2,14 @@ var express = require('express');
 const students = require('../lib/studentHandler')
 var router = express.Router();
 const Account = require('../models/account')
-module.exports = router;
+const { ObjectID } = require('mongodb')
 
-const session = require('express-session')
 
 // Middleware for authentication of resources
 const authenticate = (req, res, next) => {
+    console.log('authenticating', req.session)
 	if (req.session.user) {
-		Account.findById(req.session.user).then((user) => {
+		Account.findById(new ObjectID(req.session.user)).then((user) => {
 			if (!user) {
 				return Promise.reject()
 			} else {
@@ -17,24 +17,14 @@ const authenticate = (req, res, next) => {
 				next()
 			}
 		}).catch((error) => {
-			res.status(401).send("Unauthorized")
+			res.status(401).send("Unauthorized", error)
 		})
 	} else {
-		res.status(401).send("Unauthorized")
+		res.status(401).send("Unauthorized page")
 	}
 }
 
-/*** Session handling **************************************/
-// Create a session cookie
-router.use(session({
-    secret: 'oursecret',
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        expires: 60000,
-        httpOnly: true
-    }
-}));
+
 
 router.get('/all', function(req, res, next) {
     let studentList = []
@@ -53,10 +43,22 @@ router.post('/login', (req, res) => {
 
 // ADD MIDDLEWARE TO USE SESSION TO KNOW WHICH USER YOU ARE GETTING CONNECTIONS
 router.get('/getConnections', authenticate, (req, res) => {
-    const id = req.user._id
+    const id = req.session.user
     console.log(id)
     if (id) {
-        students.getConnections(id, req, res)
+        students.getNotConnected(id, req, res)
+    } else {
+        res.sendFile(__dirname + '/permDenied.html')
+    }
+    
+})
+
+router.get('/getDeck', authenticate, (req, res) => {
+    const id = req.session.user
+    console.log("THIS IS THE id", id)
+    if (id) {
+        console.log(id)
+        students.getNotConnected(id, req, res)
     } else {
         res.sendFile(__dirname + '/permDenied.html')
     }
@@ -64,11 +66,14 @@ router.get('/getConnections', authenticate, (req, res) => {
 })
 
 router.get('/getProfile', authenticate, (req, res) => {
-    const id = req.user.email
-    console.log(id)
-    if (id) {
+    const email = req.user.email
+    console.log(email)
+    if (email) {
         students.getProfilebyEmail(email)
     } else {
         res.sendFile(__dirname + '/permDenied.html')
     }
 })
+
+
+module.exports = router;

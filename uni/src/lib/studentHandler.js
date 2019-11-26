@@ -14,9 +14,17 @@ module.exports = {
                 res.json({success: false});
             } else {
                 // We can check later if this exists to ensure we are logged in.
-                res.json({success: true});
                 req.session.user = user._id;
+                console.log('success!!!!!!!!!!!!!!!')
+                
                 req.session.email = user.email
+                req.session.save((err) => {
+                    if (!err) {
+                        console.log('user._id', req.session)
+                        res.send({success: true});
+                    }
+                });
+                
             }
         }).catch((error) => {
             console.log('ERROR: studentHandler->login ' + error);
@@ -42,6 +50,7 @@ module.exports = {
                     reject("No accounts found!")
                 }
                 else {
+                    console.log(res)
                     resolve({
                         students: res
                     })
@@ -123,13 +132,70 @@ module.exports = {
             
         })*/
     },
-    getNotConnected: function(id) {
+    getNotConnected: function(id, req, res) {
+        let allStudents =  []
+        this.getAllStudents().then((result) => {
+            allStudents = result.students
+            
+            let connected = []
 
+            this.returnConnected(id).then((result) => {
+                connected = result.res
+                let notConnected = []
+                console.log('allStudents!!!!!!!!', allStudents, connected)
+                for (let i = 0; i < allStudents.length; i++) {
+                    if (!connected.includes(allStudents[i]._id)) {
+                        notConnected.push(allStudents[i])
+                    }
+                }
+                res.json({notConnected: notConnected})
+
+            }).catch((error) => {
+                console.log(error)  // handle any rejects that come up in the chain.
+            })
+
+            
+
+        }).catch((error) => {
+            console.log(error)  // handle any rejects that come up in the chain.
+        })
+        
+        
     },
-    updateConnections: function(id) {
+    addConnection: function(adderId, connectionId) {
 
     },
     getProfilebyEmail: function(email) {
 
-    }
+    },
+    returnConnected: function(id) {
+        console.log('LOG: studentHandler->returnConnected');
+        mongoose.connect(constants.MONGO_DB_URL, { useNewUrlParser: true })
+
+        var db = mongoose.connection;
+        db.on( 'error', console.error.bind( console, 'connection error:' ) );
+
+        db.once( 'open', () => console.log('connected to the database'));
+        console.log(id)
+        return new Promise((resolve, reject) => { 
+            Account.findById({"_id": ObjectID(id)}).then((accounts) => {
+                let result = []
+                
+                for (let i = 0; i < accounts.length; i++) {
+                    this.getStudentByID(id).then((student) => {
+                        if (student) {
+                            result.push(student)
+                        }
+                    })
+                }
+
+                resolve({res: result})
+                
+            }).catch((error) => {
+                console.warn('WARN: No accounts found!');
+                reject()
+            })
+        })
+    },
+    
 }

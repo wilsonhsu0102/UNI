@@ -18,10 +18,10 @@ mongoose.connect(process.env.MONGODB_URI || constants.MONGO_DB_URL);
 const app = express();
 
 app.use(bodyParser.json())
-app.use(cors())
-app.options('*', cors());
-app.use('/eventList', eventListRouter);
-app.use('/student', studentListRouter);
+app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
+//app.options('*', cors());
+
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
   secret: 'oursecret',
   resave: false,
@@ -37,8 +37,10 @@ app.listen(PORT, () => {
   console.log(`app running on port ${PORT}`)
 });
 
+module.exports = app;
 
-
+app.use('/eventList', eventListRouter);
+app.use('/student', studentListRouter);
 
 let db = mongoose.connection;
 

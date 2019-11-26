@@ -86,16 +86,17 @@ class Login extends React.Component {
         }
         fetch(constants.HTTP + constants.HOST + constants.PORT + '/student/login', {
                 method: 'post',
+                credentials: 'include',
                 body: JSON.stringify(opts),
                 headers: {
-                "access-control-allow-origin" : "*",
+                "Access-Control-Allow-Credentials": "true",
                 "Content-type": "application/json; charset=UTF-8"
                 }})
                 .then(res => res.json())
                 .then((result) => {
                     if (result.success) {
                       console.log('login successful')
-                      setSessionCookie({ email: email,  id: result.id});
+                      //setSessionCookie({ email: email,  id: result.id});
                       this.props.history.push({pathname:`/home`})
                     } else {
                       alert('The email or password you provided was incorrect')
