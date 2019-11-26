@@ -55,6 +55,8 @@ class CardQueue extends React.Component {
     console.log('connecting with student')
 
       const newConnection = this.props
+      console.log('----------------------')
+      console.log(newConnection)
       this.state.connections.push(newConnection)
       const filteredStudents = this.state.students.filter((s) => {
         return s !== student 

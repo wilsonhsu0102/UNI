@@ -6,8 +6,6 @@ import {getConnectedStudents} from '../lib/students';
 import NavBar from '../components/navbar';
 import PermissionDenied from './PermissionDenied'
 import constants from '../lib/constants'
-import { SessionContext, getSessionCookie, setSessionCookie } from "../session";
-
 
 class CardQueue extends React.Component {
   state = {
