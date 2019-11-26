@@ -25,13 +25,13 @@ export default class Bio extends React.Component {
 			<div className='userinfo'>
 				<table>
 					<tbody> 
-						<tr>
+						<tr className='userInfoRow'>
 							<td className='biotags'>Year of Study </td><td className='bioinput'> {this.year} </td>
 						</tr>
-						<tr>
+						<tr className='userInfoRow'>
 							<td className='biotags'>Major </td><td className='bioinput'> {this.major} </td>
 						</tr>
-						<tr>
+						<tr className='userInfoRow'>
 							<td className='biotags'>Campus </td><td className='bioinput'> {this.campus} </td>
 						</tr>
 					</tbody>

@@ -1,5 +1,6 @@
 .biotags {
-	color: grey;
+	color: black;
+	background-color: rgba(248, 213, 218, 0.75);
 	position: relative;
 	left: 10px;
 	text-align: center;
@@ -8,8 +9,9 @@
 }
 
 .bioinput {
+	background-color: rgba(248, 213, 218, 0.75);	
 	padding-left: 10%;
-	color: grey;
+	color: black;
 	text-align: center;
 }
 
@@ -106,6 +108,8 @@
 }
 
 #selfintrodiv {
+	background-color: rgba(248, 213, 218, 0.75);
 	padding-top: 10px;
-	padding-bottom: 25px;
+	padding-bottom: 2px;
+	margin-bottom: 25px;
 }

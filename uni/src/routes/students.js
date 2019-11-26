@@ -9,6 +9,7 @@ const { ObjectID } = require('mongodb')
 const authenticate = (req, res, next) => {
     console.log('authenticating', req.session)
 	if (req.session.user) {
+        console.log(req.session.user)
 		Account.findById(new ObjectID(req.session.user)).then((user) => {
 			if (!user) {
 				return Promise.reject()
