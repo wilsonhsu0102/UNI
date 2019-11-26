@@ -64,10 +64,10 @@ router.get('/getConnections', authenticate, (req, res) => {
 })
 
 router.get('/getProfile', authenticate, (req, res) => {
-    const id = req.user._id
+    const id = req.user.email
     console.log(id)
     if (id) {
-        // student.getUserbyId(id)
+        students.getProfilebyEmail(email)
     } else {
         res.sendFile(__dirname + '/permDenied.html')
     }

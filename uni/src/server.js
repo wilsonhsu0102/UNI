@@ -4,7 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const constants = require('./lib/constants');
 require('./models/event')
-require('./models/account')
+const Account = require('./models/account')
 console.log('required')
 var eventListRouter = require('./routes/events');
 var studentListRouter = require('./routes/students');
@@ -36,6 +36,8 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`app running on port ${PORT}`)
 });
+
+
 
 
 let db = mongoose.connection;

@@ -2,6 +2,12 @@
 import connectionData from '../data/dummyData'
 import constants from '../lib/constants'
 
+// DON'T USE THIS FILE
+// WILL BE DELETED LATER
+//
+//
+//
+//
 function requestUsers(){
     return new Promise((resolve, reject) => {
         fetch(constants.HTTP + constants.HOST + constants.PORT + '/eventList/all', {

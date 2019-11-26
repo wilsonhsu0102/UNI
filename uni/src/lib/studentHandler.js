@@ -128,5 +128,8 @@ module.exports = {
     },
     updateConnections: function(id) {
 
+    },
+    getProfilebyEmail: function(email) {
+
     }
 }
