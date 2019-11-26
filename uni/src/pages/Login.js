@@ -123,7 +123,11 @@ class Login extends React.Component {
 
    
     render() {
+<<<<<<< HEAD
         // reomveSessionCookie()
+=======
+        reomveSessionCookie()
+>>>>>>> parent of ffbd106... i dont think i change anything
         const { classes } = this.props;
         return (
             <Container style={{marginTop:"100px"}} component="main" maxWidth="xs">
