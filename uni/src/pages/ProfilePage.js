@@ -1,6 +1,7 @@
 import React from 'react';
 import SelfIntro from '../components/SelfIntro'
 import Bio from '../components/Bio'
+import Login from '../pages/Login'
 import ProfilePicture from '../components/ProfilePicture'
 import HiddenInfo from '../components/HiddenInfo'
 import PhotoLibrary from '../components/PhotoLibrary'
@@ -17,19 +18,19 @@ class Profile extends React.Component {
         this.profileId = this.props.id;
         console.log("This is the profile page for profile id" + this.profileId);
     }
-
+/*
     renderCondition() {
         console.log("rendercondition profile page", parseInt(this.props.id))
         const session = getSessionCookie()
-        if (session) {
+        if (session !== undefined) {
             return [<NavBar id ={this.props.id}></NavBar>,<ProfilePicture id={this.profileId} key={0}/>, <SelfIntro id={this.profileId} key={1}/>, <Bio id={this.profileId} key={2}/>, <HiddenInfo id={this.profileId} key={3}/>, <PhotoLibrary id={this.profileId} key={4}/>, <ProfileEdit id={this.profileId} key={5}/>]
         } else {
-            return <PermissionDenied></PermissionDenied>
+            return <Login></Login>
         }
     }
-
+*/
     render() {
-      return (this.renderCondition());
+        return [<NavBar id ={this.props.id}></NavBar>,<ProfilePicture id={this.profileId} key={0}/>, <SelfIntro id={this.profileId} key={1}/>, <Bio id={this.profileId} key={2}/>, <HiddenInfo id={this.profileId} key={3}/>, <PhotoLibrary id={this.profileId} key={4}/>, <ProfileEdit id={this.profileId} key={5}/>]
     } 
   }
 export default Profile;

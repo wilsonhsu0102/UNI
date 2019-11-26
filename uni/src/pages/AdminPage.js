@@ -1,4 +1,5 @@
 import React from 'react';
+import Login from '../pages/Login'
 import '../components/AdminPage.css'
 import NavBar from '../components/navbar';
 import PermissionDenied from '../pages/PermissionDenied'
@@ -182,11 +183,12 @@ class Admin extends React.Component {
 		}
 		return statTable;
 	}
-
+/*
 	renderCondition() {
+		
 		console.log("render condition connections", this.props)
 		const session = getSessionCookie()
-		if (session) {
+		if (session !== undefined) {
 			return [<NavBar id={this.id}></NavBar>,<div id='AdminBody'>
 			<h4 id='PageHeader'>Admin Dashboard - Your ID: <span id='AdminId'><strong>{this.id}</strong></span></h4>
 			<h4 id='UserListHeader'>User List</h4>
@@ -264,14 +266,87 @@ class Admin extends React.Component {
 			</table>
 		</div>]
 		} else {
-			return <PermissionDenied></PermissionDenied>
+			return <Login></Login>
 		}
 	}
-	
+	*/
     render()  {
-		return (
-			this.renderCondition()
-		);
+		return [<NavBar id={this.id}></NavBar>,<div id='AdminBody'>
+			<h4 id='PageHeader'>Admin Dashboard - Your ID: <span id='AdminId'><strong>{this.id}</strong></span></h4>
+			<h4 id='UserListHeader'>User List</h4>
+			<h4 id='AdminEventListHeader'>Event List</h4>
+			<br></br>
+			<form id='UserForm'>
+				<input id='newUser' type='text' placeholder='Full Name'/>
+				<button className='TableButton' onClick={ this.addUser }>Add User</button>
+			</form>
+			<form id='EventAddForm'>
+				<input id='newEventName' type='text' placeholder='Event Name'/>
+				<input id='newHostName' type='text' placeholder='Host Name'/>
+				<button className='TableButton' onClick={ this.addEvent }>Add Event</button>
+			</form>
+			<br></br>
+			<table id='UserList'>
+				<tbody>
+					<tr>
+						<th className = 'TableContents'>
+							Name
+						</th>
+						<th className = 'TableButtonCell'>
+							UserID
+						</th>
+						<th className = 'TableButtonCell'>
+							Profile Link
+						</th>
+						<th className = 'TableButtonCell'>
+							Remove
+						</th>
+					</tr>
+					{ this.state.userList }
+				</tbody>
+			</table>
+			<table id='AdminEventList'>
+				<tbody>
+					<tr>
+						<th className = 'TableContents'>
+							Event Name
+						</th>
+						<th className = 'TableButtonCell'>
+							EventID
+						</th>
+						<th className = 'TableContents'>
+							Host Name
+						</th>
+						<th className = 'TableButtonCell'>
+							Event Link
+						</th>
+						<th className = 'TableButtonCell'>
+							Profile Link
+						</th>
+						<th className = 'TableButtonCell'>
+							Remove
+						</th>
+					</tr>
+					{ this.state.eventList }
+				</tbody>
+			</table>
+			<br></br>
+			<h4 id='OverallStatsHeader'>Overall Stats</h4>
+			<br></br>
+			<table id='OverallStatsTable'>
+				<tbody>
+					<tr>
+						<th className = 'TableContents'>
+							Statistic Name
+						</th>
+						<th className = 'TableContents'>
+							Statistic
+						</th>
+					</tr>
+					{this.state.statsTable}
+				</tbody>
+			</table>
+		</div>]
     }
   }
 export default Admin;

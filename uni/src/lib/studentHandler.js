@@ -14,7 +14,9 @@ module.exports = {
                 res.json({success: false});
             } else {
                 // We can check later if this exists to ensure we are logged in.
-                res.json({success: true, id: user._id});
+                res.json({success: true});
+                req.session.user = user._id;
+                req.session.email = user.email
             }
         }).catch((error) => {
             console.log('ERROR: studentHandler->login ' + error);

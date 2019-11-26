@@ -15,7 +15,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { withStyles } from '@material-ui/styles';
 import constants from '../lib/constants'
-import { SessionContext, getSessionCookie, setSessionCookie } from "../session";
+import { SessionContext, reomveSessionCookie, setSessionCookie } from "../session";
 
 const styles = theme => ({
   '@global': {
@@ -122,6 +122,7 @@ class Login extends React.Component {
 
    
     render() {
+        reomveSessionCookie()
         const { classes } = this.props;
         return (
             <Container style={{marginTop:"100px"}} component="main" maxWidth="xs">

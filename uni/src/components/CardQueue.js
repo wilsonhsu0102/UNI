@@ -1,6 +1,8 @@
 
 import React from 'react';
 import CardList from './CardList';
+import Login from '../pages/Login'
+import NavBar from '../components/navbar'
 import {getUnconnectedStudents, getConnectedStudents, updateNewConnection} from '../lib/students';
 import PermissionDenied from '../pages/PermissionDenied'
 import { SessionContext, getSessionCookie, setSessionCookie } from "../session";
@@ -43,23 +45,21 @@ class CardQueue extends React.Component {
     })
 
   }
-
+/*
   renderCondition = (id) => {
     const session = getSessionCookie()
-    if (session) {
+    if (session !== undefined) {
       console.log("session",session)
-      return <CardList students={ this.state.students } rejectStudent = {this.rejectStudent} connectStudent = {this.connectStudent}></CardList>
+      return [<NavBar id = {id}></NavBar>, <CardList students={ this.state.students } rejectStudent = {this.rejectStudent} connectStudent = {this.connectStudent}></CardList>]
     }
-    return <PermissionDenied></PermissionDenied>
+    return <Login></Login>
   }
-
+*/
   render() {
     const { id } = this.props
 
-    return (
-      //<div></div>
-      this.renderCondition(id)
-    );
+    return [<NavBar id = {id}></NavBar>, <CardList students={ this.state.students } rejectStudent = {this.rejectStudent} connectStudent = {this.connectStudent}></CardList>]
+
   }
 }
 export default CardQueue;

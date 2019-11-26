@@ -86,7 +86,7 @@ class EventList extends React.Component {
     render() {
         this.setUpEventList();
         return (
-            [<NavBar id = {this.props.location.state.id} key={"NavBar"}></NavBar>,<div className="eventList" key="eventList">
+            [<NavBar id = {this.props.id} key={"NavBar"}></NavBar>,<div className="eventList" key="eventList">
                         <div className="container"> 
                             <h3> All Events: </h3>
                             <table>
