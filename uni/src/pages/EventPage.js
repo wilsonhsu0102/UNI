@@ -4,7 +4,6 @@ import HostProfile from '../components/HostProfile';
 import EventPhoto from '../components/EventPhoto';
 import GoogleMapMock from '../components/GoogleMap';
 import NavBar from '../components/navbar';
-import constants from '../lib/constants'
 
 
 const event1 = {"eventName": "FREE! BBT!", "hostId": "1", "eventCoverPhoto": "N/A"
@@ -36,41 +35,17 @@ class Event extends React.Component {
         
     }
 
-    componentDidMount(){
-        this.getEventById().then((result) => {
-            this.state = {
-                event: result.event
-            }
-            console.log(this.state.event)
-        }).catch((error) => {
-            console.log(error)  // handle any rejects that come up in the chain.
-        })
-    }
+    // componentDidMount () {
+    //     // for (let i = 0; i < this.rows.lenght; i++) {
 
-
-    getEventById() {
-        return new Promise((resolve, reject) => {
-            fetch(constants.HTTP + constants.HOST + constants.PORT + `/events/${this.id}`, {
-                method: "GET",
-                headers: {
-                "access-control-allow-origin" : "*",
-                "Content-type": "application/json; charset=UTF-8"
-                }})
-                .then(res => res.json())
-                .then(
-                    
-                (result) => {
-                    resolve({
-                        event: result
-                    })
-                },
-                (error) => {
-                    reject('issue with getting resource')
-                }
-            )
-        })
-        
-    }
+    //     // }
+    //     const item = document.querySelector('td');
+    //     const button = item.getElementsByTagName('button')[0];
+    //     console.log(item);
+    //     console.log(button.attributes.profileid.value);
+    //     // console.log(button.props.profileid);
+    //     button.addEventListener('click', this.goToProfile(button.attributes.profileid.value));
+    // }
 
     goToProfile(profileId) {
         window.location.href='http://localhost:3000/profile/' + profileId;
