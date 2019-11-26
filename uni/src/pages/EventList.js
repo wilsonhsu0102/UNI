@@ -14,7 +14,6 @@ const eventList = [{'eventName': 'Free BBT', 'location': 'SS', 'date': '2019/01/
 
 class EventList extends React.Component {
     constructor(props){ 
-        
         super(props);
         this.state = {
             eventList: []
@@ -34,7 +33,7 @@ class EventList extends React.Component {
 
     getEvents(){
         return new Promise((resolve, reject) => {
-            fetch(constants.HTTP + constants.HOST + constants.PORT + '/eventList/all', {
+            fetch(constants.HTTP + constants.HOST + constants.PORT + '/events/all', {
                 method: "GET",
                 headers: {
                 "access-control-allow-origin" : "*",

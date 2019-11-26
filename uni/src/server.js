@@ -39,7 +39,7 @@ app.listen(PORT, () => {
 
 module.exports = app;
 
-app.use('/eventList', eventListRouter);
+app.use('/events', eventListRouter);
 app.use('/student', studentListRouter);
 
 let db = mongoose.connection;
