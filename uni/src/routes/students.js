@@ -70,7 +70,7 @@ router.get('/getProfile', authenticate, (req, res) => {
     const email = req.session.email
     console.log(email)
     if (email) {
-        students.getProfilebyEmail(email)
+        students.getProfilebyEmail(email, res)
     } else {
         res.sendFile(__dirname + '/permDenied.html')
     }
