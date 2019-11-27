@@ -2,6 +2,7 @@ import React from 'react';
 import './EventList.css'
 import NavBar from '../components/navbar';
 import constants from '../lib/constants'
+import Login from '../pages/Login'
 /*
 const eventList = [{'eventName': 'Free BBT', 'location': 'SS', 'date': '2019/01/01 13:00:00'}, {'eventName': 'Free Donuts', 'location': 'SS', 'date': '2019/01/04 13:00:00'}, 
 {'eventName': 'Free Shirts', 'location': 'BA', 'date': '2019/01/01 13:00:00'}, {'eventName': 'Free Pants', 'location': 'SS', 'date': '2019/01/01 13:00:00'}, 
@@ -17,14 +18,16 @@ class EventList extends React.Component {
         
         super(props);
         this.state = {
-            eventList: []
+            eventList: [],
+            authenticated: false
         };
     }
 
     componentDidMount(){
         this.getEvents().then((result) => {
             this.setState({
-                eventList: result.eventList
+                eventList: result.eventList,
+                authenticated: true
             })
             
         }).catch((error) => {
@@ -61,6 +64,30 @@ class EventList extends React.Component {
         window.location.href='http://localhost:3000/event/' + eventId;
     }
 
+    renderCondition = () => {
+        //const session = getSessionCookie()
+        if (this.state.authenticated) {
+          return [<NavBar id = {this.props.id} key={"NavBar"}></NavBar>,<div className="eventList" key="eventList">
+                <div className="container"> 
+                    <h3> All Events: </h3>
+                    <table>
+                        <thead>
+                            <tr className="eventListHeaderRow">
+                                <th className='eventListName'>Name</th>
+                                <th className='eventListLocation'>Location</th>
+                                <th className='eventListDate'>Date Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.rows}
+                        </tbody>
+                    </table>
+                </div>
+            </div>]
+        }
+        return <Login></Login>
+      }
+
     setUpEventList() {
         /// Get events from server
         // code below requires server call
@@ -86,25 +113,7 @@ class EventList extends React.Component {
     
     render() {
         this.setUpEventList();
-        return (
-            [<NavBar id = {this.props.id} key={"NavBar"}></NavBar>,<div className="eventList" key="eventList">
-                        <div className="container"> 
-                            <h3> All Events: </h3>
-                            <table>
-                                <thead>
-                                    <tr className="eventListHeaderRow">
-                                        <th className='eventListName'>Name</th>
-                                        <th className='eventListLocation'>Location</th>
-                                        <th className='eventListDate'>Date Time</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {this.rows}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>]
-        );
+        return this.renderCondition
     }
 }
 

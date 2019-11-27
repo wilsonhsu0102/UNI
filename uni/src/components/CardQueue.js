@@ -10,13 +10,15 @@ import constants from '../lib/constants'
 
 class CardQueue extends React.Component {
   state = {
-    deck: []
+    deck: [],
+    authenticated: false
   }
 
   componentDidMount(){
     this.getDeck().then((result) => {
         this.setState({
-          deck: result.deck
+          deck: result.deck,
+          authenticated: true
         })
         
     }).catch((error) => {
@@ -108,21 +110,17 @@ class CardQueue extends React.Component {
     })
 
   }
-/*
-  renderCondition = (id) => {
-    const session = getSessionCookie()
-    if (session !== undefined) {
-      console.log("session",session)
-      return [<NavBar id = {id}></NavBar>, <CardList students={ this.state.students } rejectStudent = {this.rejectStudent} connectStudent = {this.connectStudent}></CardList>]
+
+  renderCondition = () => {
+    //const session = getSessionCookie()
+    if (this.state.authenticated) {
+      return [<NavBar></NavBar>, <CardList students={ this.state.deck } rejectStudent = {this.rejectStudent} connectStudent = {this.connectStudent}></CardList>]
     }
     return <Login></Login>
   }
-*/
+
   render() {
-    const { id } = this.props
-
-    return [<NavBar id = {id}></NavBar>, <CardList students={ this.state.deck } rejectStudent = {this.rejectStudent} connectStudent = {this.connectStudent}></CardList>]
-
+    return this.renderCondition()
   }
 }
 export default CardQueue;

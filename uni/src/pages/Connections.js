@@ -11,13 +11,16 @@ import { SessionContext, getSessionCookie, setSessionCookie } from "../session";
 
 class CardQueue extends React.Component {
   state = {
-    connections: []
+    connections: [],
+    authenticated: false
   }
 
   componentDidMount(){
+    console.log("mounting page")
     this.getConnections().then((result) => {
         this.setState({
-          connections: result.connections
+          connections: result.connections,
+          authenticated: true
         })
         
     }).catch((error) => {
@@ -51,21 +54,20 @@ class CardQueue extends React.Component {
       
   }
 
-/*
+
   renderCondition() {
-      console.log("render condition connections", this.props)
-      const session = getSessionCookie()
-      if (session === undefined){
+      //console.log("render condition connections", this.props)
+      //const session = getSessionCookie()
+      if (!this.state.authenticated){
           return <Login></Login>
       } else {
-          return [<NavBar id ={this.props.location.state.id}></NavBar>,<ConnectionsList students = {this.state.connections}></ConnectionsList>]
+          return [<NavBar></NavBar>,<ConnectionsList students = {this.state.connections}></ConnectionsList>]
       } 
-  }*/
+  }
 
   render() {
     
-    return [<NavBar></NavBar>,<ConnectionsList students = {this.state.connections}></ConnectionsList>]
-
+    return this.renderCondition()
   }
 }
 export default CardQueue;
