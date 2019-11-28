@@ -5,7 +5,7 @@ import Login from '../pages/Login'
 import NavBar from '../components/navbar'
 import {getUnconnectedStudents, getConnectedStudents, updateNewConnection} from '../lib/students';
 import PermissionDenied from '../pages/PermissionDenied'
-import { SessionContext, getSessionCookie, setSessionCookie } from "../session";
+import { SessionContext, getSessionCookie, setSessionCookie, removeSessionCookie } from "../session";
 import constants from '../lib/constants'
 
 class CardQueue extends React.Component {
@@ -44,6 +44,7 @@ class CardQueue extends React.Component {
                   })
               },
               (error) => {
+                  removeSessionCookie()
                   reject('issue with getting resource')
               }
           )
@@ -112,10 +113,12 @@ class CardQueue extends React.Component {
   }
 
   renderCondition = () => {
-    //const session = getSessionCookie()
-    if (this.state.authenticated) {
+    const session = getSessionCookie()
+    console.log(session)
+    if (session) {
       return [<NavBar></NavBar>, <CardList students={ this.state.deck } rejectStudent = {this.rejectStudent} connectStudent = {this.connectStudent}></CardList>]
     }
+    removeSessionCookie()
     return <Login></Login>
   }
 

@@ -15,7 +15,8 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { withStyles } from '@material-ui/styles';
 import constants from '../lib/constants'
-import { SessionContext, reomveSessionCookie, setSessionCookie } from "../session";
+import { SessionContext, removeSessionCookie, setSessionCookie, getSessionCookie } from "../session";
+import  { Redirect } from 'react-router-dom'
 
 const styles = theme => ({
   '@global': {
@@ -50,7 +51,7 @@ const styles = theme => ({
 });
 
 class Login extends React.Component {
-
+    
     Copyright = () => {
         return (
             <Typography variant="body2" color="textSecondary" align="center">
@@ -96,8 +97,8 @@ class Login extends React.Component {
                 .then((result) => {
                     if (result.success) {
                       console.log('login successful')
-                      //setSessionCookie({ email: email,  id: result.id});
-                      this.props.history.push({pathname:`/home`})
+                      setSessionCookie({ email: email });
+                      window.location.href='http://localhost:3000/home';
                     } else {
                       alert('The email or password you provided was incorrect')
                     }
@@ -123,7 +124,9 @@ class Login extends React.Component {
 
    
     render() {
-        // reomveSessionCookie()
+        
+        removeSessionCookie()
+        console.log(getSessionCookie())
         const { classes } = this.props;
         return (
             <Container style={{marginTop:"100px"}} component="main" maxWidth="xs">

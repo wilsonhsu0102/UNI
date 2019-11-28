@@ -161,57 +161,71 @@ module.exports = {
         
     },
     addConnection: function(adderId, connectionId, req, res) {
-        console.log('LOG: studentHandler->addConnection')
+        console.log('LOG: studentHandler->addConnection', 'adderId: ', adderId, connectionId)
         let connected = []
-        this.returnConnected(adderId).then((result) => {
-            connected = result.res
-            connected.push(connectionId)
+        mongoose.connect(constants.MONGO_DB_URL, { useNewUrlParser: true })
 
-            let connected2 = []
-            this.returnConnected(connectionId).then((result) => {
-                connected2 = result.res
-                connected2.push(adderId)
-                //res.json({success: true})
+        var db = mongoose.connection;
+        db.on( 'error', console.error.bind( console, 'connection error:' ) );
 
-                mongoose.connect(constants.MONGO_DB_URL, { useNewUrlParser: true })
+        db.once( 'open', () => console.log('connected to the database'));
 
-                var db = mongoose.connection;
-                db.on( 'error', console.error.bind( console, 'connection error:' ) );
+        Account.findOne({"_id": adderId}).then((acc) => {
+            let pendConnections = acc.pendingConnections
+            let connect = acc.connections
+            
+            Account.findOne({"_id": connectionId}).then((account) => {
+                let pendingConnections = account.pendingConnections
+                let connections = account.connections
 
-                db.once( 'open', () => console.log('connected to the database'));
-
+                console.log('here', connectionId)
+                if (pendingConnections.includes(adderId)) {
+                    // connection established
+                    let index = pendingConnections.indexOf(adderId);
+                    let index2 = pendConnections.indexOf(connectionId)
+                    pendingConnections.splice(index, index+1)
+                    pendConnections.splice(index2, index2+1)
+                    connections.push(adderId)
+                    connect.push(connectionId)
+                    console.log(connections)
+                } else {
+                    pendConnections.push(connectionId)
+                }
+                console.log(connections)
                 const query = { _id: connectionId}
-                const update = { $set: {connections: connected2 }}
+                const update = { $set: {connections: connections, pendingConnections: pendingConnections}}
                 Account.updateOne( query, update ).then((accounts) => {
                     console.log("1 document updated");
+
+                    const query2 = { _id: adderId}
+                    const update2 = { $set: {connections: connect, pendingConnections: pendConnections }}
+                    Account.updateOne( query2, update2 ).then((accounts) => {
+                        console.log("1 document updated");
+                    }).catch((error) => {
+                        console.warn('WARN: No accounts found!');
+                        res.json({ success: false})
+                    })
                 }).catch((error) => {
                     console.warn('WARN: No accounts found!');
                     res.json({ success: false})
                 })
 
-                const query2 = { _id: adderId}
-                const update2 = { $set: {connections: connected }}
-                Account.updateOne( query2, update2 ).then((accounts) => {
-                    console.log("1 document updated");
-                }).catch((error) => {
-                    console.warn('WARN: No accounts found!');
-                    res.json({ success: false})
-                })
+                
 
-
-            }).then((result) => { 
-                res.json({ success: true})
+                
             }).catch((error) => {
-                console.log(error)  // handle any rejects that come up in the chain.
-                res.send("An error has occurred")
+                console.warn(error);
+                res.json({ success: false })
             })
+        }).then((result) => {
+            res.json({success: true})
 
         }).catch((error) => {
-            console.log(error)  // handle any rejects that come up in the chain.
-            res.send("An error has occurred")
+            console.warn('WARN: No accounts found! 3 ');
+            res.json({ success: false })
         })
+                
 
-        
 
     },
     getProfilebyEmail: function(email) {

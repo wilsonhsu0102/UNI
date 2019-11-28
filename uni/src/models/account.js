@@ -9,7 +9,10 @@ let accountSchema = new mongoose.Schema({
     age: String,
     major: String,
     description: String,
-    connections: Array
+	connections: Array,
+	pendingConnections: Array,
+	invitations: Array,
+	pendingInvitations: Array
 });
 
 accountSchema.pre('save', function(next) {

@@ -6,13 +6,13 @@ import {getConnectedStudents} from '../lib/students';
 import NavBar from '../components/navbar';
 import PermissionDenied from './PermissionDenied'
 import constants from '../lib/constants'
-import { SessionContext, getSessionCookie, setSessionCookie } from "../session";
+import { SessionContext, getSessionCookie, setSessionCookie, removeSessionCookie } from "../session";
 
 
 class CardQueue extends React.Component {
   state = {
     connections: [],
-    authenticated: false
+    authenticated: true
   }
 
   componentDidMount(){
@@ -24,6 +24,7 @@ class CardQueue extends React.Component {
         })
         
     }).catch((error) => {
+        removeSessionCookie()
         console.log(error)  // handle any rejects that come up in the chain.
     })
 }
@@ -57,8 +58,8 @@ class CardQueue extends React.Component {
 
   renderCondition() {
       //console.log("render condition connections", this.props)
-      //const session = getSessionCookie()
-      if (!this.state.authenticated){
+      const session = getSessionCookie()
+      if (!session){
           return <Login></Login>
       } else {
           return [<NavBar></NavBar>,<ConnectionsList students = {this.state.connections}></ConnectionsList>]

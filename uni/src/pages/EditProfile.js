@@ -6,20 +6,25 @@ import EditProfilePicture from '../components/EditProfilePicture'
 import '../components/EditProfile.css'
 import NavBar from '../components/navbar';
 import constants from '../lib/constants'
-
+import Login from '../pages/Login'
+import { SessionContext, getSessionCookie, setSessionCookie, removeSessionCookie } from "../session";
 
 class EditProfile extends React.Component {
     state = {
         id: null,
+        authenticated: true
     }
 
     componentDidMount(){
+        
         this.getProfile().then((result) => {
             this.setState({
               id: result.id,
+              authenticated: true
             })
             
         }).catch((error) => {
+            removeSessionCookie()
             console.log(error)  // handle any rejects that come up in the chain.
         })
     }
@@ -49,9 +54,18 @@ class EditProfile extends React.Component {
           
       }
  
+      renderCondition = () => {
+        const session = getSessionCookie()
+        if (session) {
+            return ([<NavBar id={this.state.id}></NavBar>,<EditProfilePicture id={this.state.id}/>, <EditProfileInfo id={this.state.id}/>, <EditPhotoLibrary id={this.id}/>, <EditHiddenLibrary id={this.id}/>]);
+
+        }
+        removeSessionCookie()
+        return <Login></Login>
+      }
  
     render() {
-        return ([<NavBar id={this.id}></NavBar>,<EditProfilePicture id={this.id}/>, <EditProfileInfo id={this.id}/>, <EditPhotoLibrary id={this.id}/>, <EditHiddenLibrary id={this.id}/>]);
+        return this.renderCondition()
     }
 }
 

@@ -3,6 +3,7 @@ import './EventList.css'
 import NavBar from '../components/navbar';
 import constants from '../lib/constants'
 import Login from '../pages/Login'
+import { SessionContext, getSessionCookie, setSessionCookie, removeSessionCookie } from "../session";
 /*
 const eventList = [{'eventName': 'Free BBT', 'location': 'SS', 'date': '2019/01/01 13:00:00'}, {'eventName': 'Free Donuts', 'location': 'SS', 'date': '2019/01/04 13:00:00'}, 
 {'eventName': 'Free Shirts', 'location': 'BA', 'date': '2019/01/01 13:00:00'}, {'eventName': 'Free Pants', 'location': 'SS', 'date': '2019/01/01 13:00:00'}, 
@@ -19,7 +20,7 @@ class EventList extends React.Component {
         super(props);
         this.state = {
             eventList: [],
-            authenticated: false
+            authenticated: true
         };
     }
 
@@ -31,6 +32,7 @@ class EventList extends React.Component {
             })
             
         }).catch((error) => {
+            removeSessionCookie()
             console.log(error)  // handle any rejects that come up in the chain.
         })
     }
@@ -65,8 +67,8 @@ class EventList extends React.Component {
     }
 
     renderCondition = () => {
-        //const session = getSessionCookie()
-        if (this.state.authenticated) {
+        const session = getSessionCookie()
+        if (session) {
           return [<NavBar id = {this.props.id} key={"NavBar"}></NavBar>,<div className="eventList" key="eventList">
                 <div className="container"> 
                     <h3> All Events: </h3>
@@ -85,6 +87,7 @@ class EventList extends React.Component {
                 </div>
             </div>]
         }
+        removeSessionCookie()
         return <Login></Login>
       }
 
@@ -113,7 +116,7 @@ class EventList extends React.Component {
     
     render() {
         this.setUpEventList();
-        return this.renderCondition
+        return this.renderCondition()
     }
 }
 
