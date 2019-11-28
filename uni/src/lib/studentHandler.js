@@ -228,7 +228,7 @@ module.exports = {
 
 
     },
-    getProfilebyEmail: function(email) {
+    getProfilebyEmail: function(email, res) {
         console.log('LOG: studentHandler->getProfilebyEmail');
         mongoose.connect(constants.MONGO_DB_URL, {useNewUrlParser: true})
 
@@ -237,13 +237,12 @@ module.exports = {
 
         db.once('open', () => console.log('connected to the database'))
         console.log(email)
-        return new Promise((resolve, reject) => {
-            Profile.findOne({"email": email}).then((result) => {
-                resolve(result)
-            }).catch((error) => {
-                console.warn('WARN: This email is not correct!')
-                reject()
-            })
+        Profile.findOne({"email": email}).then((result) => {
+            console.log("I found the profile")
+            res.send(result)
+        }).catch((error) => {
+            console.warn('WARN: This email is not correct!')
+            res.send({success:false})
         })
 
     },

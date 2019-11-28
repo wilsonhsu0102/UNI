@@ -1,9 +1,8 @@
 import React from 'react';
 import ImageUploader from 'react-images-upload';
-import constants from '../lib/constants'
+import constants from '../../lib/constants'
 
-var multer  = require('multer')
-var upload = multer()
+
  
 class EditPhotoLibrary extends React.Component {
     constructor(props) {
@@ -34,7 +33,7 @@ class EditPhotoLibrary extends React.Component {
                 method: "GET",
                 credentials: 'include',
                 headers: {
-                "access-control-allow-origin" : "*",
+                "Access-Control-Allow-Credentials": "true",
                 "Content-type": "application/json; charset=UTF-8"
                 }})
                 .then(res => res.json())

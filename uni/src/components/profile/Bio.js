@@ -1,24 +1,48 @@
 import React from "react";
 import './ProfilePage.css'
+import constants from '../../lib/constants'
 
 export default class Bio extends React.Component {
 	constructor(props) {
 		super(props)
-		this.id = Number(this.props.id)
-
-		// will retrieve current user info and set year major and campus from retrieved data
-		if (this.id !== 1) {
-			this.year = 3;
-			this.major = "Computer Science"
-			this.campus = "St. George"
-		} else {
-			this.year = 5;
-			this.major = "Social Science"
-			this.campus = "Missisauga"	
+		this.state = {
+			profile: {}
 		}
-		
-		console.log("This is the bio information for " + this.id);
 	}
+
+	componentDidMount(){
+        console.log("the bio for the profile")
+        this.getProfile().then((result) => {
+            this.setState({
+              profile: result
+            })
+        }).catch((error) => {
+            console.log(error)  // handle any rejects that come up in the chain.
+        })
+    }
+    
+      getProfile(){
+          return new Promise((resolve, reject) => {
+              fetch(constants.HTTP + constants.HOST + constants.PORT + '/student/getProfile', {
+                  method: "GET",
+                  credentials: 'include',
+                    headers: {
+                    "Access-Control-Allow-Credentials": "true",
+                    "Content-type": "application/json; charset=UTF-8"
+                    }})
+                  .then(res => res.json())
+                  .then(
+                      
+                  (result) => {
+                      resolve(result)
+                  },
+                  (error) => {
+                      reject('issue with getting resource')
+                  }
+              )
+          })
+          
+      }
 
 	render() {
 		return (
@@ -26,13 +50,13 @@ export default class Bio extends React.Component {
 				<table>
 					<tbody> 
 						<tr className='userInfoRow'>
-							<td className='biotags'>Year of Study </td><td className='bioinput'> {this.year} </td>
+							<td className='biotags'>Year of Study </td><td className='bioinput'> {this.state.profile.year} </td>
 						</tr>
 						<tr className='userInfoRow'>
-							<td className='biotags'>Major </td><td className='bioinput'> {this.major} </td>
+							<td className='biotags'>Major </td><td className='bioinput'> {this.state.profile.major} </td>
 						</tr>
 						<tr className='userInfoRow'>
-							<td className='biotags'>Campus </td><td className='bioinput'> {this.campus} </td>
+							<td className='biotags'>Campus </td><td className='bioinput'> {this.state.profile.campus} </td>
 						</tr>
 					</tbody>
 				</table>
