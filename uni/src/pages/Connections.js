@@ -12,6 +12,7 @@ import { SessionContext, getSessionCookie, setSessionCookie, removeSessionCookie
 class CardQueue extends React.Component {
   state = {
     connections: [],
+	selfId: "",
     authenticated: true
   }
 
@@ -27,6 +28,16 @@ class CardQueue extends React.Component {
         removeSessionCookie()
         console.log(error)  // handle any rejects that come up in the chain.
     })
+	
+	this.getSelfId().then((result) => {
+        this.setState({
+          selfId: result.selfId
+        })
+    }).catch((error) => {
+		removeSessionCookie()
+        console.log(error)  // handle any rejects that come up in the chain.
+    })
+	
 }
   
   getConnections(){
@@ -54,6 +65,32 @@ class CardQueue extends React.Component {
       })
       
   }
+  
+  getSelfId(){
+      return new Promise((resolve, reject) => {
+          fetch(constants.HTTP + constants.HOST + constants.PORT + '/student/getSelfId', {
+              method: "GET",
+              credentials: 'include',
+              headers: {
+              "Access-Control-Allow-Credentials": "true",
+              "Content-type": "application/json; charset=UTF-8"
+              }})
+			  .then(res => res.json())
+              .then(
+                  
+              (result) => {
+                  console.log('selfId: ', result.id)
+                  resolve({
+                      selfId: result.id
+                  })
+              },
+              (error) => {
+                  reject('issue with getting resource')
+              }
+          )
+      })
+      
+  }
 
 
   renderCondition() {
@@ -62,7 +99,7 @@ class CardQueue extends React.Component {
       if (!session){
           return <Login></Login>
       } else {
-          return [<NavBar></NavBar>,<ConnectionsList students = {this.state.connections}></ConnectionsList>]
+          return [<NavBar></NavBar>,<ConnectionsList students = {this.state.connections} selfId = {this.state.selfId}></ConnectionsList>]
       } 
   }
 

@@ -9,8 +9,10 @@ const Profile = require('./models/profile')
 console.log('required')
 var eventListRouter = require('./routes/events');
 var studentListRouter = require('./routes/students');
+var imagesRouter = require('./routes/images');
 const cors = require('cors')
 const session = require('express-session')
+
 
 
 mongoose.Promise = global.Promise;
@@ -33,6 +35,7 @@ app.use(session({
   }
 }));
 
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`app running on port ${PORT}`)
@@ -42,6 +45,7 @@ module.exports = app;
 
 app.use('/events', eventListRouter);
 app.use('/student', studentListRouter);
+app.use('/images', imagesRouter);
 
 let db = mongoose.connection;
 

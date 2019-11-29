@@ -1,6 +1,7 @@
 import React from 'react';
 import ImageUploader from 'react-images-upload';
 import constants from '../../lib/constants'
+import axios from 'axios';
 
 
  
@@ -8,59 +9,128 @@ class EditPhotoLibrary extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
-            id: null, 
-            profile: this.getProfile()
+            profile: {},
+            buttons: [],
+            images: [],
         };
-        //  this.onDrop = this.onDrop.bind(this);
-        console.log(this.state.profile)
+        // this.onDrop = this.onDrop.bind(this);
+        axios.get(`${constants.HTTP}${constants.HOST}${constants.PORT}/images/all`, {withCredentials: true})
+        .then(res => {
+            this.setState({
+                images: res.data
+            })
+        })
+        .catch(err => {
+            console.log(err);
+        })
+        .finally(() => {
+            console.log(this.state.images[0].imageData.path)
+        })
     }
 
-    // componentDidMount() {
-    //     this.getProfile().then((result => {
-    //         this.setState({
-    //             profile: result,
-    //             id: result.id
+    componentDidMount() {
+        // this.getProfile().then((result => {
+        //     this.setState({
+        //         profile: result,
+        //         buttons: this.setupButtons(result.pictures.photolib),
+        //     })
+        //     console.log(this.state.profile);
+        //     console.log(this.state.profile.email)
+        //     console.log(this.state.images)
+        // })).catch((error => {
+        //     console.log(error)
+        //     console.log("ERROR Edit photo library not getting profile")
+        // }))
+    }
+
+    // getImages() {
+    //     axios.get(`${constants.HTTP}${constants.HOST}${constants.PORT}/images/all`, {withCredentials: true})
+    //         .then(res => {
+    //             // console.log(res)
+    //             this.setState({
+    //                 images: res
+    //             })
     //         })
-    //     })).catch((error => {
-    //         console.log(error)
-    //         console.log("Edit photo library not getting profile")
-    //     }))
+    //         .catch(err => {
+    //             console.log(err);
+    //         })
+    //         .finally(() => {
+
+    //         })
+    // }
+    
+
+    // getProfile(){
+    //     return new Promise((resolve, reject) => {
+    //         fetch(constants.HTTP + constants.HOST + constants.PORT + '/student/getProfile', {
+    //             method: "GET",
+    //             credentials: 'include',
+    //             headers: {
+    //             "Access-Control-Allow-Credentials": "true",
+    //             "Content-type": "application/json; charset=UTF-8"
+    //             }})
+    //             .then(res => res.json())
+    //             .then(
+    //             (result) => {
+    //                 console.log(result)
+    //                 resolve(result)
+    //             },
+    //             (error) => {
+    //                 reject('issue with getting resource')
+    //             }
+    //         )
+    //     })
+        
     // }
 
-    getProfile(){
-        return new Promise((resolve, reject) => {
-            fetch(constants.HTTP + constants.HOST + constants.PORT + '/student/getProfile', {
-                method: "GET",
-                credentials: 'include',
-                headers: {
-                "Access-Control-Allow-Credentials": "true",
-                "Content-type": "application/json; charset=UTF-8"
-                }})
-                .then(res => res.json())
-                .then(
-                    
-                (result) => {
-                    resolve({
-                        id: result
-                    })
-                },
-                (error) => {
-                    reject('issue with getting resource')
-                }
-            )
-        })
-        
+    uploadImage(e) {
+        if (window.confirm('Add photo to profile?')) {
+            let imageFormObj = new FormData();
+            imageFormObj.append("email", this.state.profile.email);
+            imageFormObj.append("type", "photolib");
+            console.log(imageFormObj.email)
+            imageFormObj.append("imageName", "multer-image-" + Date.now());
+            console.log(e[0])
+            imageFormObj.append("imageData", e[0]);
+            console.log(imageFormObj)
+            axios.post(`${constants.HTTP}${constants.HOST}${constants.PORT}/images/all`, imageFormObj)
+                .then((data) => {
+                    if (data.data.sucesss) {
+                        alert("Image has been successfully uploaded")
+                    }
+                })
+                .catch((err) => {
+                    alert("Error while uploading image");
+                    console.error(err)
+                })
+        }
     }
 
- 
-    onDrop(picture) {
-        this.setState({
-            pictures: this.state.pictures.concat(picture),
-        });
-    }
- 
+
+    // onDrop(picture) {
+    //     this.setState({
+    //         pictures: this.state.pictures.concat(picture),
+    //     });
+    // }
+
+    // removePhoto(picture) {
+    //     const index = this.state.pictures.indexOf(picture)
+    //     this.state.pictures.splice(index)
+    //     this.setState({
+    //         buttons: this.setupButtons(this.state.pictures)
+    //     })
+    // }
+
+    // setupButtons(pictures) {
+    //     let buttons = []
+    //     pictures.forEach(function(picture) {
+    //         buttons.push(<button className='photobuttons' onClick={e => window.confirm('Are you sure you wish to delete this item?') && this.removePhoto(picture)}> <img src={picture}></img> </button>);
+    //     })
+    //     return buttons
+    // }
+
     render() {
-        console.log(this.state.id)
+        console.log(this.state.buttons)
         return (
             <div class='editphotolibrarydiv'>
                 <span id='editphotolibraryheader'><h3>Update My Photos</h3></span>
@@ -68,12 +138,14 @@ class EditPhotoLibrary extends React.Component {
                     className='editphotolibrary'
                     name='My Album'
                     withIcon={false}
-                    withPreview={true}
+                    withPreview={false}
                     buttonText='Choose Images'
-                    onChange={this.onDrop}
+                    onChange={(e) => this.uploadImage(e)}
                     imgExtension={['.jpg', '.gif', '.png', '.gif']}
                     maxFileSize={5242880}
                 />
+                {/* {this.state.buttons} */}
+                {/* </form> */}
             </div>
         );
     }

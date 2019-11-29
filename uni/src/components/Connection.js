@@ -6,10 +6,11 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
 
-
-export default function AlignItemsList(key, student) {
-    
+export default function AlignItemsList(key, student, selfId) {
+	
     return (
       <List>
         <ListItem alignItems="flex-start" style={{paddingLeft: "30px"}}>
@@ -32,6 +33,11 @@ export default function AlignItemsList(key, student) {
               </React.Fragment>
             }
           />
+		  <Link to={{pathname:"/chat/"+student.email, state: { selfId: selfId, connectId: student._id, messages: [] }}}>
+		    <Button variant="outlined" onClick={(e) =>{
+	          console.log(student);
+		    }}> CHAT</Button>
+          </Link>
         </ListItem>
         <Divider variant="inset" component="li" />
       </List>
