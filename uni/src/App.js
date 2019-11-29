@@ -8,7 +8,8 @@ import EventList from './pages/EventList';
 import Connections from './pages/Connections';
 import EditProfile from './pages/EditProfile';
 import Login from './pages/Login';
-import CreateEvent from './pages/CreateEvent'
+import CreateEvent from './pages/CreateEvent';
+import ChatPage from './pages/ChatPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Switch, BrowserRouter, useParams } from 'react-router-dom';
 
@@ -61,6 +62,10 @@ function App() {
           <Switch>
             <Route exact path="/profile/:profileId/edit" children={<CallWantedProfileEdit/>}/>
           </Switch>
+		  <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
+            { /* Each Route below shows a different component depending on the exact path in the URL  */ }
+            <Route exact path='/chat/:connectionEmail' component={ChatPage}/>
+          </Switch>
         </BrowserRouter>
       </div>
     </div>
@@ -86,6 +91,12 @@ function CallWantedProfileEdit() {
 function CallWantedEvent() {
   let { eventId } = useParams();
   return <Event id={eventId}/>;
+}
+
+// Calls the chat page with the connection's email
+function CallWantedChat() {
+  let { profileId } = useParams();
+  return <EditProfile id={profileId}/>;
 }
 
 // Calls the home page with eventId
