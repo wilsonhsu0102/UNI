@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 
 let eventSchema = new mongoose.Schema({
-    host: { type: mongoose.Schema.Types.ObjectId, ref: 'Account'},
+    host: String, //Email of the host
     eventName: String,
     location: String,
     description: String,
-    date: Date,
-    attendees: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Account'}]
+    date: String,
+    attendees: Array //Emails of attendees
 });
 
 module.exports = mongoose.model('Event', eventSchema)

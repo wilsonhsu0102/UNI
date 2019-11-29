@@ -21,8 +21,14 @@ module.exports = {
         db.once( 'open', function callback() {
             console.log("connected")
             Event.collection.insertMany(eventList, function(err,r) {
-                console.log('LOG: Event collection has been created!');
-                db.close();
+                if (err) {
+                    console.log(err)
+                    db.close();
+                } else {
+                    console.log(r)
+                    console.log('LOG: Event collection has been created!');
+                    db.close();
+                }
             })
         });
 

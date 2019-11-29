@@ -35,6 +35,30 @@ class Event extends React.Component {
         
     }
 
+    // getEventById() {
+    //     return new Promise((resolve, reject) => {
+    //         fetch(constants.HTTP + constants.HOST + constants.PORT + `/events?id=${this.id}`, {
+    //             method: "GET",
+    //             credentials: 'include',
+    //             headers: {
+    //             "Access-Control-Allow-Credentials": "true",
+    //             "Content-type": "application/json; charset=UTF-8"
+    //             }})
+    //             .then(res => res.json())
+    //             .then(
+                    
+    //             (result) => {
+    //                 resolve({
+    //                     eventList: result
+    //                 })
+    //             },
+    //             (error) => {
+    //                 reject(error)
+    //             }
+    //         )
+    //     })
+    // }
+
     // componentDidMount () {
     //     // for (let i = 0; i < this.rows.lenght; i++) {
 

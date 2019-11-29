@@ -3,6 +3,10 @@ import './EventList.css'
 import NavBar from '../components/navbar';
 import constants from '../lib/constants'
 import Login from '../pages/Login'
+import {Modal} from "react-bootstrap"
+import {FormGroup, FormControl} from "react-bootstrap";
+import DatePicker from 'react-datepicker'
+import "react-datepicker/dist/react-datepicker.css";
 import { SessionContext, getSessionCookie, setSessionCookie, removeSessionCookie } from "../session";
 /*
 const eventList = [{'eventName': 'Free BBT', 'location': 'SS', 'date': '2019/01/01 13:00:00'}, {'eventName': 'Free Donuts', 'location': 'SS', 'date': '2019/01/04 13:00:00'}, 
@@ -19,7 +23,8 @@ class EventList extends React.Component {
         super(props);
         this.state = {
             eventList: [],
-            authenticated: true
+            authenticated: true,
+            show: false,
         };
     }
 
@@ -27,9 +32,9 @@ class EventList extends React.Component {
         this.getEvents().then((result) => {
             this.setState({
                 eventList: result.eventList,
-                authenticated: true
+                authenticated: true,
+                show: false
             })
-            
         }).catch((error) => {
             removeSessionCookie()
             console.log(error)  // handle any rejects that come up in the chain.
@@ -38,7 +43,7 @@ class EventList extends React.Component {
 
     getEvents(){
         return new Promise((resolve, reject) => {
-            fetch(constants.HTTP + constants.HOST + constants.PORT + '/eventList/all', {
+            fetch(constants.HTTP + constants.HOST + constants.PORT + '/events/all', {
                 method: "GET",
                 credentials: 'include',
                 headers: {
@@ -54,24 +59,149 @@ class EventList extends React.Component {
                     })
                 },
                 (error) => {
-                    reject('issue with getting resource')
+                    reject(error)
                 }
             )
         })
-        
+    }
+
+    saveEvent(event){
+        return new Promise((resolve, reject) => {
+            console.log(constants.HTTP + constants.HOST + constants.PORT + '/events/addEvent')
+            fetch(constants.HTTP + constants.HOST + constants.PORT + '/events/addEvent', {
+                method: "post",
+                credentials: 'include',
+                body: JSON.stringify(event),
+                headers: {
+                "Access-Control-Allow-Credentials": "true",
+                "Content-type": "application/json; charset=UTF-8"
+                }})
+                .then(res => {; res.json()})
+                .then(
+                    (result) => {
+                        console.log("result: " + result)
+                        resolve({
+                            event: result
+                        })
+                    },
+                    (error) => {
+                        console.log("errror: " + error)
+                        reject(error)
+                    }
+                )
+            })
     }
 
     goToEvent(eventId) {
         window.location.href='http://localhost:3000/event/' + eventId;
     }
+  
+    handleChange = date => {
+        this.setState({
+            date: date
+        });
+    };
+         
+    handleClose = () => {
+        this.setState({show: false})
+    }
+
+    handleShow = () => {
+        this.setState({show: true})
+    }
+
+    handleSave = () => {
+
+		const name = document.querySelector("#event-name").value;
+        const description =  document.querySelector("#event-description").value;
+        const location = document.querySelector("#event-location").value;
+        const host = this.host.email
+        if (name === '' || description === '' || location === '') {
+            alert("Please fill in all fields")
+            return
+        }
+		if(!this.state.date){
+            alert("Please fill in all fields")
+            return
+        }
+        if (!host) {
+            alert("Please log in")
+            return
+        }
+        const event = {
+            name: name,
+            description: description,
+            location: location,
+            host: host,
+            datetime: this.state.date
+        }
+        console.log(event)
+        console.log(JSON.stringify(event))
+        this.saveEvent(event)
+        this.handleClose()
+    }
+
 
     renderCondition = () => {
         const session = getSessionCookie()
         if (session) {
+            this.host = session;
             console.log(session)
           return [<NavBar id = {this.props.id} key={"NavBar"}></NavBar>,<div className="eventList" key="eventList">
                 <div className="container">
-                    <button className='hostEventBtn'> Host Event </button>
+                    <button className='hostEventBtn' onClick={this.handleShow}> Host Event </button>
+                    <Modal className='edit-modal' show={this.state.show} onHide={this.handleClose} >
+                    <Modal.Header className='create-event-header'>
+                        <Modal.Title> Host Event</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body className="create-event-body">
+                            <span className='create-event-text'>Event Name</span>
+                            <FormGroup>
+                                <FormControl
+                                    className ="create-event-input"
+                                    type="text"
+                                    id="event-name"
+                                    />
+                            </FormGroup>
+                            <span className= 'create-event-text' >Event Description</span>
+                            <FormGroup>
+                                <FormControl
+                                    className ="create-event-input"
+                                    type="text"
+                                    id="event-description"
+                                />
+                            </FormGroup>
+                            <span className= 'create-event-text' >Event Location</span>
+                            <FormGroup>
+                                <FormControl
+                                    className ="create-event-input"
+                                    type="text"
+                                    id="event-location"
+                                />
+                            </FormGroup>
+                            <span className= 'create-event-text'>Event Date</span>
+                            <FormGroup>
+                                <DatePicker
+                                onChange={this.handleChange}
+                                selected={this.state.date}
+                                id="event-date"
+                                showTimeSelect
+                                timeIntervals={15}
+                                timeFormat="HH:mm"
+                                dateFormat="MMMM d, yyyy hh:mm"
+                                placeholderText="Click to select a date"
+                                />
+                            </FormGroup>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <button className='modalBtn' onClick={this.handleClose}>
+                        Close
+                        </button>
+                        <button className='modalBtn' onClick={this.handleSave}>
+                        Save Changes
+                        </button>
+                    </Modal.Footer>
+                    </Modal>
                     <h3> All Events: </h3>
                     <table>
                         <thead>
