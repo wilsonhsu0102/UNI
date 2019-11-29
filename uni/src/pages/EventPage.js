@@ -35,6 +35,30 @@ class Event extends React.Component {
         
     }
 
+    // getEventById() {
+    //     return new Promise((resolve, reject) => {
+    //         fetch(constants.HTTP + constants.HOST + constants.PORT + `/events?id=${this.id}`, {
+    //             method: "GET",
+    //             credentials: 'include',
+    //             headers: {
+    //             "Access-Control-Allow-Credentials": "true",
+    //             "Content-type": "application/json; charset=UTF-8"
+    //             }})
+    //             .then(res => res.json())
+    //             .then(
+                    
+    //             (result) => {
+    //                 resolve({
+    //                     eventList: result
+    //                 })
+    //             },
+    //             (error) => {
+    //                 reject(error)
+    //             }
+    //         )
+    //     })
+    // }
+
     // componentDidMount () {
     //     // for (let i = 0; i < this.rows.lenght; i++) {
 
@@ -79,10 +103,6 @@ class Event extends React.Component {
                     <div className="name"> 
                         {this.eventName}
                     </div>
-                    <div className="hostProfile"> 
-                        <h3> Hosted by: </h3>
-                        <HostProfile id={this.id}/>
-                    </div>
                     <div className="coverPhoto"> 
                         <EventPhoto photo={this.photo}/> 
                     </div>
@@ -93,12 +113,9 @@ class Event extends React.Component {
 
                 </div>
                 <div className="sideBlock">
-                    <h3> Event Location: </h3>
-                    <div className="googleMap">
-                        <GoogleMapMock/>
-                        
-                    </div>
-                    <h3> Attendees: </h3>
+                    <HostProfile id={this.id}/>
+                    
+                    <h3 id='attendeesTitle'> Attendees: </h3>
                     <div className="attendees">
                         <table className="table">
                             <tbody> 

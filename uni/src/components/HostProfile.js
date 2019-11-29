@@ -6,9 +6,13 @@ class HostProfile extends React.Component {
         this.host = this.props.id;
         /// Get host info from server
         if (this.host === 1) {
+            this.name = "Joker"
             this.hostProfile = require("../images/coverPhoto1.jpg");
+            this.location = "NC3111"
         } else {
+            this.name = "Wilson Hsu"
             this.hostProfile = require("../images/profilepic.jpg")
+            this.location = "Robarts Library"
         }
     }
     goToProfile(profileId) {
@@ -17,7 +21,11 @@ class HostProfile extends React.Component {
 
     render() {
         return (
-            <button className="profileButton" onClick={this.goToProfile.bind(this, this.host)}> <img src={this.hostProfile} alt="profile for host"/> </button>
+            <div className="hostProfile">
+                <button className="profileButton" onClick={this.goToProfile.bind(this, this.host)}> <img src={this.hostProfile} alt="profile for host"/> </button>
+                <h3 className="hostName"> Host: {this.name} </h3>
+                <h3> Location: {this.location} </h3>
+            </div>
        );
     }
 }
