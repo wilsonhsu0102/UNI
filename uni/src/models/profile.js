@@ -5,6 +5,7 @@ let profileSchema = new mongoose.Schema({
     description: String,
     email: String,
     pictures: {
+        profile: String,
         photolib: Array,
         hiddenlib: Array
     }

@@ -268,5 +268,17 @@ module.exports = {
             })
         })
     },
+    updateProfile: function(email, req, res) {
+        console.log('LOG: studentHandler->updateProfile');
+        mongoose.connect(constants.MONGO_DB_URL, {useNewUrlParser: true})
+
+        var db = mongoose.connection;
+        db.on( 'error', console.error(bind(console, 'connection error:')));
+        db.once('open', () => console.log('connected to the database'));
+        const filter = { "email": email };
+        const update = req;
+        let doc = Profile.findOneAndUpdate(filter, update, {new: true});
+        console.log(doc);
+    },
     
 }

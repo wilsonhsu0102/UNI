@@ -9,5 +9,5 @@ module.exports = {
     MONGO_DB_NAME: 'uni',
     MONGO_DB_URL: 'mongodb://localhost:27017/uni',
     //HEROKU_PORT: ''
-    PORT: ':5000'
+    PORT: ':5000',
 }

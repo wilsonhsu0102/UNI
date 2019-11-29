@@ -9,8 +9,10 @@ const Profile = require('./models/profile')
 console.log('required')
 var eventListRouter = require('./routes/events');
 var studentListRouter = require('./routes/students');
+var imagesRouter = require('./routes/images');
 const cors = require('cors')
 const session = require('express-session')
+
 
 
 mongoose.Promise = global.Promise;
@@ -28,10 +30,11 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-      expires: 60000,
+      expires: 6000000,
       httpOnly: true
   }
 }));
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
@@ -42,6 +45,7 @@ module.exports = app;
 
 app.use('/eventList', eventListRouter);
 app.use('/student', studentListRouter);
+app.use('/images', imagesRouter);
 
 let db = mongoose.connection;
 

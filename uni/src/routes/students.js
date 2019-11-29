@@ -3,6 +3,7 @@ const students = require('../lib/studentHandler')
 var router = express.Router();
 const Account = require('../models/account')
 const { ObjectID } = require('mongodb')
+const fs = require('fs');
 
 
 // Middleware for authentication of resources
@@ -71,6 +72,17 @@ router.get('/getProfile', authenticate, (req, res) => {
     console.log(email)
     if (email) {
         students.getProfilebyEmail(email, res)
+    } else {
+        res.sendFile(__dirname + '/permDenied.html')
+    }
+})
+
+router.post('/updateProfile', authenticate, (req, res) => {
+    const email = req.session.email
+    console.log(email)
+    if (email) {
+        // students.getProfilebyEmail(email, res)
+        
     } else {
         res.sendFile(__dirname + '/permDenied.html')
     }

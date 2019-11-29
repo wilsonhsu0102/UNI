@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var Event = require('../models/event')
 const Account = require('../models/account')
 const Profile = require('../models/profile')
+const Image = require('../models/image')
 console.log('MONGO_DB_URL', constants.MONGO_DB_URL)
 var fs = require('fs');
 var accountList = JSON.parse(fs.readFileSync("src/data/init.json"));
@@ -44,6 +45,16 @@ module.exports = {
                 db.close();
             })
         });
+
+        // once the connection is established we define our schemas
+        db.once('open', function callback() {
+            console.log("connected")
+            Image.collection.insertOne({imageName: "testimage", imageData: "jpg"}, function(err,r) {
+                console.log('LOG: Image collection has been created!');
+                db.close();
+            })
+        })
+
     }
 }
 require('make-runnable');
