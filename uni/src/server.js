@@ -28,7 +28,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-      expires: 60000,
+      expires: 6000000000000,
       httpOnly: true
   }
 }));
@@ -40,7 +40,7 @@ app.listen(PORT, () => {
 
 module.exports = app;
 
-app.use('/eventList', eventListRouter);
+app.use('/events', eventListRouter);
 app.use('/student', studentListRouter);
 
 let db = mongoose.connection;
