@@ -1,11 +1,11 @@
 import React from 'react';
 import './EventPage.css'
-import HostProfile from '../components/HostProfile';
 import EventPhoto from '../components/EventPhoto';
 import GoogleMapMock from '../components/GoogleMap';
 import NavBar from '../components/navbar';
 import constants from '../lib/constants'
-
+import Login from '../pages/Login'
+import { SessionContext, getSessionCookie, setSessionCookie, removeSessionCookie } from "../session";
 
 const event1 = {"eventName": "FREE! BBT!", "hostId": "1", "eventCoverPhoto": "N/A"
 , "eventLocation": "SS", "Attendees": [{'name': 'Wilson Hsu'}, {'name': 'Johnny Depp'}, {'name': 'Arnold Schwarzenegger'}, {'name': 'Jim Carrey'}, {'name': 'Emma Watson'}, {'name': 'Daniel Radcliffe'}, {'name': 'Leonardo DiCaprio'}, {'name': 'Tom Cruise'}, {'name': 'Brad Pitt'}, {'name': 'Morgan Freeman'}, {'name': 'Tom Hanks'}], 
@@ -20,25 +20,50 @@ const event1 = {"eventName": "FREE! BBT!", "hostId": "1", "eventCoverPhoto": "N/
 class Event extends React.Component {
     constructor(props) {
         super(props);
-        this.id = Number(this.props.id);
-        /// Get event info from server
-        if (this.id === 1) {
-            this.eventName = event1.eventName;
-            this.description = event1.eventDescription;
-            this.attendees = event1.Attendees;
-            this.photo = event1.eventCoverPhoto;
-        } else {
-            this.eventName = event2.eventName;
-            this.description = event2.eventDescription;
-            this.attendees = event2.Attendees;
-            this.photo = event2.eventCoverPhoto;
+        this.id = this.props.id;
+        this.name = "Wilson Hsu"
+        this.hostProfile = require("../images/profilepic.jpg")
+        this.state = {
+            authenticated: true,
+            photo: event2.eventCoverPhoto,
+            attendees: []
         }
-        
+    }
+
+    componentDidMount() {
+        this.getEventById()
+        .then(event => {
+            this.setState({
+                eventName: event.eventName,
+                description: event.description,
+                location: event.location,
+                datetime: event.date,
+                authenticated: true
+            })
+            // this.photo = event.eventCoverPhoto;
+        })
+        .catch(err => {
+            removeSessionCookie()
+            console.log(err)
+        })
+        this.getAttendees()
+        .then(data => {
+            console.log('_EQWERQRQWTQWT_____')
+            console.log(typeof(data))
+            console.log(data)
+            this.setState({
+                attendees: data
+            })
+        })
+        .catch(err => {
+            removeSessionCookie()
+            console.log(err)
+        })
     }
 
     getEventById() {
         return new Promise((resolve, reject) => {
-            fetch(constants.HTTP + constants.HOST + constants.PORT + `/events?id=${this.id}`, {
+            fetch(constants.HTTP + constants.HOST + constants.PORT + `/events/event?id=${this.id}`, {
                 method: "GET",
                 credentials: 'include',
                 headers: {
@@ -49,15 +74,36 @@ class Event extends React.Component {
                 .then(
                     
                 (result) => {
-                    resolve({
-                        eventList: result
-                    })
+                    console.log(typeof(result))
+                    console.log(result)
+                    resolve(result)
                 },
                 (error) => {
                     reject(error)
                 }
             )
         })
+    }
+
+    getAttendees() {
+        return new Promise((resolve, reject) => {
+            fetch(constants.HTTP + constants.HOST + constants.PORT + `/student/getAttendees?eventId=${this.id}`, {
+                method: "GET",
+                credentials: 'include',
+                headers: {
+                "Access-Control-Allow-Credentials": "true",
+                "Content-type": "application/json; charset=UTF-8"
+                }})
+                .then(res => res.json())
+                .then(
+                        
+                (result) => {
+                    resolve(result)
+                },
+                (error) => {
+                    reject(error)
+                })
+            })
     }
 
     goToProfile(profileId) {
@@ -68,53 +114,67 @@ class Event extends React.Component {
         /// Get attendees from server
         // code below requires server call
         this.rows = [];
-        const length = this.attendees.length;
+        const length = this.state.attendees.length;
         for (let i = 0; i < Math.ceil(length / 3); i++) {
-            const items = [];
+            const items = []
             for (let j = 0; (i * 3 + j < length) && j < 3; j++) {
-                if (i * 3 + j === 0) { // This is to demonstrate that our link will link to the user profile.
-                    items.push(<td className="items" key={i * 3 + j}><button className="people" onClick={this.goToProfile.bind(this, i*3+j)}>{this.attendees[i * 3 + j].name}</button></td>)
-                } else {
-                    items.push(<td className="items" key={i * 3 + j}><button className="people">{this.attendees[i * 3 + j].name}</button></td>)
-                }
-                
+                console.log(this.state.attendees[i * 3 + j])
+                items.push(<td className="items" key={i * 3 + j}><button className="people" onClick={this.goToProfile.bind(this, this.state.attendees[i * 3 + j]._id)}>{this.state.attendees[i * 3 + j].name}</button></td>)
             }
             this.rows.push(<tr key={i}>{items}</tr>)
         }
+        
     }
+
+    renderCondition = () => {
+        const session = getSessionCookie()
+        if (session) {
+            this.host = session;
+            return (
+                [<NavBar id={this.id} key={"NavBar"}></NavBar>, <div className="eventPage" key={"eventPage" + this.id}> 
+                <div className="container"> 
+                    <div className="eventBlock"> 
+                        <div className="name"> 
+                            {this.state.eventName}
+                        </div>
+                        <div className="coverPhoto"> 
+                            <EventPhoto photo={this.state.photo}/> 
+                        </div>
+                        <h3> Event Description: </h3>
+                        <div className="description">
+                            {this.state.description}
+                        </div>
+    
+                    </div>
+                    <div className="sideBlock">
+                        <div className="hostProfile">
+                            <button className="profileButton" onClick={this.goToProfile.bind(this, 1)}> <img src={this.hostProfile} alt="profile for host"/> </button>
+                            <h3 className="hostName"> Host: {this.name} </h3>
+                            <div className='eventDetail'>
+                                <p> Location: {this.state.location} </p>
+                                <p> Date: {this.state.datetime} </p>
+                            </div>
+                        </div>
+                        <h3 id='attendeesTitle'> Attendees: </h3>
+                        <div className="attendees">
+                            <table className="table">
+                                <tbody> 
+                                    {this.rows}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>]
+            );
+        }
+        removeSessionCookie()
+        return <Login></Login>
+      }
 
     render()  {
         this.setUpAttendees();
-        return (
-            [<NavBar id={this.id} key={"NavBar"}></NavBar>, <div className="eventPage" key={"eventPage" + this.id}> 
-            <div className="container"> 
-                <div className="eventBlock"> 
-                    <div className="name"> 
-                        {this.eventName}
-                    </div>
-                    <div className="coverPhoto"> 
-                        <EventPhoto photo={this.photo}/> 
-                    </div>
-                    <h3> Event Description: </h3>
-                    <div className="description">
-                        {this.description}
-                    </div>
-
-                </div>
-                <div className="sideBlock">
-                    <HostProfile id={this.id}/>
-                    <h3 id='attendeesTitle'> Attendees: </h3>
-                    <div className="attendees">
-                        <table className="table">
-                            <tbody> 
-                                {this.rows}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>]
-        );
+        return this.renderCondition()
       }
   }
 export default Event;

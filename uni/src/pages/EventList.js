@@ -40,6 +40,7 @@ class EventList extends React.Component {
             let name;
             let location;
             let date;
+            console.log(this.state.eventList[i]._id)
             name = <td className='eventListName'> <button className="eventListButton" onClick={this.goToEvent.bind(this, this.state.eventList[i]._id)}> {this.state.eventList[i].eventName} </button> </td>
             location = <td className='eventListLocation'> <button className="eventListButton" onClick={this.goToEvent.bind(this, this.state.eventList[i]._id)}> {this.state.eventList[i].location} </button> </td>
             date = <td className='eventListDate'> <button className="eventListButton" onClick={this.goToEvent.bind(this, this.state.eventList[i]._id)}> {this.state.eventList[i].date} </button> </td>
@@ -138,7 +139,8 @@ class EventList extends React.Component {
             description: description,
             location: location,
             host: host,
-            datetime: this.state.date
+            datetime: this.state.date,
+            attendees: [host]
         }
         console.log(event)
         console.log(JSON.stringify(event))
