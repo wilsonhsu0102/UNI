@@ -13,9 +13,24 @@
     max-height: 10%;
 }
 
+.hostEventBtn {
+    position: relative;
+    left: 545px;
+    top: 20px;
+    padding: 10px 40px 10px 40px;
+    background-color: rgb(248, 213, 218);
+    border: none;
+}
+
+.hostEventBtn:hover {
+    transition-duration: 0.4s;
+    background-color: rgb(245, 150, 164);
+}
+
 .eventList table {
     border: 2px solid;
     height: 400px;
+    width: 500px;
     background-color: rgba(248, 213, 218, 0.75);
 }
 

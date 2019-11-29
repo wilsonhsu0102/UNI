@@ -23,8 +23,8 @@ class HostProfile extends React.Component {
         return (
             <div className="hostProfile">
                 <button className="profileButton" onClick={this.goToProfile.bind(this, this.host)}> <img src={this.hostProfile} alt="profile for host"/> </button>
-                <h3 className="hostName"> Hosted by: {this.name} </h3>
-                <h3> Event Location: {this.location} </h3>
+                <h3 className="hostName"> Host: {this.name} </h3>
+                <h3> Location: {this.location} </h3>
             </div>
        );
     }

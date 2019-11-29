@@ -44,6 +44,9 @@
     background-color: rgba(248, 213, 218, 0.75);
     border-radius: 10px;
     border:solid 3px gray;
+    width: 360px;
+    height: 290px;
+    overflow: auto;
 }
 
 .profileButton {
@@ -52,14 +55,16 @@
     border-radius: 50%;
     background: none;
     width: 150px;
-    height: 150px;
+    height: 100%;
     padding: 0;
+    border: 0;
 }
 
 .profileButton img {
     border-radius: 50%;
     width: 150px;
-    height: 150px;
+    height: 100%;
+    overflow: hidden;
     border: solid;
 }
 
@@ -154,3 +159,23 @@
     color: #EC7063;
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f100; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 25px;
+  background: rgba(136, 136, 136, 0.411); 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}

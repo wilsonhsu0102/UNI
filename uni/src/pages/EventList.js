@@ -68,8 +68,10 @@ class EventList extends React.Component {
     renderCondition = () => {
         const session = getSessionCookie()
         if (session) {
+            console.log(session)
           return [<NavBar id = {this.props.id} key={"NavBar"}></NavBar>,<div className="eventList" key="eventList">
-                <div className="container"> 
+                <div className="container">
+                    <button className='hostEventBtn'> Host Event </button>
                     <h3> All Events: </h3>
                     <table>
                         <thead>
