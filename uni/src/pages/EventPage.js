@@ -4,6 +4,7 @@ import HostProfile from '../components/HostProfile';
 import EventPhoto from '../components/EventPhoto';
 import GoogleMapMock from '../components/GoogleMap';
 import NavBar from '../components/navbar';
+import constants from '../lib/constants'
 
 
 const event1 = {"eventName": "FREE! BBT!", "hostId": "1", "eventCoverPhoto": "N/A"
@@ -35,41 +36,29 @@ class Event extends React.Component {
         
     }
 
-    // getEventById() {
-    //     return new Promise((resolve, reject) => {
-    //         fetch(constants.HTTP + constants.HOST + constants.PORT + `/events?id=${this.id}`, {
-    //             method: "GET",
-    //             credentials: 'include',
-    //             headers: {
-    //             "Access-Control-Allow-Credentials": "true",
-    //             "Content-type": "application/json; charset=UTF-8"
-    //             }})
-    //             .then(res => res.json())
-    //             .then(
+    getEventById() {
+        return new Promise((resolve, reject) => {
+            fetch(constants.HTTP + constants.HOST + constants.PORT + `/events?id=${this.id}`, {
+                method: "GET",
+                credentials: 'include',
+                headers: {
+                "Access-Control-Allow-Credentials": "true",
+                "Content-type": "application/json; charset=UTF-8"
+                }})
+                .then(res => res.json())
+                .then(
                     
-    //             (result) => {
-    //                 resolve({
-    //                     eventList: result
-    //                 })
-    //             },
-    //             (error) => {
-    //                 reject(error)
-    //             }
-    //         )
-    //     })
-    // }
-
-    // componentDidMount () {
-    //     // for (let i = 0; i < this.rows.lenght; i++) {
-
-    //     // }
-    //     const item = document.querySelector('td');
-    //     const button = item.getElementsByTagName('button')[0];
-    //     console.log(item);
-    //     console.log(button.attributes.profileid.value);
-    //     // console.log(button.props.profileid);
-    //     button.addEventListener('click', this.goToProfile(button.attributes.profileid.value));
-    // }
+                (result) => {
+                    resolve({
+                        eventList: result
+                    })
+                },
+                (error) => {
+                    reject(error)
+                }
+            )
+        })
+    }
 
     goToProfile(profileId) {
         window.location.href='http://localhost:3000/profile/' + profileId;
@@ -114,7 +103,6 @@ class Event extends React.Component {
                 </div>
                 <div className="sideBlock">
                     <HostProfile id={this.id}/>
-                    
                     <h3 id='attendeesTitle'> Attendees: </h3>
                     <div className="attendees">
                         <table className="table">
