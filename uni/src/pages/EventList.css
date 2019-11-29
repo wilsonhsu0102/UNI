@@ -5,8 +5,8 @@
 
 .eventList .container {
     margin: 0 auto;
-    left: 230px; 
     margin-top: 50px;
+    padding-left: 100px;
 }
 
 .eventList h3 {

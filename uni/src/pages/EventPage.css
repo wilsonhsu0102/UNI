@@ -7,7 +7,7 @@
 .container {
     margin: 30px auto;
     height: 600px;
-    left: 100px;
+    left: 80px;
     position: relative;
 }
 
@@ -17,13 +17,14 @@
 }
 
 .sideBlock {
+    padding-top: 30px;
     float:left;
-    position: relative;
     top: 18px;
+    text-align: center;
+    margin-left: 70px;
 }
 
 .name {
-    position: relative;
     top: 70px;
     font-size: 50px;
     font-weight: bold;
@@ -31,18 +32,27 @@
     float: left;
 }
 
+.hostName {
+    text-align: center;
+}
+
 .hostProfile {
-    position: relative;
-    left: -80px;
     display: flex;
-    flex-direction: row;
-    border-radius: 50%;
+    flex-direction: column;
+    padding: 30px 0 20px 0;
+    margin: 0;
+    background-color: rgba(248, 213, 218, 0.75);
+    border-radius: 10px;
+    border:solid 3px gray;
 }
 
 .profileButton {
+    position: relative;
+    left: 100px;
     border-radius: 50%;
     background: none;
-    border: 0;
+    width: 150px;
+    height: 150px;
     padding: 0;
 }
 
@@ -62,7 +72,7 @@
 .coverPhoto {
     width: 500px;
     height: 200px;
-    margin-top: 10px;
+    margin-top: 80px;
     border-radius: 15px;
 }
 
@@ -80,6 +90,10 @@
 
 .eventBlock h3 {
     margin: 10px 0 5px 0;
+    background-color: rgba(255, 255, 255, 0.541);
+    border-radius: 25px;
+    padding: 10px;
+
 }
 
 .description {
@@ -87,8 +101,9 @@
     width: 500px;
     height: 210px;
     overflow: auto;
-    margin-top: 5px;
+    margin-top: 10px;
     border-radius: 15px;
+    background-color: rgba(248, 213, 218, 0.75);
 }
 
 .description:hover {
@@ -97,40 +112,13 @@
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
-.googleMap img {
-    margin-top: 5px;
-    width: 360px;
-    height: 330px;
+.sideBlock #attendeesTitle {
+    text-align: left;
+    padding: 10px;
+    border-radius: 25px;
+    background-color: rgba(255, 255, 255, 0.541);
 }
-
-.googleMap img:hover {
-    transition-duration: 0.4s;
-    background-color: rgb(248, 213, 218);
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
-}
-/*
-For google map integration later on
-.googleMap .marker {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 18px;
-    height: 18px;
-    background-color: #000;
-    border: 2px solid #fff;
-    border-radius: 100%;
-    user-select: none;
-    transform: translate(-50%, -50%);
-    background-color: blue; 
-    cursor: 'pointer';
-  }
-
-.googleMap .marker:hover {
-    z-index: 1;
-} */
-
 .attendees {
-    margin-top: 5px;
     width: 360px;
     height: 180px;
     padding: 10px;
@@ -138,6 +126,7 @@ For google map integration later on
     overflow: auto;
     border-radius: 15px;
     padding: 5px 10px 10px 10px;
+    background-color: rgba(248, 213, 218, 0.75);
 }
 
 .attendees:hover {

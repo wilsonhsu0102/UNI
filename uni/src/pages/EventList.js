@@ -16,7 +16,6 @@ const eventList = [{'eventName': 'Free BBT', 'location': 'SS', 'date': '2019/01/
 
 class EventList extends React.Component {
     constructor(props){ 
-        
         super(props);
         this.state = {
             eventList: [],

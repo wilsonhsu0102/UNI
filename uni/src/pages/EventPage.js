@@ -79,10 +79,6 @@ class Event extends React.Component {
                     <div className="name"> 
                         {this.eventName}
                     </div>
-                    <div className="hostProfile"> 
-                        <h3> Hosted by: </h3>
-                        <HostProfile id={this.id}/>
-                    </div>
                     <div className="coverPhoto"> 
                         <EventPhoto photo={this.photo}/> 
                     </div>
@@ -93,12 +89,9 @@ class Event extends React.Component {
 
                 </div>
                 <div className="sideBlock">
-                    <h3> Event Location: </h3>
-                    <div className="googleMap">
-                        <GoogleMapMock/>
-                        
-                    </div>
-                    <h3> Attendees: </h3>
+                    <HostProfile id={this.id}/>
+                    
+                    <h3 id='attendeesTitle'> Attendees: </h3>
                     <div className="attendees">
                         <table className="table">
                             <tbody> 

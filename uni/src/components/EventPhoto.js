@@ -19,10 +19,7 @@ class EventPhoto extends React.Component {
     render() {
         this.getEventPhoto(this.props.photo);
         return (
-            <div> 
-
                 <img id="eventPic" src={this.eventPhoto} alt="Cover for the event"/> 
-            </div>
         )
     }
 }
