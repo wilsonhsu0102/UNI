@@ -35,7 +35,11 @@
     "eject": "react-scripts eject",
     "init": "node ./src/lib/db.js init"
   },
-  "proxy": "http://localhost:5000/",
+  "proxy": {
+    "/student": {
+      "target": "http://localhost:5000"
+    }
+  },
   "eslintConfig": {
     "extends": "react-app"
   },
