@@ -88,12 +88,6 @@ function CallWantedEvent() {
   return <Event id={eventId}/>;
 }
 
-// Calls the chat page with the connection's email
-function CallWantedChat() {
-  let { profileId } = useParams();
-  return <EditProfile id={profileId}/>;
-}
-
 // Calls the home page with eventId
 // function HomeWantedEvent() {
 //   return <Home user={0}/>;

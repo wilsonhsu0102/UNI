@@ -3,7 +3,8 @@ var Image = require('../models/image');
 var router = express.Router();
 const multer = require('multer');
 const path = require('path');
-const images = require('../lib/imageHandler')
+const images = require('../lib/imageHandler');
+const fs = require('fs');
 
 // Middleware for authentication of resources
 const authenticate = (req, res, next) => {
@@ -69,12 +70,14 @@ const upload = multer({
 router.route("/all")
     .post(upload.single('imageData'), (req, res, next) => {
         console.log("POSTING")
-        console.log(req.file);
+        console.log(req.body);
+        console.log(req.body.imageData);
         const newImage = new Image({
             email: req.body.email,
             imageName: req.body.imageName,
-            imageData: req.file,
-            type: req.body.type
+            imageData: req.body.imageData,
+            type: req.body.type,
+            image: req.body.image
         });
 
         newImage.save()
