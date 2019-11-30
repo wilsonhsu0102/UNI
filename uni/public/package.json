@@ -1,8 +1,5 @@
 {
-    "name": "uni",
-    "engines": {
-      "node": "10.15.0"
-    },
+    "name": "uni-react",
     "version": "0.1.0",
     "private": true,
     "dependencies": {
