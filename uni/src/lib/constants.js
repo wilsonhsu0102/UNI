@@ -8,7 +8,7 @@ module.exports = {
     MONGO_DB_PORT: '27017',
     MONGO_DB_NAME: 'uni',
     //MONGO_DB_URL: 'mongodb://localhost:27017/uni',
-    MONGO_DB_URL: 'mongodb+srv://adminUser:123@cluster0-ralx9.mongodb.net/test?retryWrites=true&w=majority',
+    MONGO_DB_URL: 'mongodb://<dbuser>:<dbpassword>@ds251158.mlab.com:51158/heroku_m56ts9mx',
     //HEROKU_PORT: ''
     PORT: ':5000',
 }
