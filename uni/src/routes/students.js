@@ -55,7 +55,7 @@ router.get('/getConnections', authenticate, (req, res) => {
     
 })
 
-router.get('/getDeck', authenticate, (req, res) => {
+router.get('/getDeck', (req, res) => {
     const id = req.session.user
     console.log("THIS IS THE id!!!!!!!!!!", id)
     if (id) {
