@@ -3,6 +3,7 @@ var constants = require('./constants');
 const Account = mongoose.model('Account');
 const ObjectID = require('mongodb').ObjectID
 const Profile = mongoose.model('Profile');
+const Event = mongoose.model('Event');
 
 console.log(Account)
 module.exports = {
@@ -60,8 +61,6 @@ module.exports = {
                 
             })
         })
-        
-        
     },
     getStudentByID: function(id){
         console.log('LOG: studentHandler->getStudentByID');
@@ -227,6 +226,27 @@ module.exports = {
                 
 
 
+    },
+    getAttendees: function(id, req, res) {
+        console.log('LOG: studentHandler->getAttendees');
+        mongoose.connect(constants.MONGO_DB_URL, { useNewUrlParser: true })
+
+        var db = mongoose.connection;
+        db.on( 'error', console.error.bind( console, 'connection error:' ) );
+
+        db.once( 'open', () => console.log('connected to the database'));
+        Event.findById({"_id": id}).then((event) => {
+            console.log(event)
+            const attendees = event.attendees
+            
+            Account.find({ 'email' : {$in:attendees}}).then((students) => {
+                console.log('LOG: found students->', students)
+                res.send(students)
+            })
+        }).catch((error) => {
+            console.warn('WARN: No accounts found!');
+            res.json({})
+        })
     },
     getProfilebyEmail: function(email, res) {
         console.log('LOG: studentHandler->getProfilebyEmail');

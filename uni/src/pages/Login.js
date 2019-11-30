@@ -51,6 +51,13 @@ const styles = theme => ({
 });
 
 class Login extends React.Component {
+    constructor(props){
+      super(props)
+      this.state = {
+        username: '',
+        password: ''
+      }
+    }
     
     Copyright = () => {
         return (
@@ -81,6 +88,10 @@ class Login extends React.Component {
         // Do Stuff
         const email = this.state.username
         const password = this.state.password
+        if (email === '' || password === '') {
+          alert('Please fill in all the fields')
+          return
+        }
         const opts = {
           email: email,
           password: password

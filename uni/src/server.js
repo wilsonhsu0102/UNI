@@ -31,7 +31,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-      expires: 6000000,
+      expires: 6000000000000,
       httpOnly: true
   }
 }));
@@ -44,7 +44,7 @@ app.listen(PORT, () => {
 
 module.exports = app;
 
-app.use('/eventList', eventListRouter);
+app.use('/events', eventListRouter);
 app.use('/student', studentListRouter);
 app.use('/images', imagesRouter);
 

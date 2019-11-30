@@ -98,4 +98,26 @@ router.post('/connect', authenticate, (req, res) => {
     }
 })
 
+router.get('/getSelfId', authenticate, (req, res) => {
+    const id = req.session.user
+    console.log("THIS IS THE id", id)
+    if (id) {
+        res.json({id});
+        
+    } else {
+        res.sendFile(__dirname + '/permDenied.html')
+    }
+    
+})
+
+router.get('/getAttendees', authenticate, (req, res) => {
+    const eventId = req.query.eventId
+    console.log(eventId)
+    if (eventId) {
+        students.getAttendees(eventId, req, res)
+    } else {
+        res.sendFile(__dirname + '/permDenied.html')
+    }
+})
+
 module.exports = router;

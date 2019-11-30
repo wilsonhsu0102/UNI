@@ -72,14 +72,6 @@ export default function SwipeableTemporaryDrawer(userid) {
         <ListItemText primary="Connections" />
         </ListItem>
         </Link>
-        <Link to={{pathname:"/createEvent", state: { id: userid.id }}}>
-        <ListItem button>
-        <ListItemIcon>
-        <TodayIcon />
-        </ListItemIcon>
-        <ListItemText primary="Host Event" />
-        </ListItem>
-        </Link>
         <Link to={{pathname:"/eventList", state: { id: userid.id }}}>
         <ListItem button>
         <ListItemIcon>

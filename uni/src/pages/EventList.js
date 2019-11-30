@@ -8,15 +8,6 @@ import {FormGroup, FormControl} from "react-bootstrap";
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
 import { SessionContext, getSessionCookie, setSessionCookie, removeSessionCookie } from "../session";
-/*
-const eventList = [{'eventName': 'Free BBT', 'location': 'SS', 'date': '2019/01/01 13:00:00'}, {'eventName': 'Free Donuts', 'location': 'SS', 'date': '2019/01/04 13:00:00'}, 
-{'eventName': 'Free Shirts', 'location': 'BA', 'date': '2019/01/01 13:00:00'}, {'eventName': 'Free Pants', 'location': 'SS', 'date': '2019/01/01 13:00:00'}, 
-{'eventName': 'Free Textbooks', 'location': 'SS', 'date': '2019/05/07 13:00:00'}, {'eventName': 'Free Hugs', 'location': 'OISE', 'date': '2019/01/21 13:00:00'}, 
-{'eventName': 'Free Alcohol (shhh', 'location': 'SS', 'date': '2019/08/01 13:00:00'}, {'eventName': 'Free Donuts', 'location': 'SS', 'date': '2019/01/01 13:00:00'}, 
-{'eventName': 'FREE TUITIONNNNNNNNNNNN!!', 'location': "Meric's Office", 'date': '3999/01/01 13:00:00'}, {'eventName': 'Free Essay Writer', 'location': "UC", 'date': '3999/01/01 13:00:00'},
-{'eventName': 'Some Event1', 'location': "UC", 'date': '3999/01/01 13:00:00'}, {'eventName': 'Some Event2', 'location': "UC", 'date': '3999/01/01 13:00:00'}, 
-{'eventName': 'Some Event3', 'location': "UC", 'date': '3999/01/01 13:00:00'}, {'eventName': 'Some Event4', 'location': "UC", 'date': '3999/01/01 13:00:00'}]
-*/
 
 class EventList extends React.Component {
     constructor(props){ 
@@ -39,6 +30,22 @@ class EventList extends React.Component {
             removeSessionCookie()
             console.log(error)  // handle any rejects that come up in the chain.
         })
+    }
+
+    setUpEventList() {
+        this.rows = [];
+        console.log(this.state.eventList)
+        const length = this.state.eventList.length;
+        for (let i = 0; i < length; i++) {
+            let name;
+            let location;
+            let date;
+            console.log(this.state.eventList[i]._id)
+            name = <td className='eventListName'> <button className="eventListButton" onClick={this.goToEvent.bind(this, this.state.eventList[i]._id)}> {this.state.eventList[i].eventName} </button> </td>
+            location = <td className='eventListLocation'> <button className="eventListButton" onClick={this.goToEvent.bind(this, this.state.eventList[i]._id)}> {this.state.eventList[i].location} </button> </td>
+            date = <td className='eventListDate'> <button className="eventListButton" onClick={this.goToEvent.bind(this, this.state.eventList[i]._id)}> {this.state.eventList[i].date} </button> </td>
+            this.rows.push(<tr className="eventListRow" key={i}>{name}{location}{date}</tr>)
+        }
     }
 
     getEvents(){
@@ -67,7 +74,6 @@ class EventList extends React.Component {
 
     saveEvent(event){
         return new Promise((resolve, reject) => {
-            console.log(constants.HTTP + constants.HOST + constants.PORT + '/events/addEvent')
             fetch(constants.HTTP + constants.HOST + constants.PORT + '/events/addEvent', {
                 method: "post",
                 credentials: 'include',
@@ -133,7 +139,8 @@ class EventList extends React.Component {
             description: description,
             location: location,
             host: host,
-            datetime: this.state.date
+            datetime: this.state.date,
+            attendees: [host]
         }
         console.log(event)
         console.log(JSON.stringify(event))
@@ -222,29 +229,6 @@ class EventList extends React.Component {
         return <Login></Login>
       }
 
-    setUpEventList() {
-        /// Get events from server
-        // code below requires server call
-        this.rows = [];
-        console.log(this.state.eventList)
-        const length = this.state.eventList.length;
-        for (let i = 0; i < length; i++) {
-            let name;
-            let location;
-            let date;
-            if (i === 0 || i === 1) {
-                name = <td className='eventListName'> <button className="eventListButton" onClick={this.goToEvent.bind(this, 1 - i)}> {this.state.eventList[i].eventName} </button> </td>
-                location = <td className='eventListLocation'> <button className="eventListButton" onClick={this.goToEvent.bind(this, i)}> {this.state.eventList[i].location} </button> </td>
-                date = <td className='eventListDate'> <button className="eventListButton" onClick={this.goToEvent.bind(this, 1 - i)}> {this.state.eventList[i].date} </button> </td>
-            } else {
-                name = <td className='eventListName'> <button className="eventListButton"> {this.state.eventList[i].eventName} </button> </td>
-                location = <td className='eventListLocation'> <button className="eventListButton"> {this.state.eventList[i].location} </button> </td>
-                date = <td className='eventListDate'> <button className="eventListButton"> {this.state.eventList[i].date} </button> </td>
-            }
-            this.rows.push(<tr className="eventListRow" key={i}>{name}{location}{date}</tr>)
-        }
-    }
-    
     render() {
         this.setUpEventList();
         return this.renderCondition()
