@@ -40,7 +40,7 @@
     "styled-jsx": "^3.2.4",
     "typeface-roboto": "0.0.75",
     "write-json-file": "^4.2.1",
-	"date-and-time": "^0.10.0"
+    "date-and-time": "^0.10.0"
   },
   "scripts": {
     "start": "react-scripts start",
