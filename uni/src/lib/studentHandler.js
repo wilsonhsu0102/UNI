@@ -18,7 +18,8 @@ module.exports = {
                 // We can check later if this exists to ensure we are logged in.
                 req.session.user = user._id;
                 console.log('success!!!!!!!!!!!!!!!')
-                
+				
+				req.session.name = user.name;
                 req.session.email = user.email
                 req.session.save((err) => {
                     if (!err) {

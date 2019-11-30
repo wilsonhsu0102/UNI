@@ -7,7 +7,7 @@ import AlignItemsList from './Connection'
 class ConnectionsList extends React.Component {
     
     render() {
-        const { students, selfId } = this.props
+        const { students, selfId, selfName } = this.props
         console.log(selfId);
         return (
             <div>
@@ -15,7 +15,7 @@ class ConnectionsList extends React.Component {
                 <h2 style={{paddingLeft: "30px"}}>Your Connections:</h2>
                 { students.map((student) => {
                 return(
-                    AlignItemsList(uid(student), student, selfId)
+                    AlignItemsList(uid(student), student, selfId, selfName)
                 )
                 }) }
             </div>

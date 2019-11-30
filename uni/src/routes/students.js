@@ -99,10 +99,11 @@ router.post('/connect', authenticate, (req, res) => {
 })
 
 router.get('/getSelfId', authenticate, (req, res) => {
-    const id = req.session.user
+    const id = req.session.user;
+	const name = req.session.name;
     console.log("THIS IS THE id", id)
     if (id) {
-        res.json({id});
+        res.json({id, name});
         
     } else {
         res.sendFile(__dirname + '/permDenied.html')

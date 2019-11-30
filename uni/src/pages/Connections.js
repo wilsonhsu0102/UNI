@@ -13,6 +13,7 @@ class CardQueue extends React.Component {
   state = {
     connections: [],
 	selfId: "",
+	selfName: "",
     authenticated: true
   }
 
@@ -31,7 +32,8 @@ class CardQueue extends React.Component {
 	
 	this.getSelfId().then((result) => {
         this.setState({
-          selfId: result.selfId
+          selfId: result.selfObject.id,
+		  selfName: result.selfObject.name
         })
     }).catch((error) => {
 		removeSessionCookie()
@@ -77,14 +79,14 @@ class CardQueue extends React.Component {
               }})
 			  .then(res => res.json())
               .then(
-                  
               (result) => {
-                  console.log('selfId: ', result.id)
+                  console.log('selfObject: ', result)
                   resolve({
-                      selfId: result.id
+                      selfObject: result
                   })
               },
               (error) => {
+				  console.log('selfId:')
                   reject('issue with getting resource')
               }
           )
@@ -99,7 +101,11 @@ class CardQueue extends React.Component {
       if (!session){
           return <Login></Login>
       } else {
-          return [<NavBar></NavBar>,<ConnectionsList students = {this.state.connections} selfId = {this.state.selfId}></ConnectionsList>]
+          return [<NavBar></NavBar>,
+		  <ConnectionsList 
+		  students = {this.state.connections}
+		  selfId = {this.state.selfId}
+		  selfName = {this.state.selfName}></ConnectionsList>]
       } 
   }
 
