@@ -35,12 +35,12 @@ app.use(session({
       httpOnly: true
   }
 }));
-
+/*
 app.use(express.static(__dirname + '/build/index.html'));
 
 app.get('/*', function(req,res) {
   res.sendFile(path.join(__dirname+'/build/index.html'));
-});
+});*/
 
 
 const PORT = process.env.PORT || 5000;
