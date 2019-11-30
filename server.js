@@ -59,6 +59,10 @@ app.use('/events', eventListRouter);
 app.use('/student', studentListRouter);
 app.use('/images', imagesRouter);
 
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'uni', 'build', 'index.html'));
+});
+
 let db = mongoose.connection;
 
 db.once('open', () => console.log('connected to the database'));
