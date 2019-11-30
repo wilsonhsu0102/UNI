@@ -28,7 +28,7 @@ class CardQueue extends React.Component {
 
   getDeck(){
       return new Promise((resolve, reject) => {
-          fetch(constants.HTTP + constants.HOST + constants.PORT + '/student/getDeck', {
+          fetch(constants.HOST ? constants.HTTP + constants.HOST + constants.PORT + '/student/getDeck' : '/student/getDeck', {
               method: "GET",
               credentials: 'include',
               headers: {
@@ -45,7 +45,7 @@ class CardQueue extends React.Component {
               },
               (error) => {
                   removeSessionCookie()
-                  reject('issue with getting resource')
+                  reject(error + 'issue with getting resource')
               }
           )
       })
