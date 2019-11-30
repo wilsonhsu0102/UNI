@@ -17,6 +17,8 @@ const fs = require('fs')
 
 
 mongoose.Promise = global.Promise;
+console.log('process.env.MONGODB_URI', process.env.MONGODB_URI)
+console.log('constants.MONGO_DB_URL', constants.MONGO_DB_URL)
 mongoose.connect(process.env.MONGODB_URI || constants.MONGO_DB_URL);
 
 const app = express();
