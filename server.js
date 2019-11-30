@@ -1,6 +1,6 @@
 const bodyParser = require('body-parser');
 const express = require('express');
-
+const path = require('path');
 const mongoose = require('mongoose');
 const constants = require('./uni/src/lib/constants');
 require('./uni/src/models/event')
@@ -38,11 +38,13 @@ app.use(session({
   }
 }));
 
-app.use(express.static(__dirname + '/uni/build/index.html'));
+app.use(express.static(path.join(__dirname, 'uni', 'build')));
 
-app.get('/*', function(req,res) {
-  res.sendFile(path.join(__dirname+'/uni/build/index.html'));
+
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'uni', 'build', 'index.html'));
 });
+
 
 
 const PORT = process.env.PORT || 5000;
