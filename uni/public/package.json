@@ -1,0 +1,49 @@
+{
+    "name": "uni",
+    "engines": {
+      "node": "10.15.0"
+    },
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "react": "^16.12.0",
+        "react-bootstrap": "^1.0.0-beta.16",
+        "react-bootstrap-modal": "^4.2.0",
+        "react-datepicker": "^2.10.1",
+        "react-dom": "^16.12.0",
+        "react-flippy": "^0.1.5",
+        "react-images-upload": "^1.2.7",
+        "react-native": "^0.61.5",
+        "react-native-deck-swiper": "^1.6.7",
+        "react-native-view-overflow": "0.0.4",
+        "react-router-dom": "^5.1.2",
+        "react-scripts": "3.2.0",
+        "react-scroll": "^1.7.14",
+        "react-swipeable-views": "^0.13.3",
+        "react-uid": "^2.2.0"
+    },
+    "scripts": {
+      "start": "react-scripts start",
+      "build": "react-scripts build",
+      "test": "react-scripts test",
+      "eject": "react-scripts eject",
+      "init": "node ./src/lib/db.js init"
+    },
+    "eslintConfig": {
+      "extends": "react-app"
+    },
+    "browserslist": {
+      "production": [
+        ">0.2%",
+        "not dead",
+        "not op_mini all"
+      ],
+      "development": [
+        "last 1 chrome version",
+        "last 1 firefox version",
+        "last 1 safari version"
+      ]
+    },
+    "devDependencies": {}
+  }
+  
