@@ -12,6 +12,7 @@ var studentListRouter = require('./uni/src/routes/students');
 var imagesRouter = require('./uni/src/routes/images');
 const cors = require('cors')
 const session = require('express-session')
+const proxy = require("http-proxy-middleware");
 const fs = require('fs')
 
 
@@ -26,6 +27,8 @@ const app = express();
 app.use(bodyParser.json())
 app.use(cors({credentials: true, origin: 'http://uni-uoft.herokuapp.com'}));
 //app.options('*', cors());
+
+app.use(proxy("/*", { target: "http://localhost:5000/" }));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
