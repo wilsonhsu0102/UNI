@@ -32,7 +32,7 @@
   "scripts": {
     "start": "node server.js",
     "init": "node ./src/lib/db.js init",
-    "heroku-postbuild": "cd ./public && npm install && npm run build"
+    "heroku-postbuild": "cd uni/public && npm install && npm run build"
   },
   "eslintConfig": {
     "extends": "react-app"
