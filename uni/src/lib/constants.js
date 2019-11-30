@@ -3,7 +3,7 @@ module.exports = {
     HTTP: '',
     // use local for now
     //HOST: 'localhost',
-    HOST: ''
+    HOST: '',
     //MONGO_DB: 'mongodb',
     // use local mongo for now
     MONGO_DB: 'mongodb://localhost:',
