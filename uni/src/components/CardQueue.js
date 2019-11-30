@@ -35,7 +35,7 @@ class CardQueue extends React.Component {
               "Access-Control-Allow-Credentials": "true",
               "Content-type": "application/json; charset=UTF-8"
               }})
-              .then((res => res.json())
+              .then(res => res.json())
               .then(
                   
               (result) => {
