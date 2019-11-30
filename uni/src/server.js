@@ -12,6 +12,7 @@ var studentListRouter = require('./routes/students');
 var imagesRouter = require('./routes/images');
 const cors = require('cors')
 const session = require('express-session')
+const fs = require('fs')
 
 
 

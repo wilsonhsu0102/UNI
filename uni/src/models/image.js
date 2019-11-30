@@ -16,6 +16,10 @@ let ImageSchema = new mongoose.Schema({
     type: {
         type: String,
         required: true
+    },
+    image: {
+        type: Buffer,
+        // required: true
     }
 });
 

@@ -110,4 +110,14 @@ router.get('/getSelfId', authenticate, (req, res) => {
     
 })
 
+router.get('/getAttendees', authenticate, (req, res) => {
+    const eventId = req.query.eventId
+    console.log(eventId)
+    if (eventId) {
+        students.getAttendees(eventId, req, res)
+    } else {
+        res.sendFile(__dirname + '/permDenied.html')
+    }
+})
+
 module.exports = router;

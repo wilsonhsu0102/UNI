@@ -23,7 +23,7 @@ class EditProfilePicture extends React.Component {
             console.log(err);
         })
         .finally(() => {
-            console.log(this.state.images[0].imageData.path)
+            // console.log(this.state.images[0].imageData.path)
         })
     }
 

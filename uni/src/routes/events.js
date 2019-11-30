@@ -4,6 +4,17 @@ const Event = require('../models/event')
 const { ObjectID } = require('mongodb')
 var router = express.Router();
 
+router.get('/event', function(req, res, next) {
+    console.log('------------------')
+    console.log(req.query.id)
+    events.getEventById(req.query.id, function(response) {
+        event = response
+        console.log('GOT EVENTTTT')
+        console.log(event)
+        res.json(event)
+    })
+})
+
 router.get('/all', function(req, res, next) {
     let eventList = []
     events.getAllEvents(function(response) {
@@ -25,7 +36,7 @@ router.post('/addEvent', function(req, res, next) {
         eventName: req.body.name,
         description: req.body.description,
         location: req.body.location,
-        attendees: [],
+        attendees: req.body.attendees,
         host: req.body.host,
         date: datetime
     })
