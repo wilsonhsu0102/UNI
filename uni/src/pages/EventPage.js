@@ -46,10 +46,18 @@ class Event extends React.Component {
             removeSessionCookie()
             console.log(err)
         })
+        this.getHostByEmail()
+        .then(host => {
+            this.setState({
+                hostName: host.name,
+                hostId: host._id
+            })
+        }).catch( err => {
+            removeSessionCookie()
+            console.log(err)
+        })
         this.getAttendees()
         .then(data => {
-            console.log('_EQWERQRQWTQWT_____')
-            console.log(typeof(data))
             console.log(data)
             this.setState({
                 attendees: data
@@ -58,6 +66,30 @@ class Event extends React.Component {
         .catch(err => {
             removeSessionCookie()
             console.log(err)
+        })
+    }
+
+    getHostByEmail() {
+        return new Promise((resolve, reject) => {
+            fetch(constants.HTTP + constants.HOST + constants.PORT + `/student/event?eventId=${this.id}`, {
+                method: "GET",
+                credentials: 'include',
+                headers: {
+                "Access-Control-Allow-Credentials": "true",
+                "Content-type": "application/json; charset=UTF-8"
+                }})
+                .then(res => res.json())
+                .then(
+                    
+                (result) => {
+                    console.log(typeof(result))
+                    console.log(result)
+                    resolve(result)
+                },
+                (error) => {
+                    reject(error)
+                }
+            )
         })
     }
 
@@ -123,7 +155,33 @@ class Event extends React.Component {
             }
             this.rows.push(<tr key={i}>{items}</tr>)
         }
-        
+    }
+
+    addNewAttendee() {
+        const opt = {
+            eventId: this.id,
+            user_email: this.host.email
+        }
+        return new Promise((resolve, reject) => {
+            fetch(constants.HTTP + constants.HOST + constants.PORT + `/events/addNewAttendee`, {
+                method: "POST",
+                credentials: 'include',
+                headers: {
+                "Access-Control-Allow-Credentials": "true",
+                "Content-type": "application/json; charset=UTF-8"
+                },
+                body: JSON.stringify(opt)
+            })
+                .then(res => res.json())
+                .then(
+                        
+                (result) => {
+                    resolve(result)
+                },
+                (error) => {
+                    reject(error)
+                })
+            })
     }
 
     renderCondition = () => {
@@ -133,7 +191,8 @@ class Event extends React.Component {
             return (
                 [<NavBar id={this.id} key={"NavBar"}></NavBar>, <div className="eventPage" key={"eventPage" + this.id}> 
                 <div className="container"> 
-                    <div className="eventBlock"> 
+                    <div className="eventBlock">
+                        <button className='attendanceBtn' onClick={this.addNewAttendee.bind(this)}> Going </button> 
                         <div className="name"> 
                             {this.state.eventName}
                         </div>
@@ -148,8 +207,8 @@ class Event extends React.Component {
                     </div>
                     <div className="sideBlock">
                         <div className="hostProfile">
-                            <button className="profileButton" onClick={this.goToProfile.bind(this, 1)}> <img src={this.hostProfile} alt="profile for host"/> </button>
-                            <h3 className="hostName"> Host: {this.name} </h3>
+                            <button className="profileButton" onClick={this.goToProfile.bind(this, this.state.hostId)}> <img src={this.hostProfile} alt="profile for host"/> </button>
+                            <h3 className="hostName"> Host: {this.state.hostName} </h3>
                             <div className='eventDetail'>
                                 <p> Location: {this.state.location} </p>
                                 <p> Date: {this.state.datetime} </p>

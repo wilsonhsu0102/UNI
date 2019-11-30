@@ -2,6 +2,7 @@ var express = require('express');
 const students = require('../lib/studentHandler')
 var router = express.Router();
 const Account = require('../models/account')
+const Event = require('../models/event')
 const { ObjectID } = require('mongodb')
 const fs = require('fs');
 
@@ -115,6 +116,24 @@ router.get('/getAttendees', authenticate, (req, res) => {
     console.log(eventId)
     if (eventId) {
         students.getAttendees(eventId, req, res)
+    } else {
+        res.sendFile(__dirname + '/permDenied.html')
+    }
+})
+
+router.get('/event', authenticate, (req, res) => {
+    const eventId = req.query.eventId
+    if (eventId) {
+        Event.findById(eventId).then(doc => {
+            if(!doc) {
+                res.status(404).send()
+            } else {
+                const hostEmail = doc.host 
+                students.getAccountbyEmail(hostEmail, res)
+            }
+        }).catch(err => {
+            res.status(500).send()
+        })
     } else {
         res.sendFile(__dirname + '/permDenied.html')
     }

@@ -266,6 +266,24 @@ module.exports = {
         })
 
     },
+    getAccountbyEmail: function(email, res) {
+        console.log('LOG: studentHandler->getAccountbyEmail');
+        mongoose.connect(constants.MONGO_DB_URL, {useNewUrlParser: true})
+
+        var db = mongoose.connection
+        db.on( 'error', console.error.bind(console, 'connection error:'))
+
+        db.once('open', () => console.log('connected to the database'))
+        console.log(email)
+        Account.findOne({"email": email}).then((result) => {
+            console.log("I found the account")
+            res.send(result)
+        }).catch((error) => {
+            console.warn('WARN: This email is not correct!')
+            res.send({success:false})
+        })
+
+    },
     returnConnected: function(id) {
         console.log('LOG: studentHandler->returnConnected');
         mongoose.connect(constants.MONGO_DB_URL, { useNewUrlParser: true })

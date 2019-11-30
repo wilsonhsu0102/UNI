@@ -17,6 +17,20 @@
     float:left;
 }
 
+.eventBlock .attendanceBtn {
+    position: relative;
+    left: 240px;
+    top: 25px;
+    padding: 10px 40px 10px 40px;
+    background-color: rgb(248, 213, 218);
+    border: none;
+}
+
+.eventBlock .attendanceBtn:hover {
+    transition-duration: 0.4s;
+    background-color: rgb(245, 150, 164);
+}
+
 .sideBlock {
     float:left;
     top: 18px;
@@ -94,7 +108,7 @@
 .coverPhoto {
     width: 500px;
     height: 200px;
-    margin-top: 100px;
+    margin-top: 60px;
     border-radius: 15px;
 }
 

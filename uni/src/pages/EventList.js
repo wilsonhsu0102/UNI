@@ -75,14 +75,14 @@ class EventList extends React.Component {
     saveEvent(event){
         return new Promise((resolve, reject) => {
             fetch(constants.HTTP + constants.HOST + constants.PORT + '/events/addEvent', {
-                method: "post",
+                method: "POST",
                 credentials: 'include',
                 body: JSON.stringify(event),
                 headers: {
                 "Access-Control-Allow-Credentials": "true",
                 "Content-type": "application/json; charset=UTF-8"
                 }})
-                .then(res => {; res.json()})
+                .then(res => { res.json()})
                 .then(
                     (result) => {
                         console.log("result: " + result)
