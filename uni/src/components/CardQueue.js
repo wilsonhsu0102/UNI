@@ -36,8 +36,8 @@ class CardQueue extends React.Component {
               "Content-type": "application/json; charset=UTF-8"
               }})
               .then(
-              console.log(result)
               (result) => {
+                console.log(result)
                   resolve({
                       deck: result.notConnected
                   })
