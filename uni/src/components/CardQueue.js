@@ -28,7 +28,7 @@ class CardQueue extends React.Component {
 
   getDeck(){
       return new Promise((resolve, reject) => {
-          fetch(constants.HOST ? constants.HTTP + constants.HOST + constants.PORT + '/student/getDeck' : '/student/getDeck', {
+          fetch(constants.HTTP + constants.HOST + constants.PORT + '/student/getDeck', {
               method: "GET",
               credentials: 'include',
               headers: {
