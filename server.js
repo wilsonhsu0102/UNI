@@ -2,14 +2,14 @@ const bodyParser = require('body-parser');
 const express = require('express');
 
 const mongoose = require('mongoose');
-const constants = require('./lib/constants');
-require('./models/event')
-const Account = require('./models/account')
-const Profile = require('./models/profile')
+const constants = require('./uni/src/lib/constants');
+require('./uni/src/models/event')
+const Account = require('./uni/src/models/account')
+const Profile = require('./uni/src/models/profile')
 console.log('required')
-var eventListRouter = require('./routes/events');
-var studentListRouter = require('./routes/students');
-var imagesRouter = require('./routes/images');
+var eventListRouter = require('./uni/src/routes/events');
+var studentListRouter = require('./uni/src/routes/students');
+var imagesRouter = require('./uni/src/routes/images');
 const cors = require('cors')
 const session = require('express-session')
 const fs = require('fs')
