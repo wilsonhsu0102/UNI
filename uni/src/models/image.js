@@ -12,14 +12,15 @@ let ImageSchema = new mongoose.Schema({
     },
     imageData: {
         type: Object,
+        required: true
     },
     type: {
         type: String,
         required: true
     },
-    image: {
-        type: Buffer,
-        // required: true
+    path: {
+        type: String,
+        required: true
     }
 });
 

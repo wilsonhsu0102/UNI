@@ -11,7 +11,16 @@ class EditHiddenLibrary extends React.Component {
             buttons: [],
             images: [],
         };
-        // this.onDrop = this.onDrop.bind(this);
+    }
+
+    componentDidMount() {
+        this.getProfile().then((result => {
+            this.setState({
+                profile: result,
+            })
+        })).catch((error => {
+            console.log(error)
+        }))
         axios.get(`${constants.HTTP}${constants.HOST}${constants.PORT}/images/all`, {withCredentials: true})
         .then(res => {
             this.setState({
@@ -22,19 +31,40 @@ class EditHiddenLibrary extends React.Component {
             console.log(err);
         })
         .finally(() => {
-            // console.log(this.state.images[0].imageData.path)
         })
     }
+
+    getProfile(){
+        return new Promise((resolve, reject) => {
+            fetch(constants.HTTP + constants.HOST + constants.PORT + '/student/getProfile', {
+                method: "GET",
+                credentials: 'include',
+                headers: {
+                "Access-Control-Allow-Credentials": "true",
+                "Content-type": "application/json; charset=UTF-8"
+                }})
+                .then(res => res.json())
+                .then(
+                (result) => {
+                    console.log(result)
+                    resolve(result)
+                },
+                (error) => {
+                    reject('issue with getting resource')
+                }
+            )
+        })    
+    }
+
+
     uploadImage(e) {
-        if (window.confirm('Add photo to profile?')) {
+        if (window.confirm('Add photo to interests?')) {
             let imageFormObj = new FormData();
             imageFormObj.append("email", this.state.profile.email);
             imageFormObj.append("type", "hiddenlib");
-            console.log(imageFormObj.email)
             imageFormObj.append("imageName", "multer-image-" + Date.now());
-            console.log(e[0])
             imageFormObj.append("imageData", e[0]);
-            console.log(imageFormObj)
+            imageFormObj.append("image", e[0].path);
             axios.post(`${constants.HTTP}${constants.HOST}${constants.PORT}/images/all`, imageFormObj)
                 .then((data) => {
                     if (data.data.sucesss) {
@@ -48,11 +78,6 @@ class EditHiddenLibrary extends React.Component {
         }
     }
  
-    // onDrop(picture) {
-    //     this.setState({
-    //         pictures: this.state.pictures.concat(picture),
-    //     });
-    // }
  
     render() {
         return (

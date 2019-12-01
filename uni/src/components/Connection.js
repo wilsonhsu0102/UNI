@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 
-export default function AlignItemsList(key, student, selfId) {
+export default function AlignItemsList(key, student, selfId, selfName) {
 	
     return (
       <List>
@@ -33,7 +33,7 @@ export default function AlignItemsList(key, student, selfId) {
               </React.Fragment>
             }
           />
-		  <Link to={{pathname:"/chat/"+student.email, state: { selfId: selfId, connectId: student._id, messages: [] }}}>
+		  <Link to={{pathname:"/chat/"+student.email, params: { selfId: selfId, selfName: selfName,connectId: student._id, student: student}}}>
 		    <Button variant="outlined" onClick={(e) =>{
 	          console.log(student);
 		    }}> CHAT</Button>

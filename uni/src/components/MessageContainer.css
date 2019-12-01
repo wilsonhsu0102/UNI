@@ -1,0 +1,60 @@
+#messageDiv{
+	height: 600px;
+	font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+	overflow: auto;
+}
+
+#messageForm {
+	position: absolute;
+	width: 80%;
+	top: 92%;
+	left: 10%;
+}
+
+#userMessageInput {
+	height: 40px;
+	border: 1px;
+	border-radius: 5px;
+	border-style: solid;
+	border-color: black;
+	width: 75%;
+	margin-right: 5%;
+}
+#sendButton {
+	height: 40px;
+	float: right;
+	border-color: black;
+	width: 20%;
+}
+
+#connectAvatar {
+	width: 70px;
+	height: 70px;
+	border-radius: 50px;
+	float: left;
+	margin-right: 20px;
+	
+}
+#connectName {
+	min-width: 20%;
+	min-height: 10%;
+	position: absolute;
+	left: 10%;
+}
+
+#connectEmail {
+	font-weight: 300;
+	font-size: 1rem;
+}
+
+#chatContainer{
+	position: absolute;
+	width: 80%;
+	height: 70%;
+	top: 20%;
+	left:10%;
+	border-style: solid;
+	border-color: black;
+	border-width: 1px;
+	overflow: auto;
+}

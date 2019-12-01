@@ -31,7 +31,7 @@ const authenticate = (req, res, next) => {
 // set the storage engine
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, '../uploads/');
+        cb(null, '../public/uploads/');
     },
     filename: function(req, file, cb) {
         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
@@ -70,14 +70,12 @@ const upload = multer({
 router.route("/all")
     .post(upload.single('imageData'), (req, res, next) => {
         console.log("POSTING")
-        console.log(req.body);
-        console.log(req.body.imageData);
         const newImage = new Image({
             email: req.body.email,
             imageName: req.body.imageName,
-            imageData: req.body.imageData,
+            imageData: req.file,
             type: req.body.type,
-            image: req.body.image
+            path: (req.file.path).substring(9)
         });
 
         newImage.save()

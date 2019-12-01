@@ -2,6 +2,7 @@ var express = require('express');
 const students = require('../lib/studentHandler')
 var router = express.Router();
 const Account = require('../models/account')
+const Event = require('../models/event')
 const { ObjectID } = require('mongodb')
 const fs = require('fs');
 
@@ -26,7 +27,23 @@ const authenticate = (req, res, next) => {
 	}
 }
 
-
+router.post('/addUser', function(req, res) {
+    console.log('-qwrqwrqwr----')
+    console.log(req.body)
+    students.getAccountbyEmail2(req.body.email).then(response => {
+        console.log(response)
+        if (response.found === true) {
+            console.log('This email is in use')
+            res.send({msg: 'Email in Use'})
+        } else if (response.found === false) {
+            console.log('Did not find this email')
+            students.addNewUser(req.body, res)
+        }
+    }).catch(err => {
+        console.log(err)
+        res.status(500).send(err)
+    })
+})
 
 router.get('/all', function(req, res, next) {
     let studentList = []
@@ -99,10 +116,11 @@ router.post('/connect', authenticate, (req, res) => {
 })
 
 router.get('/getSelfId', authenticate, (req, res) => {
-    const id = req.session.user
+    const id = req.session.user;
+	const name = req.session.name;
     console.log("THIS IS THE id", id)
     if (id) {
-        res.json({id});
+        res.json({id, name});
         
     } else {
         res.sendFile(__dirname + '/permDenied.html')
@@ -115,6 +133,24 @@ router.get('/getAttendees', authenticate, (req, res) => {
     console.log(eventId)
     if (eventId) {
         students.getAttendees(eventId, req, res)
+    } else {
+        res.sendFile(__dirname + '/permDenied.html')
+    }
+})
+
+router.get('/event', authenticate, (req, res) => {
+    const eventId = req.query.eventId
+    if (eventId) {
+        Event.findById(eventId).then(doc => {
+            if(!doc) {
+                res.status(404).send()
+            } else {
+                const hostEmail = doc.host 
+                students.getAccountbyEmail(hostEmail, res)
+            }
+        }).catch(err => {
+            res.status(500).send()
+        })
     } else {
         res.sendFile(__dirname + '/permDenied.html')
     }

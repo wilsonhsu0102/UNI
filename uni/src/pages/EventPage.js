@@ -6,6 +6,7 @@ import NavBar from '../components/navbar';
 import constants from '../lib/constants'
 import Login from '../pages/Login'
 import { SessionContext, getSessionCookie, setSessionCookie, removeSessionCookie } from "../session";
+import PacmanLoader from 'react-spinners/PacmanLoader';
 
 const event1 = {"eventName": "FREE! BBT!", "hostId": "1", "eventCoverPhoto": "N/A"
 , "eventLocation": "SS", "Attendees": [{'name': 'Wilson Hsu'}, {'name': 'Johnny Depp'}, {'name': 'Arnold Schwarzenegger'}, {'name': 'Jim Carrey'}, {'name': 'Emma Watson'}, {'name': 'Daniel Radcliffe'}, {'name': 'Leonardo DiCaprio'}, {'name': 'Tom Cruise'}, {'name': 'Brad Pitt'}, {'name': 'Morgan Freeman'}, {'name': 'Tom Hanks'}], 
@@ -26,18 +27,19 @@ class Event extends React.Component {
         this.state = {
             authenticated: true,
             photo: event2.eventCoverPhoto,
-            attendees: []
+            attendees: [],
+            loading: true
         }
     }
 
     componentDidMount() {
         this.getEventById()
-        .then(event => {
+        .then(event => {            
             this.setState({
                 eventName: event.eventName,
                 description: event.description,
                 location: event.location,
-                datetime: event.date,
+                datetime: this.formatDate(new Date(event.date)),
                 authenticated: true
             })
             // this.photo = event.eventCoverPhoto;
@@ -46,18 +48,79 @@ class Event extends React.Component {
             removeSessionCookie()
             console.log(err)
         })
+        this.getHostByEmail()
+        .then(host => {
+            this.setState({
+                hostName: host.name,
+                hostId: host._id
+            })
+        }).catch( err => {
+            removeSessionCookie()
+            console.log(err)
+        })
         this.getAttendees()
         .then(data => {
-            console.log('_EQWERQRQWTQWT_____')
-            console.log(typeof(data))
             console.log(data)
             this.setState({
-                attendees: data
+                attendees: data,
+                loading: false
             })
         })
         .catch(err => {
             removeSessionCookie()
             console.log(err)
+        })
+    }
+
+    formatDate(date) {
+        const monthNames = [
+          "Jan", "Feb", "Mar",
+          "Apr", "May", "Jun", "Jul",
+          "Aug", "Sep", "Oct",
+          "Nov", "Dec"
+        ];
+      
+        const day = date.getDate();
+        const monthIndex = date.getMonth();
+        const year = date.getFullYear();
+        let hour = date.getHours();
+        let min = date.getMinutes();
+        let am_pm = ' AM';
+        if (hour > 12) {
+            hour = hour - 12
+            am_pm = ' PM'
+        }
+        if (hour < 10) {
+            hour = '0' + hour
+        }
+        if (min < 10) {
+            min = '0' + min
+        }
+      
+        return monthNames[monthIndex] + '. ' +  day  + ', ' + year + ' ' + hour + ':' + min + am_pm;
+      }
+
+    getHostByEmail() {
+        return new Promise((resolve, reject) => {
+            fetch(constants.HTTP + constants.HOST + constants.PORT + `/student/event?eventId=${this.id}`, {
+                method: "GET",
+                credentials: 'include',
+                headers: {
+                "Access-Control-Allow-Credentials": "true",
+                "Content-type": "application/json; charset=UTF-8"
+                }})
+                .then(res => res.json())
+                .then(
+                    
+                (result) => {
+                    console.log(typeof(result))
+                    console.log(result)
+                    resolve(result)
+                },
+                (error) => {
+                    reject(error)
+                }
+            )
         })
     }
 
@@ -123,7 +186,50 @@ class Event extends React.Component {
             }
             this.rows.push(<tr key={i}>{items}</tr>)
         }
-        
+    }
+
+    addNewAttendee() {
+        const opt = {
+            eventId: this.id,
+            user_email: this.host.email
+        }
+        return new Promise((resolve, reject) => {
+            fetch(constants.HTTP + constants.HOST + constants.PORT + `/events/addNewAttendee`, {
+                method: "POST",
+                credentials: 'include',
+                headers: {
+                "Access-Control-Allow-Credentials": "true",
+                "Content-type": "application/json; charset=UTF-8"
+                },
+                body: JSON.stringify(opt)
+            })
+                .then(res => res.json())
+                .then(
+                        
+                (result) => {
+                    window.location.reload()
+                    resolve(result)
+                },
+                (error) => {
+                    reject(error)
+                })
+            })
+    }
+
+    loading = () => {
+        const session = getSessionCookie()
+        if (session) {
+            this.host = session;
+            console.log(session)
+            return [<NavBar id = {this.props.id} key={"NavBar"}></NavBar>, <div className='sweet-loading'>
+                <PacmanLoader
+                color={'rgb(245, 150, 164)'}
+                loading={this.state.loading}
+                />
+            </div>]
+        }
+        removeSessionCookie()
+        return <Login></Login>
     }
 
     renderCondition = () => {
@@ -133,7 +239,8 @@ class Event extends React.Component {
             return (
                 [<NavBar id={this.id} key={"NavBar"}></NavBar>, <div className="eventPage" key={"eventPage" + this.id}> 
                 <div className="container"> 
-                    <div className="eventBlock"> 
+                    <div className="eventBlock">
+                        <button className='attendanceBtn' onClick={this.addNewAttendee.bind(this)}> Going </button> 
                         <div className="name"> 
                             {this.state.eventName}
                         </div>
@@ -148,8 +255,8 @@ class Event extends React.Component {
                     </div>
                     <div className="sideBlock">
                         <div className="hostProfile">
-                            <button className="profileButton" onClick={this.goToProfile.bind(this, 1)}> <img src={this.hostProfile} alt="profile for host"/> </button>
-                            <h3 className="hostName"> Host: {this.name} </h3>
+                            <button className="profileButton" onClick={this.goToProfile.bind(this, this.state.hostId)}> <img src={this.hostProfile} alt="profile for host"/> </button>
+                            <h3 className="hostName"> Host: {this.state.hostName} </h3>
                             <div className='eventDetail'>
                                 <p> Location: {this.state.location} </p>
                                 <p> Date: {this.state.datetime} </p>
@@ -174,7 +281,7 @@ class Event extends React.Component {
 
     render()  {
         this.setUpAttendees();
-        return this.renderCondition()
+        return (this.state.loading ? this.loading() : this.renderCondition())
       }
   }
 export default Event;

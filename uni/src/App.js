@@ -8,7 +8,6 @@ import EventList from './pages/EventList';
 import Connections from './pages/Connections';
 import EditProfile from './pages/EditProfile';
 import Login from './pages/Login';
-import CreateEvent from './pages/CreateEvent';
 import ChatPage from './pages/ChatPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Switch, BrowserRouter, useParams } from 'react-router-dom';
@@ -28,7 +27,10 @@ function App() {
         <BrowserRouter> 
           <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
             { /* Each Route below shows a different component depending on the exact path in the URL  */ }
-            
+            <Route exact path='/' component={Login}/>
+          </Switch>
+          <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
+            { /* Each Route below shows a different component depending on the exact path in the URL  */ }
             <Route exact path='/login' component={Login}/>
           </Switch>
           <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
@@ -47,10 +49,6 @@ function App() {
             { /* Each Route below shows a different component depending on the exact path in the URL  */ }
             <Route exact path="/event/:eventId" children={<CallWantedEvent/>}/>
           </Switch> 
-          <Switch>{ /* Similar to a switch statement - shows the component depending on the URL path */ }
-            { /* Each Route below shows a different component depending on the exact path in the URL  */ }
-            <Route exact path="/createEvent" component={CreateEvent}/>
-          </Switch>
           <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
             { /* Each Route below shows a different component depending on the exact path in the URL  */ }
             <Route exact path="/eventList" component={EventList}/>
@@ -91,12 +89,6 @@ function CallWantedProfileEdit() {
 function CallWantedEvent() {
   let { eventId } = useParams();
   return <Event id={eventId}/>;
-}
-
-// Calls the chat page with the connection's email
-function CallWantedChat() {
-  let { profileId } = useParams();
-  return <EditProfile id={profileId}/>;
 }
 
 // Calls the home page with eventId

@@ -6,10 +6,12 @@ const constants = require('./uni/src/lib/constants');
 require('./uni/src/models/event')
 const Account = require('./uni/src/models/account')
 const Profile = require('./uni/src/models/profile')
+const Chat = require('./uni/src/models/chat')
 console.log('required')
 var eventListRouter = require('./uni/src/routes/events');
 var studentListRouter = require('./uni/src/routes/students');
 var imagesRouter = require('./uni/src/routes/images');
+var chatsRouter = require('./uni/src/routes/chats');
 const cors = require('cors')
 const session = require('express-session')
 const fs = require('fs')
@@ -58,6 +60,7 @@ module.exports = app;
 app.use('/events', eventListRouter);
 app.use('/student', studentListRouter);
 app.use('/images', imagesRouter);
+app.use('/chats', chatsRouter);
 
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'uni', 'build', 'index.html'));

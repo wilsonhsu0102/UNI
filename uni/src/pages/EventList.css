@@ -15,31 +15,30 @@ For Modal
     overflow-y: hidden;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
-.edit-button{
-    height: auto;
-    margin: 0px auto;
-    min-width: 170px;
-    position: relative;
-    left: 3px;
+.create-account-body {
+    padding: 0 10px 0 10px;
 }
-.create-event{
-    padding: 15px;
-}
-.create-event-text{
-    width: 300px;
-    color: gray;
-    font-weight: bold;
-    font-size: 18px;
-    text-align: left;
-}
-#pickup-date{
+.create-account-input-col1 {
     width: 200px;
+    float: left;
+}
+.create-account-input-col2 {
+    width: 200px;
+    float: right;
+}
+.create-account-input-description {
+    width: 100%;
+    float:left;
 }
 .modalBtn {
     background-color: rgb(248, 213, 218);
     color: black;
     padding: 5px 30px 5px 30px;
     border: 0;
+}
+.modalBtn:hover {
+    transition-duration: 0.4s;
+    background-color: rgb(245, 150, 164);
 }
 /*
 For Modal
@@ -48,6 +47,16 @@ For Modal
     width: 100vw;
     height: 100%;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.sweet-loading {
+    width: 100vw;
+    position: absolute;
+    top: 40%;
+    border-top: solid 10px rgb(245, 150, 164);
+    border-bottom: solid 10px rgb(245, 150, 164);
+    background-color: rgb(248, 213, 218);
+    padding: 15px 0 40px 45vw;
 }
 
 .eventList .container {

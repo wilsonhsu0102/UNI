@@ -8,7 +8,6 @@ const Image = require('../models/image')
 console.log('MONGO_DB_URL', constants.MONGO_DB_URL)
 var fs = require('fs');
 var accountList = JSON.parse(fs.readFileSync("src/data/init.json"));
-var eventList = JSON.parse(fs.readFileSync("src/data/events.json"));
 const profileList = JSON.parse(fs.readFileSync("src/data/profiles.json"));
 module.exports = {
     init: function() {
@@ -19,20 +18,6 @@ module.exports = {
         db.on( 'error', console.error.bind( console, 'connection error:' ) );
 
         // once the connection is established we define our schemas
-        db.once( 'open', function callback() {
-            console.log("connected")
-            Event.collection.insertMany(eventList, function(err,r) {
-                if (err) {
-                    console.log(err)
-                    db.close();
-                } else {
-                    console.log(r)
-                    console.log('LOG: Event collection has been created!');
-                    db.close();
-                }
-            })
-        });
-
         for (let i = 0; i < accountList.length; i++) {
             const account = new Account(accountList[i])
             account.save().then((user) => {

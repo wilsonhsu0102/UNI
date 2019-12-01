@@ -8,6 +8,7 @@ import {FormGroup, FormControl} from "react-bootstrap";
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
 import { SessionContext, getSessionCookie, setSessionCookie, removeSessionCookie } from "../session";
+import PacmanLoader from 'react-spinners/PacmanLoader';
 
 class EventList extends React.Component {
     constructor(props){ 
@@ -16,6 +17,7 @@ class EventList extends React.Component {
             eventList: [],
             authenticated: true,
             show: false,
+            loading: true 
         };
     }
 
@@ -24,7 +26,8 @@ class EventList extends React.Component {
             this.setState({
                 eventList: result.eventList,
                 authenticated: true,
-                show: false
+                show: false,
+                loading: false
             })
         }).catch((error) => {
             removeSessionCookie()
@@ -43,10 +46,38 @@ class EventList extends React.Component {
             console.log(this.state.eventList[i]._id)
             name = <td className='eventListName'> <button className="eventListButton" onClick={this.goToEvent.bind(this, this.state.eventList[i]._id)}> {this.state.eventList[i].eventName} </button> </td>
             location = <td className='eventListLocation'> <button className="eventListButton" onClick={this.goToEvent.bind(this, this.state.eventList[i]._id)}> {this.state.eventList[i].location} </button> </td>
-            date = <td className='eventListDate'> <button className="eventListButton" onClick={this.goToEvent.bind(this, this.state.eventList[i]._id)}> {this.state.eventList[i].date} </button> </td>
+            date = <td className='eventListDate'> <button className="eventListButton" onClick={this.goToEvent.bind(this, this.state.eventList[i]._id)}> {this.formatDate(new Date(this.state.eventList[i].date))} </button> </td>
             this.rows.push(<tr className="eventListRow" key={i}>{name}{location}{date}</tr>)
         }
     }
+
+    formatDate(date) {
+        const monthNames = [
+          "Jan", "Feb", "Mar",
+          "Apr", "May", "Jun", "Jul",
+          "Aug", "Sep", "Oct",
+          "Nov", "Dec"
+        ];
+      
+        const day = date.getDate();
+        const monthIndex = date.getMonth();
+        const year = date.getFullYear();
+        let hour = date.getHours();
+        let min = date.getMinutes();
+        let am_pm = ' AM';
+        if (hour > 12) {
+            hour = hour - 12
+            am_pm = ' PM'
+        }
+        if (hour < 10) {
+            hour = '0' + hour
+        }
+        if (min < 10) {
+            min = '0' + min
+        }
+      
+        return monthNames[monthIndex] + '. ' +  day  + ', ' + year + ' ' + hour + ':' + min + am_pm;
+      }
 
     getEvents(){
         return new Promise((resolve, reject) => {
@@ -75,14 +106,14 @@ class EventList extends React.Component {
     saveEvent(event){
         return new Promise((resolve, reject) => {
             fetch(constants.HTTP + constants.HOST + constants.PORT + '/events/addEvent', {
-                method: "post",
+                method: "POST",
                 credentials: 'include',
                 body: JSON.stringify(event),
                 headers: {
                 "Access-Control-Allow-Credentials": "true",
                 "Content-type": "application/json; charset=UTF-8"
                 }})
-                .then(res => {; res.json()})
+                .then(res => { res.json()})
                 .then(
                     (result) => {
                         console.log("result: " + result)
@@ -121,16 +152,21 @@ class EventList extends React.Component {
     handleSave = () => {
 
 		const name = document.querySelector("#event-name").value;
-        const description =  document.querySelector("#event-description").value;
+        let description =  document.querySelector("#event-description").value;
         const location = document.querySelector("#event-location").value;
         const host = this.host.email
-        if (name === '' || description === '' || location === '') {
-            alert("Please fill in all fields")
+        if (name === '') {
+            alert("Event Name cannot be empty")
+            return
+        } else if (location === '') {
+            alert("Event location cannot be empty")
+            return
+        } else if(!this.state.date){
+            alert("Please choose an event date")
             return
         }
-		if(!this.state.date){
-            alert("Please fill in all fields")
-            return
+        if (description === '') {
+            description = '[ No Description ]'
         }
         if (!host) {
             alert("Please log in")
@@ -148,8 +184,24 @@ class EventList extends React.Component {
         console.log(JSON.stringify(event))
         this.saveEvent(event)
         this.handleClose()
+        window.location.reload()
     }
 
+    loading = () => {
+        const session = getSessionCookie()
+        if (session) {
+            this.host = session;
+            console.log(session)
+            return [<NavBar id = {this.props.id} key={"NavBar"}></NavBar>, <div className='sweet-loading'>
+                <PacmanLoader
+                color={'rgb(245, 150, 164)'}
+                loading={this.state.loading}
+                />
+            </div>]
+        }
+        removeSessionCookie()
+        return <Login></Login>
+    }
 
     renderCondition = () => {
         const session = getSessionCookie()
@@ -172,20 +224,22 @@ class EventList extends React.Component {
                                     id="event-name"
                                     />
                             </FormGroup>
-                            <span className= 'create-event-text' >Event Description</span>
-                            <FormGroup>
-                                <FormControl
-                                    className ="create-event-input"
-                                    type="text"
-                                    id="event-description"
-                                />
-                            </FormGroup>
                             <span className= 'create-event-text' >Event Location</span>
                             <FormGroup>
                                 <FormControl
                                     className ="create-event-input"
                                     type="text"
                                     id="event-location"
+                                />
+                            </FormGroup>
+                            <span className= 'create-event-text' >Event Description</span>
+                            <FormGroup>
+                                <FormControl
+                                    as="textarea"
+                                    rows="3"
+                                    className ="create-event-input"
+                                    type="text"
+                                    id="event-description"
                                 />
                             </FormGroup>
                             <span className= 'create-event-text'>Event Date</span>
@@ -233,7 +287,7 @@ class EventList extends React.Component {
 
     render() {
         this.setUpEventList();
-        return this.renderCondition()
+        return (this.state.loading ? this.loading() : this.renderCondition())
     }
 }
 
