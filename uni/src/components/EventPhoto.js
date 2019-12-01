@@ -3,17 +3,18 @@ import React from 'react';
 class EventPhoto extends React.Component {
     constructor(props) {
         super(props);
-        this.id = this.props;
+        this.photo = this.props.photo;
     }
 
     getEventPhoto(photo) {
         /// Get attendees from server
         // code below requires server call
-        if (photo === "N/A") {
-            this.eventPhoto = require('../images/defaultCoverPhoto.png');
-        } else {
+        if (this.photo === '') {
             this.eventPhoto = require('../images/coverPhoto3.jpg');
+        } else {
+            this.eventPhoto = require(this.photo)
         }
+        
     }
 
     render() {

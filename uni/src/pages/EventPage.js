@@ -8,41 +8,33 @@ import Login from '../pages/Login'
 import { SessionContext, getSessionCookie, setSessionCookie, removeSessionCookie } from "../session";
 import PacmanLoader from 'react-spinners/PacmanLoader';
 
-const event1 = {"eventName": "FREE! BBT!", "hostId": "1", "eventCoverPhoto": "N/A"
-, "eventLocation": "SS", "Attendees": [{'name': 'Wilson Hsu'}, {'name': 'Johnny Depp'}, {'name': 'Arnold Schwarzenegger'}, {'name': 'Jim Carrey'}, {'name': 'Emma Watson'}, {'name': 'Daniel Radcliffe'}, {'name': 'Leonardo DiCaprio'}, {'name': 'Tom Cruise'}, {'name': 'Brad Pitt'}, {'name': 'Morgan Freeman'}, {'name': 'Tom Hanks'}], 
-"eventDescription": "SAMPLE POST: THE FREE BBT PARTY IS BACK AGAIN THIS YEAR!! Already feeling stressed out about school, missing your family and friends from home? Still single and want to meet someone special? Or just wants to have fun but don’t know where to go? DON’T WORRY We got you covered!"
- + "Next Friday come party with us! With bbt pong and other games available! We will be serving ALL YOU CAN DRINK bbt to test you limit! And maybe you might just be able to meet that special one on Friday night~ Don’t miss out on the fun and come join us at the party!!"}
-
- const event2 = {"eventName": "FREE! Donuts!", "hostId": "2", "eventCoverPhoto": './images/coverPhoto3.jpg'
-, "eventLocation": "BA", "Attendees": [{'name': 'Wilson Hsu'}, {'name': 'Johnny Depp'}, {'name': 'Arnold Schwarzenegger'}, {'name': 'Jim Carrey'}, {'name': 'Emma Watson'}, {'name': 'Daniel Radcliffe'}, {'name': 'Leonardo DiCaprio'}, {'name': 'Tom Cruise'}, {'name': 'Brad Pitt'}, {'name': 'Morgan Freeman'}, {'name': 'Tom Hanks'}], 
-"eventDescription": "SAMPLE POST: THE FREE Donuts PARTY IS BACK AGAIN THIS YEAR!! Already feeling stressed out about school, missing your family and friends from home? Still single and want to meet someone special? Or just wants to have fun but don’t know where to go? DON’T WORRY We got you covered!"
- + "Next Friday come party with us! With Donuts pong and other games available! We will be serving ALL YOU CAN EAT Donuts to test you limit! And maybe you might just be able to meet that special one on Friday night~ Don’t miss out on the fun and come join us at the party!!"}
-
 class Event extends React.Component {
     constructor(props) {
         super(props);
         this.id = this.props.id;
         this.name = "Wilson Hsu"
-        this.hostProfile = require("../images/profilepic.jpg")
         this.state = {
             authenticated: true,
-            photo: event2.eventCoverPhoto,
+            photo: '',
             attendees: [],
-            loading: true
+            loading1: true,
+            loading2: true,
+            loading3: true
         }
     }
 
     componentDidMount() {
         this.getEventById()
-        .then(event => {            
+        .then(event => {
             this.setState({
                 eventName: event.eventName,
                 description: event.description,
                 location: event.location,
                 datetime: this.formatDate(new Date(event.date)),
-                authenticated: true
+                authenticated: true,
+                photo: event.coverPhoto,
+                loading2: false 
             })
-            // this.photo = event.eventCoverPhoto;
         })
         .catch(err => {
             removeSessionCookie()
@@ -50,9 +42,18 @@ class Event extends React.Component {
         })
         this.getHostByEmail()
         .then(host => {
+            let profile = host.profilePicture
+            if (profile === '') {
+                profile = require('../images/joker5.jpg')
+            } else {
+                profile = require('../images/' + profile)
+            }
+            console.log(profile)
             this.setState({
                 hostName: host.name,
-                hostId: host._id
+                hostId: host._id,
+                profilePic: profile,
+                loading3: false
             })
         }).catch( err => {
             removeSessionCookie()
@@ -63,7 +64,7 @@ class Event extends React.Component {
             console.log(data)
             this.setState({
                 attendees: data,
-                loading: false
+                loading1: false
             })
         })
         .catch(err => {
@@ -174,8 +175,6 @@ class Event extends React.Component {
     }
 
     setUpAttendees() {
-        /// Get attendees from server
-        // code below requires server call
         this.rows = [];
         const length = this.state.attendees.length;
         for (let i = 0; i < Math.ceil(length / 3); i++) {
@@ -224,7 +223,7 @@ class Event extends React.Component {
             return [<NavBar id = {this.props.id} key={"NavBar"}></NavBar>, <div className='sweet-loading'>
                 <PacmanLoader
                 color={'rgb(245, 150, 164)'}
-                loading={this.state.loading}
+                loading={this.state.loading1 || this.state.loading2 || this.state.loading3}
                 />
             </div>]
         }
@@ -236,6 +235,7 @@ class Event extends React.Component {
         const session = getSessionCookie()
         if (session) {
             this.host = session;
+            console.log(this.state.profilePic)
             return (
                 [<NavBar id={this.id} key={"NavBar"}></NavBar>, <div className="eventPage" key={"eventPage" + this.id}> 
                 <div className="container"> 
@@ -255,7 +255,7 @@ class Event extends React.Component {
                     </div>
                     <div className="sideBlock">
                         <div className="hostProfile">
-                            <button className="profileButton" onClick={this.goToProfile.bind(this, this.state.hostId)}> <img src={this.hostProfile} alt="profile for host"/> </button>
+                            <button className="profileButton" onClick={this.goToProfile.bind(this, this.state.hostId)}> <img src={this.state.profilePic} alt="profile for host"/> </button>
                             <h3 className="hostName"> Host: {this.state.hostName} </h3>
                             <div className='eventDetail'>
                                 <p> Location: {this.state.location} </p>
