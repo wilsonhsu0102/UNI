@@ -170,7 +170,9 @@ class Event extends React.Component {
     }
 
     goToProfile(profileId) {
-        window.location.href='http://localhost:3000/profile/' + profileId;
+        window.location.href= constants.HTTP + constants.HOST + constants.PORT + '/profile/' + profileId
+        //window.location.href='http://uni-uoft.herokuapp.com/profile/' + profileId;
+        //window.location.href='http://localhost:3000/profile/' + profileId;
     }
 
     setUpAttendees() {

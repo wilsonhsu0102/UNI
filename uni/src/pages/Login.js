@@ -113,6 +113,7 @@ class Login extends React.Component {
                       console.log('login successful')
                       setSessionCookie({ email: email });
                       //window.location.href='http://localhost:3000/home';
+                      window.location.href= constants.HTTP + constants.HOST + constants.PORT + '/home'
                       window.location.href='http://uni-uoft.herokuapp.com/home';
                     } else {
                       alert('The email or password you provided was incorrect')

@@ -130,8 +130,8 @@ class EventList extends React.Component {
     }
 
     goToEvent(eventId) {
-       
-        window.location.href=' http://uni-uoft.herokuapp.com/event/' + eventId;
+        window.location.href= constants.HTTP + constants.HOST + constants.PORT + '/event/' + eventId
+        //window.location.href=' http://uni-uoft.herokuapp.com/event/' + eventId;
         // window.location.href='http://localhost:3000/event/' + eventId;
     }
   
