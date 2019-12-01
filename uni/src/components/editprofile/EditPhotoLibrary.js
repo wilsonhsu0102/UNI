@@ -13,17 +13,6 @@ class EditPhotoLibrary extends React.Component {
             buttons: [],
             images: [],
         };
-        axios.get(`${constants.HTTP}${constants.HOST}${constants.PORT}/images/all`, {withCredentials: true})
-        .then(res => {
-            this.setState({
-                images: res.data
-            })
-        })
-        .catch(err => {
-            console.log(err);
-        })
-        .finally(() => {
-        })
     }
 
     componentDidMount() {
@@ -34,6 +23,18 @@ class EditPhotoLibrary extends React.Component {
         })).catch((error => {
             console.log(error)
         }))
+        axios.get(`${constants.HTTP}${constants.HOST}${constants.PORT}/images/all`, {withCredentials: true})
+        .then(res => {
+            this.setState({
+                images: res.data
+            })
+            console.log(res.data)
+        })
+        .catch(err => {
+            console.log(err);
+        })
+        .finally(() => {
+        })
     }
 
     getProfile(){
@@ -80,6 +81,13 @@ class EditPhotoLibrary extends React.Component {
     }
 
     render() {
+        // console.log(this.state.profile)
+        // let paths = []
+        // this.state.images.forEach((image) => {
+        //     paths.push(image.path)
+        // })
+        // console.log(paths)
+        // console.log(this.state.images)
         return (
             <div class='editphotolibrarydiv'>
                 <span id='editphotolibraryheader'><h3>Update My Photos</h3></span>

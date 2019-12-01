@@ -11,6 +11,16 @@ class EditHiddenLibrary extends React.Component {
             buttons: [],
             images: [],
         };
+    }
+
+    componentDidMount() {
+        this.getProfile().then((result => {
+            this.setState({
+                profile: result,
+            })
+        })).catch((error => {
+            console.log(error)
+        }))
         axios.get(`${constants.HTTP}${constants.HOST}${constants.PORT}/images/all`, {withCredentials: true})
         .then(res => {
             this.setState({
@@ -22,16 +32,6 @@ class EditHiddenLibrary extends React.Component {
         })
         .finally(() => {
         })
-    }
-
-    componentDidMount() {
-        this.getProfile().then((result => {
-            this.setState({
-                profile: result,
-            })
-        })).catch((error => {
-            console.log(error)
-        }))
     }
 
     getProfile(){
