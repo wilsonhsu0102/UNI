@@ -36,7 +36,7 @@ class ChatPage extends React.Component {
 				id1: selfId,
 				id2: student._id
 			}
-			/*
+			
 			//Retrieves messages if data exists, and creates it if it doesn't
 			this.checkChatExists(idObject).then((result) => {
 				if(result === {}){
@@ -54,7 +54,7 @@ class ChatPage extends React.Component {
 				console.log(error)  // handle any rejects that come up in the chain.
 			})
 			
-			
+			/*
 			//Periodically checks if there are new messages to be added
 			this.interval = setInterval(() => 
 			this.getMessages(idObject).then((result) => {

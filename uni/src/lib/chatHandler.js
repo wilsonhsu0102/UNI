@@ -3,7 +3,7 @@ var constants = require('./constants');
 const Chat = mongoose.model('Chat');
 
 module.exports = {
-    checkExists: function(idObject, req, res) {
+    checkExists: function(idObject, res) {
         console.log('LOG: chatHandler->checkExists', 'idObject: ', idObject)
         mongoose.connect(constants.MONGO_DB_URL, { useNewUrlParser: true })
 
@@ -45,7 +45,7 @@ module.exports = {
             res.json({});
         });
     }, 
-    getMessages: function() {
+    getMessages: function(idObject, res) {
         console.log('LOG: chatHandler->getMessages');
         mongoose.connect(constants.MONGO_DB_URL, { useNewUrlParser: true })
 

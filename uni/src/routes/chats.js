@@ -30,16 +30,8 @@ const authenticate = (req, res, next) => {
 router.post('/checkExists', authenticate, (req, res) => {
     const id = req.session.user;
 	const idObject = req.body;
-	let messageObject = {
-		messages: [],
-		timestamp: null
-	};
     if (id) {
-		chats.checkExists(idObject).then((result) => {
-			messageObject = result;
-			console.log(messageObject);
-			res.json(messageObject);
-		})
+		chats.checkExists(idObject, res);
     } else {
         res.sendFile(__dirname + '/permDenied.html')
     }
@@ -53,11 +45,7 @@ router.get('/getMessages', authenticate, function(req, res, next) {
 		timestamp: null
 	};
 	if (id) {  
-		chats.getMessages(idObject).then((result) => {
-			messageObject = result;
-			console.log(messageObject);
-			res.json(messageObject);
-		})
+		chats.getMessages(idObject, res);
     } else {
         res.sendFile(__dirname + '/permDenied.html')
     }

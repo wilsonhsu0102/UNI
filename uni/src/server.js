@@ -49,7 +49,7 @@ module.exports = app;
 app.use('/events', eventListRouter);
 app.use('/student', studentListRouter);
 app.use('/images', imagesRouter);
-//app.use('/chats', chatsRouter);
+app.use('/chats', chatsRouter);
 
 let db = mongoose.connection;
 
