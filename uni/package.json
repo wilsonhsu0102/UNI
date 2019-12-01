@@ -11,6 +11,7 @@
     "body-parser": "^1.19.0",
     "bootstrap": "^4.3.1",
     "cors": "^2.8.5",
+    "date-and-time": "^0.10.0",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
     "google-map-react": "^1.1.5",
@@ -34,13 +35,13 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
     "react-scroll": "^1.7.14",
+    "react-spinners": "^0.6.1",
     "react-swipeable-views": "^0.13.3",
     "react-uid": "^2.2.0",
     "request": "^2.88.0",
     "styled-jsx": "^3.2.4",
     "typeface-roboto": "0.0.75",
-    "write-json-file": "^4.2.1",
-    "date-and-time": "^0.10.0"
+    "write-json-file": "^4.2.1"
   },
   "scripts": {
     "start": "react-scripts start",

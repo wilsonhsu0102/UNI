@@ -8,6 +8,7 @@ import {FormGroup, FormControl} from "react-bootstrap";
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
 import { SessionContext, getSessionCookie, setSessionCookie, removeSessionCookie } from "../session";
+import PacmanLoader from 'react-spinners/PacmanLoader';
 
 class EventList extends React.Component {
     constructor(props){ 
@@ -16,6 +17,7 @@ class EventList extends React.Component {
             eventList: [],
             authenticated: true,
             show: false,
+            loading: true 
         };
     }
 
@@ -24,7 +26,8 @@ class EventList extends React.Component {
             this.setState({
                 eventList: result.eventList,
                 authenticated: true,
-                show: false
+                show: false,
+                loading: false
             })
         }).catch((error) => {
             removeSessionCookie()
@@ -43,10 +46,32 @@ class EventList extends React.Component {
             console.log(this.state.eventList[i]._id)
             name = <td className='eventListName'> <button className="eventListButton" onClick={this.goToEvent.bind(this, this.state.eventList[i]._id)}> {this.state.eventList[i].eventName} </button> </td>
             location = <td className='eventListLocation'> <button className="eventListButton" onClick={this.goToEvent.bind(this, this.state.eventList[i]._id)}> {this.state.eventList[i].location} </button> </td>
-            date = <td className='eventListDate'> <button className="eventListButton" onClick={this.goToEvent.bind(this, this.state.eventList[i]._id)}> {this.state.eventList[i].date} </button> </td>
+            date = <td className='eventListDate'> <button className="eventListButton" onClick={this.goToEvent.bind(this, this.state.eventList[i]._id)}> {this.formatDate(new Date(this.state.eventList[i].date))} </button> </td>
             this.rows.push(<tr className="eventListRow" key={i}>{name}{location}{date}</tr>)
         }
     }
+
+    formatDate(date) {
+        const monthNames = [
+          "Jan", "Feb", "Mar",
+          "Apr", "May", "Jun", "Jul",
+          "Aug", "Sep", "Oct",
+          "Nov", "Dec"
+        ];
+      
+        const day = date.getDate();
+        const monthIndex = date.getMonth();
+        const year = date.getFullYear();
+        let hour = date.getHours();
+        const min = date.getMinutes();
+        let am_pm = ' AM';
+        if (hour > 12) {
+            hour = hour - 12
+            am_pm = ' PM'
+        }
+      
+        return monthNames[monthIndex] + '. ' +  day  + ', ' + year + ' ' + hour + ':' + min + am_pm;
+      }
 
     getEvents(){
         return new Promise((resolve, reject) => {
@@ -148,6 +173,21 @@ class EventList extends React.Component {
         this.handleClose()
     }
 
+    loading = () => {
+        const session = getSessionCookie()
+        if (session) {
+            this.host = session;
+            console.log(session)
+            return [<NavBar id = {this.props.id} key={"NavBar"}></NavBar>, <div className='sweet-loading'>
+                <PacmanLoader
+                color={'rgb(245, 150, 164)'}
+                loading={this.state.loading}
+                />
+            </div>]
+        }
+        removeSessionCookie()
+        return <Login></Login>
+    }
 
     renderCondition = () => {
         const session = getSessionCookie()
@@ -231,7 +271,7 @@ class EventList extends React.Component {
 
     render() {
         this.setUpEventList();
-        return this.renderCondition()
+        return (this.state.loading ? this.loading() : this.renderCondition())
     }
 }
 

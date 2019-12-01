@@ -6,6 +6,7 @@ import NavBar from '../components/navbar';
 import constants from '../lib/constants'
 import Login from '../pages/Login'
 import { SessionContext, getSessionCookie, setSessionCookie, removeSessionCookie } from "../session";
+import PacmanLoader from 'react-spinners/PacmanLoader';
 
 const event1 = {"eventName": "FREE! BBT!", "hostId": "1", "eventCoverPhoto": "N/A"
 , "eventLocation": "SS", "Attendees": [{'name': 'Wilson Hsu'}, {'name': 'Johnny Depp'}, {'name': 'Arnold Schwarzenegger'}, {'name': 'Jim Carrey'}, {'name': 'Emma Watson'}, {'name': 'Daniel Radcliffe'}, {'name': 'Leonardo DiCaprio'}, {'name': 'Tom Cruise'}, {'name': 'Brad Pitt'}, {'name': 'Morgan Freeman'}, {'name': 'Tom Hanks'}], 
@@ -26,18 +27,19 @@ class Event extends React.Component {
         this.state = {
             authenticated: true,
             photo: event2.eventCoverPhoto,
-            attendees: []
+            attendees: [],
+            loading: true
         }
     }
 
     componentDidMount() {
         this.getEventById()
-        .then(event => {
+        .then(event => {            
             this.setState({
                 eventName: event.eventName,
                 description: event.description,
                 location: event.location,
-                datetime: event.date,
+                datetime: this.formatDate(new Date(event.date)),
                 authenticated: true
             })
             // this.photo = event.eventCoverPhoto;
@@ -60,7 +62,8 @@ class Event extends React.Component {
         .then(data => {
             console.log(data)
             this.setState({
-                attendees: data
+                attendees: data,
+                loading: false
             })
         })
         .catch(err => {
@@ -68,6 +71,28 @@ class Event extends React.Component {
             console.log(err)
         })
     }
+
+    formatDate(date) {
+        const monthNames = [
+          "Jan", "Feb", "Mar",
+          "Apr", "May", "Jun", "Jul",
+          "Aug", "Sep", "Oct",
+          "Nov", "Dec"
+        ];
+      
+        const day = date.getDate();
+        const monthIndex = date.getMonth();
+        const year = date.getFullYear();
+        let hour = date.getHours();
+        const min = date.getMinutes();
+        let am_pm = ' AM';
+        if (hour > 12) {
+            hour = hour - 12
+            am_pm = ' PM'
+        }
+      
+        return monthNames[monthIndex] + '. ' +  day  + ', ' + year + ' ' + hour + ':' + min + am_pm;
+      }
 
     getHostByEmail() {
         return new Promise((resolve, reject) => {
@@ -184,6 +209,22 @@ class Event extends React.Component {
             })
     }
 
+    loading = () => {
+        const session = getSessionCookie()
+        if (session) {
+            this.host = session;
+            console.log(session)
+            return [<NavBar id = {this.props.id} key={"NavBar"}></NavBar>, <div className='sweet-loading'>
+                <PacmanLoader
+                color={'rgb(245, 150, 164)'}
+                loading={this.state.loading}
+                />
+            </div>]
+        }
+        removeSessionCookie()
+        return <Login></Login>
+    }
+
     renderCondition = () => {
         const session = getSessionCookie()
         if (session) {
@@ -233,7 +274,7 @@ class Event extends React.Component {
 
     render()  {
         this.setUpAttendees();
-        return this.renderCondition()
+        return (this.state.loading ? this.loading() : this.renderCondition())
       }
   }
 export default Event;
