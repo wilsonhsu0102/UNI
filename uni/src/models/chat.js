@@ -1,14 +1,15 @@
 const mongoose = require('mongoose');
 
 const message = new mongoose.Schema({
-	userID: String
-	message: String
+	userID: String,
+	message: String,
 	timestamp: Date
 });
 
 let chatSchema = new mongoose.Schema({
     combinedUserID: String,
-    messageArray: [message]
+    messageArray: [message],
+	timestamp: Date
 });
 
-module.exports = mongoose.model('Chats', chatSchema)
+module.exports = mongoose.model('Chat', chatSchema);

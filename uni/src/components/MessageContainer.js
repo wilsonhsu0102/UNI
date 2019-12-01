@@ -2,12 +2,13 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import ChatMessage from './ChatMessage'
 import './MessageContainer.css'
 
 /* Component for the Message Container */
 class MessageContainer extends React.Component {
     render() {
-		const { userId, userName, connectionData, messages} = this.props.params
+		const { userName, connectionData, messages} = this.props.params
 		console.log(this.props.params);
 		//console.log(connectionData);
 		if(!connectionData){

@@ -7,7 +7,7 @@ import MessageContainer from '../components/MessageContainer'
 import Avatar from '@material-ui/core/Avatar';
 import PermissionDenied from './PermissionDenied';
 import constants from '../lib/constants';
-import { SessionContext, getSessionCookie} from "../session";
+import { SessionContext, getSessionCookie, removeSessionCookie} from "../session";
 
 const datetime = require('date-and-time');
 
@@ -18,7 +18,9 @@ class ChatPage extends React.Component {
 		connectionData: null,
 		messages: [],
 		timestamp: null
+		
 	}
+	
 	componentDidMount(){
 		console.log("mounting page")
 		console.log(this.props.location.params);
@@ -29,25 +31,60 @@ class ChatPage extends React.Component {
 				userName: selfName,
 				connectionData: student
 			})
-		}
-		//setInterval(() => this.chatUpdate(), 1000)
-		/*
-		this.getMessages().then((result) => {
-			this.setState({
-				connections: result.messages
+			
+			const idObject = {
+				id1: selfId,
+				id2: student._id
+			}
+			/*
+			//Retrieves messages if data exists, and creates it if it doesn't
+			this.checkChatExists(idObject).then((result) => {
+				if(result === {}){
+					console.log("Something went wrong");
+				}
+				else{
+					const now = new Date();
+					this.setState({
+						connections: result.messages,
+						timestamp: now
+					});
+				}
+			}).catch((error) => {
+				removeSessionCookie();
+				console.log(error)  // handle any rejects that come up in the chain.
 			})
 			
-		}).catch((error) => {
-			removeSessionCookie()
-			console.log(error)  // handle any rejects that come up in the chain.
-		})
-		*/
+			
+			//Periodically checks if there are new messages to be added
+			this.interval = setInterval(() => 
+			this.getMessages(idObject).then((result) => {
+				if (this.state.timestamp === null){
+					const now = new Date();
+					this.setState({
+						connections: result.messages,
+						timestamp: now
+					});
+				}
+				else if(datetime.subtract(result.timestamp, this.state.timestamp).toSeconds() >= 0){
+					this.setState({
+						connections: result.messages,
+						timestamp: result.timestamp
+					})
+				}
+			}).catch((error) => {
+				removeSessionCookie()
+				console.log(error)  // handle any rejects that come up in the chain.
+			}), 1000);
+			*/
+		}
+		
 	}
 	
-	getMessages(){
+	checkChatExists(idObject){
 		return new Promise((resolve, reject) => {
-			fetch(constants.HTTP + constants.HOST + constants.PORT + '/student/getConnections', {
-				method: "GET",
+			fetch(constants.HTTP + constants.HOST + constants.PORT + '/chats/checkExists', {
+				method: "POST",
+				body: JSON.stringify(idObject),
 				credentials: 'include',
 				headers: {
 				"Access-Control-Allow-Credentials": "true",
@@ -55,25 +92,43 @@ class ChatPage extends React.Component {
             }})
             .then(res => res.json())
             .then(
-                  
-              (result) => {
-                  console.log('connections: ', result)
-                  resolve({
-                      connections: result
-                  })
-              },
-              (error) => {
-                  reject('issue with getting resource')
-              }
-          )
-      })
-      
-  }
-
+				(result) => {
+					console.log('messageObject: ', result);
+					resolve(result);
+				},
+				(error) => {
+					reject('issue with getting resource');
+				}
+			)
+		})
+	}
+	
+	getMessages(idObject){
+		return new Promise((resolve, reject) => {
+			fetch(constants.HTTP + constants.HOST + constants.PORT + '/chats/getMessages', {
+				method: "GET",
+				body: JSON.stringify(idObject),
+				credentials: 'include',
+				headers: {
+				"Access-Control-Allow-Credentials": "true",
+				"Content-type": "application/json; charset=UTF-8"
+            }})
+            .then(res => res.json())
+            .then(
+				(result) => {
+					console.log('messageObject: ', result)
+					resolve(result);
+				},
+				(error) => {
+					reject('issue with getting resource');
+				}
+			)
+		})
+    }
 
 	renderCondition() {
 		//console.log("render condition connections", this.props)
-		const session = getSessionCookie()
+		const session = getSessionCookie();
 		console.log(session);
 		if (!session){
 			return <Login></Login>

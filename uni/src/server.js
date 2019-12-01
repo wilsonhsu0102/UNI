@@ -6,10 +6,12 @@ const constants = require('./lib/constants');
 require('./models/event')
 const Account = require('./models/account')
 const Profile = require('./models/profile')
+const Chat = require('./models/chat')
 console.log('required')
 var eventListRouter = require('./routes/events');
 var studentListRouter = require('./routes/students');
 var imagesRouter = require('./routes/images');
+var chatsRouter = require('./routes/chats');
 const cors = require('cors')
 const session = require('express-session')
 const fs = require('fs')
@@ -47,6 +49,7 @@ module.exports = app;
 app.use('/events', eventListRouter);
 app.use('/student', studentListRouter);
 app.use('/images', imagesRouter);
+//app.use('/chats', chatsRouter);
 
 let db = mongoose.connection;
 

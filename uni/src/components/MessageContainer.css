@@ -7,12 +7,12 @@
 #messageForm {
 	position: absolute;
 	width: 80%;
-	top: 95%;
+	top: 92%;
 	left: 10%;
 }
 
 #userMessageInput {
-	height: 30px;
+	height: 40px;
 	border: 1px;
 	border-radius: 5px;
 	border-style: solid;
@@ -21,7 +21,7 @@
 	margin-right: 5%;
 }
 #sendButton {
-	height: 30px;
+	height: 40px;
 	float: right;
 	border-color: black;
 	width: 20%;
@@ -49,7 +49,7 @@
 
 #chatContainer{
 	position: absolute;
-	width: 60%;
+	width: 80%;
 	height: 70%;
 	top: 20%;
 	left:10%;
