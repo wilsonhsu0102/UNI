@@ -84,11 +84,17 @@ class Event extends React.Component {
         const monthIndex = date.getMonth();
         const year = date.getFullYear();
         let hour = date.getHours();
-        const min = date.getMinutes();
+        let min = date.getMinutes();
         let am_pm = ' AM';
         if (hour > 12) {
             hour = hour - 12
             am_pm = ' PM'
+        }
+        if (hour < 10) {
+            hour = '0' + hour
+        }
+        if (min < 10) {
+            min = '0' + min
         }
       
         return monthNames[monthIndex] + '. ' +  day  + ', ' + year + ' ' + hour + ':' + min + am_pm;
@@ -201,6 +207,7 @@ class Event extends React.Component {
                 .then(
                         
                 (result) => {
+                    window.location.reload()
                     resolve(result)
                 },
                 (error) => {

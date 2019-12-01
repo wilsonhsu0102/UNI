@@ -63,11 +63,17 @@ class EventList extends React.Component {
         const monthIndex = date.getMonth();
         const year = date.getFullYear();
         let hour = date.getHours();
-        const min = date.getMinutes();
+        let min = date.getMinutes();
         let am_pm = ' AM';
         if (hour > 12) {
             hour = hour - 12
             am_pm = ' PM'
+        }
+        if (hour < 10) {
+            hour = '0' + hour
+        }
+        if (min < 10) {
+            min = '0' + min
         }
       
         return monthNames[monthIndex] + '. ' +  day  + ', ' + year + ' ' + hour + ':' + min + am_pm;
@@ -144,16 +150,21 @@ class EventList extends React.Component {
     handleSave = () => {
 
 		const name = document.querySelector("#event-name").value;
-        const description =  document.querySelector("#event-description").value;
+        let description =  document.querySelector("#event-description").value;
         const location = document.querySelector("#event-location").value;
         const host = this.host.email
-        if (name === '' || description === '' || location === '') {
-            alert("Please fill in all fields")
+        if (name === '') {
+            alert("Event Name cannot be empty")
+            return
+        } else if (location === '') {
+            alert("Event location cannot be empty")
+            return
+        } else if(!this.state.date){
+            alert("Please choose an event date")
             return
         }
-		if(!this.state.date){
-            alert("Please fill in all fields")
-            return
+        if (description === '') {
+            description = '[ No Description ]'
         }
         if (!host) {
             alert("Please log in")
@@ -171,6 +182,7 @@ class EventList extends React.Component {
         console.log(JSON.stringify(event))
         this.saveEvent(event)
         this.handleClose()
+        window.location.reload()
     }
 
     loading = () => {
@@ -210,20 +222,22 @@ class EventList extends React.Component {
                                     id="event-name"
                                     />
                             </FormGroup>
-                            <span className= 'create-event-text' >Event Description</span>
-                            <FormGroup>
-                                <FormControl
-                                    className ="create-event-input"
-                                    type="text"
-                                    id="event-description"
-                                />
-                            </FormGroup>
                             <span className= 'create-event-text' >Event Location</span>
                             <FormGroup>
                                 <FormControl
                                     className ="create-event-input"
                                     type="text"
                                     id="event-location"
+                                />
+                            </FormGroup>
+                            <span className= 'create-event-text' >Event Description</span>
+                            <FormGroup>
+                                <FormControl
+                                    as="textarea"
+                                    rows="3"
+                                    className ="create-event-input"
+                                    type="text"
+                                    id="event-description"
                                 />
                             </FormGroup>
                             <span className= 'create-event-text'>Event Date</span>

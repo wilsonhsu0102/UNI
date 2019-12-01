@@ -268,7 +268,7 @@ module.exports = {
 
     },
     getAccountbyEmail: function(email, res) {
-        console.log('LOG: studentHandler->getAccountbyEmail');
+        console.log('LOG: studentHandler->getAccountbyEmail1');
         mongoose.connect(constants.MONGO_DB_URL, {useNewUrlParser: true})
 
         var db = mongoose.connection
@@ -284,6 +284,46 @@ module.exports = {
             res.send({success:false})
         })
 
+    },
+    getAccountbyEmail2: function(email) {
+        console.log('LOG: studentHandler->getAccountbyEmail2');
+        mongoose.connect(constants.MONGO_DB_URL, {useNewUrlParser: true})
+
+        var db = mongoose.connection
+        db.on( 'error', console.error.bind(console, 'connection error:'))
+
+        db.once('open', () => console.log('connected to the database'))
+        console.log(email)
+        return new Promise((resolve, reject) => {
+            Account.findOne({"email": email}).then((result) => {
+                console.log("I found the account")
+                if(!result) {
+                    resolve({found: false})
+                } else {
+                    resolve({found: true})
+                }
+            }).catch((error) => {
+                reject({found:false})
+            })
+        })
+    },
+    addNewUser: function(user, res) {
+        console.log('LOG: studentHandler->addNewUser');
+        mongoose.connect(constants.MONGO_DB_URL, {useNewUrlParser: true})
+
+        var db = mongoose.connection
+        db.on( 'error', console.error.bind(console, 'connection error:'))
+
+        db.once('open', () => console.log('connected to the database'))
+        console.log(user)
+        const new_user = new Account(user)
+        new_user.save().then( data => {
+            console.log('AFTER SAVEEE')
+            console.log(data)
+            res.send({user: data, msg: 'Email is OK'})
+        }).catch( err => {
+            res.status(400).send(err)
+        })
     },
     returnConnected: function(id) {
         console.log('LOG: studentHandler->returnConnected');

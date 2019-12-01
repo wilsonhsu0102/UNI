@@ -27,7 +27,23 @@ const authenticate = (req, res, next) => {
 	}
 }
 
-
+router.post('/addUser', function(req, res) {
+    console.log('-qwrqwrqwr----')
+    console.log(req.body)
+    students.getAccountbyEmail2(req.body.email).then(response => {
+        console.log(response)
+        if (response.found === true) {
+            console.log('This email is in use')
+            res.send({msg: 'Email in Use'})
+        } else if (response.found === false) {
+            console.log('Did not find this email')
+            students.addNewUser(req.body, res)
+        }
+    }).catch(err => {
+        console.log(err)
+        res.status(500).send(err)
+    })
+})
 
 router.get('/all', function(req, res, next) {
     let studentList = []
