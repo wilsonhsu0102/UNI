@@ -12,7 +12,16 @@ class EditProfilePicture extends React.Component {
             buttons: [],
             images: [],
         };
-        // this.onDrop = this.onDrop.bind(this);
+    }
+
+    componentDidMount() {
+        this.getProfile().then((result => {
+            this.setState({
+                profile: result,
+            })
+        })).catch((error => {
+            console.log(error)
+        }))
         axios.get(`${constants.HTTP}${constants.HOST}${constants.PORT}/images/all`, {withCredentials: true})
         .then(res => {
             this.setState({
@@ -23,49 +32,10 @@ class EditProfilePicture extends React.Component {
             console.log(err);
         })
         .finally(() => {
-            // console.log(this.state.images[0].imageData.path)
         })
     }
 
-    componentDidMount() {
-        this.getProfile().then((result => {
-            this.setState({
-                profile: result,
-                buttons: this.setupButtons(result.pictures.photolib),
-            })
-            console.log(this.state.profile);
-            console.log(this.state.profile.email)
-            console.log(this.state.images)
-        })).catch((error => {
-            console.log(error)
-            console.log("ERROR Edit photo library not getting profile")
-        }))
-    }
-
-    uploadImage(e) {
-        if (window.confirm('Add photo to profile?')) {
-            let imageFormObj = new FormData();
-            imageFormObj.append("email", this.state.profile.email);
-            imageFormObj.append("type", "profilepic");
-            console.log(imageFormObj.email)
-            imageFormObj.append("imageName", "multer-image-" + Date.now());
-            console.log(e[0])
-            imageFormObj.append("imageData", e[0]);
-            console.log(imageFormObj)
-            axios.post(`${constants.HTTP}${constants.HOST}${constants.PORT}/images/all`, imageFormObj)
-                .then((data) => {
-                    if (data.data.sucesss) {
-                        alert("Image has been successfully uploaded")
-                    }
-                })
-                .catch((err) => {
-                    alert("Error while uploading image");
-                    console.error(err)
-                })
-        }
-    }
-
-     getProfile(){
+    getProfile(){
         return new Promise((resolve, reject) => {
             fetch(constants.HTTP + constants.HOST + constants.PORT + '/student/getProfile', {
                 method: "GET",
@@ -84,8 +54,28 @@ class EditProfilePicture extends React.Component {
                     reject('issue with getting resource')
                 }
             )
-        })
-        
+        })    
+    }
+
+    uploadImage(e) {
+        if (window.confirm('Update your profile picture?')) {
+            let imageFormObj = new FormData();
+            imageFormObj.append("email", this.state.profile.email);
+            imageFormObj.append("type", "profilepic");
+            imageFormObj.append("imageName", "multer-image-" + Date.now());
+            imageFormObj.append("imageData", e[0]);
+            imageFormObj.append("image", e[0].path);
+            axios.post(`${constants.HTTP}${constants.HOST}${constants.PORT}/images/all`, imageFormObj)
+                .then((data) => {
+                    if (data.data.sucesss) {
+                        alert("Image has been successfully uploaded")
+                    }
+                })
+                .catch((err) => {
+                    alert("Error while uploading image");
+                    console.error(err)
+                })
+        }
     }
  
     render() {
