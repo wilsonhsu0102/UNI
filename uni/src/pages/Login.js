@@ -96,7 +96,7 @@ class Login extends React.Component {
           email: email,
           password: password
         }
-        fetch('/student/login', {
+        fetch(constants.HTTP + constants.HOST + constants.PORT + '/student/login', {
                 method: 'post',
                 credentials: 'include',
                 body: JSON.stringify(opts),
