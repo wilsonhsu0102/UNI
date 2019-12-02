@@ -37,7 +37,7 @@ export default function SwipeableTemporaryDrawer(userid) {
 
   const getExtraButton = () => {
     console.log("extra button")
-    return <Link to={{pathname:"/admin/"+userid.id, state: { id: userid.id }}}>
+    return <Link to={{pathname:"/admin"}}>
             <ListItem button>
             <ListItemIcon>
             <SettingsIcon />
@@ -61,10 +61,10 @@ export default function SwipeableTemporaryDrawer(userid) {
         <ListItemIcon>
           <ChatIcon />
         </ListItemIcon>
-        <ListItemText primary="Make Connections" />
+        <ListItemText primary= "Home" />
         </ListItem>
         </Link>
-        <Link to={{pathname:"/connections", state: { id: userid.id }}}>
+        <Link to={{pathname: getSessionCookie() && getSessionCookie().admin ? "/admin" : "/connections", state: { id: userid.id }}}>
         <ListItem button>
         <ListItemIcon>
         <GroupIcon />

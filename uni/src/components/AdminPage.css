@@ -20,14 +20,14 @@
 }
 
 #UserList{
-	display: inline-block;
+	float: left;
 	margin-top: 30px;
 	border-collapse: collapse;
 	border: 1px solid black;
 	overflow: auto;
 	/* height: 400px; */
 	max-height: 400px;
-	width: 487px;
+	width: 700px;
 }
 
 #UserList td, #UserList th, #AdminEventList td, #AdminEventList th,
@@ -43,15 +43,14 @@
 }
 
 #AdminEventList{
-	display: inline-block;
 	margin-top: 30px;
-	float: right;
+	float: left;
 	position: relative;
 	border-collapse: collapse;
 	border: 1px solid black;
 	overflow: auto;
 	/* height: 400px; */
-	width: 754px;
+	max-width: 100vw;
 	max-height: 400px;
 }
 
