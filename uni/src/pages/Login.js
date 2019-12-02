@@ -158,12 +158,13 @@ class Login extends React.Component {
       const age = document.querySelector('#user-age').value;
       const major = document.querySelector('#user-major').value;
       const profilePicture = '/uploads/defaultprofilepicture.png'
+      const regex = RegExp('.@.')
       console.log('qwrqwrqwrq')
       if (name === '') {
           alert("Name cannot be empty")
           return
-      } else if (email === '') {
-          alert("Email cannot be empty")
+      } else if (!regex.test(email)) {
+          alert("Invalid Email")
           return
       } else if(password1 !== password2){
           alert("Passwords entered does not match")
