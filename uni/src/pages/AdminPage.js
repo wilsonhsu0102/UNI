@@ -31,8 +31,8 @@ class Admin extends React.Component {
 			let userList = []
 			for (let i = 0; i < users.length; i++) {
 				userList.push(<tr id={users[i]._id} key={'User:' + users[i].name + 'ID:' + users[i]._id}>
-									<td className = 'TableContents' style="overflow: scroll">{users[i].name}</td>
-									<td className = 'TableButtonCell' style="overflow: scroll">{users[i]._id}</td>
+									<td className = 'TableContents' style={{overflow: 'scroll'}}>{users[i].name}</td>
+									<td className = 'TableButtonCell' style={{overflow: 'scroll'}}>{users[i]._id}</td>
 									<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.goToProfile}>To Profile</button></td>
 									<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.removeUser}>X</button></td></tr>);	
 				numUsers++
@@ -45,9 +45,9 @@ class Admin extends React.Component {
 				for (let i = 0; i < startEvents.length; i++) {
 					let cEID = startEvents[i]._id;
 					eventList.push(<tr id={cEID} key={'Event:' + startEvents[i].eventName + 'EventID:' + cEID}>
-										<td className = 'TableContents' style="overflow: scroll">{startEvents[i].eventName}</td>
+										<td className = 'TableContents' style={{overflow: 'scroll'}}>{startEvents[i].eventName}</td>
 										<td className = 'TableButtonCell'>{cEID}</td>
-										<td className = 'TableContents' style="overflow: scroll">{startEvents[i].hostName}</td>
+										<td className = 'TableContents' style={{overflow: 'scroll'}}>{startEvents[i].hostName}</td>
 										<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.goToEvent}>To Event</button></td>
 										<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.goToProfile}>To Profile</button></td>
 										<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.removeEvent}>X</button></td></tr>);
