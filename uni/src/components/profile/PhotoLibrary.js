@@ -1,12 +1,17 @@
 import React from "react";
 import './ProfilePage.css'
 import constants from '../../lib/constants'
+import axios from 'axios'; 
+import { makeStyles } from '@material-ui/core/styles';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
 
 export default class PhotoLibrary extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			pictures: []
+			profile: {},
+			pictures: [],
 		}
 	}
 
@@ -14,10 +19,29 @@ export default class PhotoLibrary extends React.Component {
         console.log("the bio for the profile")
         this.getProfile().then((result) => {
             this.setState({
-              pictures: result
+              profile: result
             })
         }).catch((error) => {
             console.log(error)  // handle any rejects that come up in the chain.
+		})
+		axios.get(`${constants.HTTP}${constants.HOST}${constants.PORT}/images/all`, {withCredentials: true})
+        .then(res => {
+			let filtered = []
+			console.log(res.data)
+			res.data.forEach((pic) => {
+				if (pic.type === 'photolib') {
+					filtered.push({img: pic.path, title: "", author: "", cols: 2})
+				}
+			})
+			console.log(filtered)
+            this.setState({
+                pictures: filtered
+            })
+        })
+        .catch(err => {
+            console.log(err);
+        })
+        .finally(() => {
         })
     }
     
@@ -41,57 +65,47 @@ export default class PhotoLibrary extends React.Component {
               )
           })
           
-      }	
-
-	// 	if (this.id !== 1) {
-	// 		this.pictures = [require('../../images/photolib1.jpg'), require('../../images/photolib2.jpg'), require('../../images/photolib3.jpg'), 
-	// 		require('../../images/photolib4.jpg'), require('../../images/photolib5.jpg'), require('../../images/photolib6.jpg')]
-	// 	} else {
-	// 		this.pictures = [require('../../images/joker1.jpg'), require('../../images/joker2.jpg'), require('../../images/joker3.jpg'), 
-	// 		require('../../images/joker4.jpg'), require('../../images/joker5.jpg'), require('../../images/joker6.png')]
-	// 	}
-		
-	// 	console.log("This is the PhotoLibrary for " + this.id);
-	// }
+	  }
 
 	render() {
-		console.log(this.state.pictures)
-		var td = [];
-		var td2 = [];
-		let i = 1;
-		this.state.pictures.forEach(function(photo) {
-			if (i < 3) {
-				td.push(<td> <img className='photolibrary' src={photo} alt={'Me ' + i}/> </td>);
-			} else {
-				td2.push(<td> <img className='photolibrary' src={photo} alt={'Me ' + i}/> </td>);
-			}
-			i++;
-		}.bind(this));
-
+		const bgcolor = makeStyles(theme => {
+			return theme.palette.background.paper;
+		})
 		return (
-			<div>
-				<table className='photoalbum'>
-					<thead>
-						<tr>
-							<th id='photoalbumheader' className='photoalbum'> <h2> Album </h2> </th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							{/* <td> <img className='photolibrary' src={this.pictures[0]} alt='Me 1'/> </td>
-							<td> <img className='photolibrary' src={this.pictures[1]} alt='Me 2'/> </td>
-							<td> <img className='photolibrary' src={this.pictures[2]} alt='Me 3'/> </td> */}
-							{td}
-						</tr>
-						<tr>
-							{td2}
-							{/* <td> <img className='photolibrary' src={this.pictures[3]} alt='Me 4'/> </td>
-							<td> <img className='photolibrary' src={this.pictures[4]} alt='Me 5'/> </td>
-							<td> <img className='photolibrary' src={this.pictures[5]} alt='Me 6'/> </td> */}
-						</tr>
-					</tbody>
-				</table>
+			<div className="gridlistdiv" style={{backgroundColor: bgcolor}}>
+				<h2> Album </h2>
+				<GridList cellHeight={160} className="gridlist" cols={4}>
+					{this.state.pictures.map(tile => (
+						<GridListTile key={tile.img} cols = {tile.cols || 1}>
+							<img src={tile.img} alt={tile.title}></img>
+						</GridListTile>
+					))}
+				</GridList>
 			</div>
+			// <div>
+			// 	<table className='photoalbum'>
+			// 		<thead>
+			// 			<tr>
+			// 				<th id='photoalbumheader' className='photoalbum'> <h2> Album </h2> </th>
+			// 			</tr>
+			// 		</thead>
+			// 		<tbody>
+			// 			<tr>
+			// 				{/* <td> <img className='photolibrary' src={this.pictures[0]} alt='Me 1'/> </td>
+			// 				<td> <img className='photolibrary' src={this.pictures[1]} alt='Me 2'/> </td>
+			// 				<td> <img className='photolibrary' src={this.pictures[2]} alt='Me 3'/> </td> */}
+			// 				{/* <img className='photolibrary' src={this.state.pictures[0]}></img> */}
+			// 				{/* {this.state.pictures} */}
+			// 			{/* </tr> */}
+			// 			{/* <tr> */}
+			// 				{/* {td2} */}
+			// 				{/* <td> <img className='photolibrary' src={this.pictures[3]} alt='Me 4'/> </td>
+			// 				<td> <img className='photolibrary' src={this.pictures[4]} alt='Me 5'/> </td>
+			// 				<td> <img className='photolibrary' src={this.pictures[5]} alt='Me 6'/> </td> */}
+			// 			</tr>
+			// 		</tbody>
+			// 	</table>
+			// </div>
 		);	
 	}
 
