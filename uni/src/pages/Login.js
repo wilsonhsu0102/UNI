@@ -176,6 +176,7 @@ class Login extends React.Component {
       const password2 = document.querySelector('#user-password2').value;
       const age = document.querySelector('#user-age').value;
       const major = document.querySelector('#user-major').value;
+      const profilePicture = '/uploads/defaultprofilepicture.png'
       console.log('qwrqwrqwrq')
       if (name === '') {
           alert("Name cannot be empty")
@@ -201,7 +202,7 @@ class Login extends React.Component {
           email: email,
           description: description,
           password: password1,
-          profilePicture: '',
+          profilePicture: profilePicture,
           age: age,
           major: major,
           connections: [],
