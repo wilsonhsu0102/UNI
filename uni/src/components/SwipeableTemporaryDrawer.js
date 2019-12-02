@@ -88,7 +88,7 @@ export default function SwipeableTemporaryDrawer(userid) {
         <ListItemText primary="Settings" />
         </ListItem>
         </Link>
-        {getCookieSession() && getCookieSession().admin ? getExtraButton() : null}
+        {getSessionCookie() && getSessionCookie().admin ? getExtraButton() : null}
       </List>
       
     </div>
