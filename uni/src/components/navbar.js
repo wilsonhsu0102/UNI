@@ -2,15 +2,18 @@ import React from 'react';
 import Logo from '../images/logo.png';
 import SwipeableTemporaryDrawer from './SwipeableTemporaryDrawer'
 import { Link } from 'react-router-dom';
+import { SessionContext, getSessionCookie, setSessionCookie, removeSessionCookie } from "../session";
+
 
 class NavBar extends React.Component {
     render()  {
+        const session = getSessionCookie()
         return (
             <div className="Header"> 
             
                 <ul className="left"> 
                 <li>
-                    <SwipeableTemporaryDrawer id={this.props.id}></SwipeableTemporaryDrawer>
+                    <SwipeableTemporaryDrawer></SwipeableTemporaryDrawer>
                 </li>
                 </ul>
                 <ul className="right"> 
@@ -34,7 +37,7 @@ class NavBar extends React.Component {
                     </Link>
                 </li>
                 <li> 
-                    <Link to={{pathname:'/home', state: { id:this.props.id }}}>
+                    <Link to={{pathname: session && session.admin ? '/admin' : '/home', state: { id:this.props.id }}}>
                         <img className="App-logo" src={Logo} alt="app logo"/>
                     </Link>
                 </li>

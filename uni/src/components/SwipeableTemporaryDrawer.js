@@ -13,6 +13,7 @@ import TodayIcon from '@material-ui/icons/Today';
 import GroupIcon from '@material-ui/icons/Group';
 import SettingsIcon from '@material-ui/icons/Settings';
 // import {  Nav } from 'react-bootstrap';
+import { SessionContext, getSessionCookie, setSessionCookie, removeSessionCookie } from "../session";
 import { Link } from 'react-router-dom';
 
 
@@ -31,8 +32,8 @@ export default function SwipeableTemporaryDrawer(userid) {
     if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
-
-    setState({ ...state, [side]: open });
+    const session = getSessionCookie()
+    setState({ ...state, [side]: open, admin: session.admin});
   };
 
   const getExtraButton = () => {
@@ -88,7 +89,7 @@ export default function SwipeableTemporaryDrawer(userid) {
         <ListItemText primary="Settings" />
         </ListItem>
         </Link>
-        {parseInt(userid.id) === 0 ? getExtraButton() : null}
+        {this.state.admin ? getExtraButton() : null}
       </List>
       
     </div>
