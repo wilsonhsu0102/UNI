@@ -114,19 +114,19 @@ class EventList extends React.Component {
                 "Access-Control-Allow-Credentials": "true",
                 "Content-type": "application/json; charset=UTF-8"
                 }})
-                .then(res => { res.json()})
-                .then(
-                    (result) => {
-                        console.log("result: " + result)
+                .then(res => { 
+                    res.json().then( data => {
+                        console.log("result: " + data)
                         resolve({
-                            event: result
+                            event: data
                         })
-                    },
-                    (error) => {
-                        console.log("errror: " + error)
-                        reject(error)
-                    }
-                )
+                        window.location.reload()
+                    }).catch( err => {
+                        console.error(err)
+                    })
+                }).catch( err => {
+                    console.error(err)
+                })
             })
     }
 
@@ -182,11 +182,8 @@ class EventList extends React.Component {
             attendees: [host],
             coverPhoto: ''
         }
-        console.log(event)
-        console.log(JSON.stringify(event))
         this.saveEvent(event)
         this.handleClose()
-        window.location.reload()
     }
 
     loading = () => {

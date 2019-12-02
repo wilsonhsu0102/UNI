@@ -1,23 +1,18 @@
 import React from "react";
 import './ProfilePage.css';
 import constants from '../../lib/constants';
+import axios from 'axios'; 
+import { makeStyles } from '@material-ui/core/styles';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
 
 export default class HiddenInfo extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
+			profile: {},
 			pictures: []
 		}
-
-		// if (this.id !== 1) {
-		// 	this.pictures = [require('../../images/hiddenlib1.jpg'), require('../../images/hiddenlib2.jpg'), require('../../images/hiddenlib3.jpg'),
-		// 	require('../../images/hiddenlib4.jpg'), require('../../images/hiddenlib5.jpg'), require('../../images/hiddenlib6.jpg')]
-		// } else {
-		// 	this.pictures = [require('../../images/hiddenlib1.jpg'), require('../../images/hiddenlib2.jpg'), require('../../images/hiddenlib3.jpg'),
-		// 	require('../../images/hiddenlib4.jpg'), require('../../images/hiddenlib5.jpg'), require('../../images/hiddenlib6.jpg')]
-		// }
-		
-		// console.log("This is the PhotoLibrary for " + this.id);
 	}
 
 	componentDidMount(){
@@ -28,6 +23,25 @@ export default class HiddenInfo extends React.Component {
             })
         }).catch((error) => {
             console.log(error)  // handle any rejects that come up in the chain.
+		})
+		axios.get(`${constants.HTTP}${constants.HOST}${constants.PORT}/images/all`, {withCredentials: true})
+        .then(res => {
+			let filtered = []
+			console.log(res.data)
+			res.data.forEach((pic) => {
+				if (pic.type === 'hiddenlib') {
+					filtered.push({img: pic.path, title: "", author: "", cols: 1})
+				}
+			})
+			console.log(filtered)
+            this.setState({
+                pictures: filtered
+            })
+        })
+        .catch(err => {
+            console.log(err);
+        })
+        .finally(() => {
         })
     }
     
@@ -54,41 +68,46 @@ export default class HiddenInfo extends React.Component {
       }	
 
 	render() {
-		var td = [];
-		var td2 = [];
-		let i = 1;
-		this.state.pictures.forEach(function(photo) {
-			if (i < 3) {
-				td.push(<td> <img className='photolibrary' src={photo} alt={'Me ' + i}/> </td>);
-			} else {
-				td2.push(<td> <img className='photolibrary' src={photo} alt={'Me ' + i}/> </td>);
-			}
-			i++;
-		}.bind(this));
+		const bgcolor = makeStyles(theme => {
+			return theme.palette.background.paper;
+		})
 		return (
-			<div>
-				<table className='hiddenalbum'>
-					<thead>
-						<tr>
-							<th id='hiddenalbumheader' className='photoalbum'> <h2> Interests </h2> </th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							{td}
-							{/* <td> <img className='hiddenlibrary' src={this.pictures[0]} alt='Hidden 1'/> </td>
-							<td> <img className='hiddenlibrary' src={this.pictures[1]} alt='Hidden 2'/> </td>
-							<td> <img className='hiddenlibrary' src={this.pictures[2]} alt='Hidden 3'/> </td> */}
-						</tr>
-						<tr>
-							{td2}
-							{/* <td> <img className='hiddenlibrary' src={this.pictures[3]} alt='Hidden 4'/> </td>
-							<td> <img className='hiddenlibrary' src={this.pictures[4]} alt='Hidden 5'/> </td>
-							<td> <img className='hiddenlibrary' src={this.pictures[5]} alt='Hidden 6'/> </td> */}
-						</tr>
-					</tbody>
-				</table>
+			<div className="hiddengridlistdiv" style={{backgroundColor: bgcolor}}>
+				<h2> Interests </h2>
+				<GridList cellHeight={160} className="hiddengridlist" cols={2}>
+					{this.state.pictures.map(tile => (
+						<GridListTile key={tile.img} cols = {tile.cols || 1}>
+							<img src={tile.img} alt={tile.title}></img>
+						</GridListTile>
+					))}
+				</GridList>
 			</div>
+
+
+
+			// <div>
+			// 	<table className='hiddenalbum'>
+			// 		<thead>
+			// 			<tr>
+			// 				<th id='hiddenalbumheader' className='photoalbum'> <h2> Interests </h2> </th>
+			// 			</tr>
+			// 		</thead>
+			// 		<tbody>
+			// 			<tr>
+			// 				{td}
+			// 				{/* <td> <img className='hiddenlibrary' src={this.pictures[0]} alt='Hidden 1'/> </td>
+			// 				<td> <img className='hiddenlibrary' src={this.pictures[1]} alt='Hidden 2'/> </td>
+			// 				<td> <img className='hiddenlibrary' src={this.pictures[2]} alt='Hidden 3'/> </td> */}
+			// 			</tr>
+			// 			<tr>
+			// 				{td2}
+			// 				{/* <td> <img className='hiddenlibrary' src={this.pictures[3]} alt='Hidden 4'/> </td>
+			// 				<td> <img className='hiddenlibrary' src={this.pictures[4]} alt='Hidden 5'/> </td>
+			// 				<td> <img className='hiddenlibrary' src={this.pictures[5]} alt='Hidden 6'/> </td> */}
+			// 			</tr>
+			// 		</tbody>
+			// 	</table>
+			// </div>
 		);	
 	}
 
