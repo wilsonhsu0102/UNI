@@ -103,7 +103,8 @@ router.route("/all")
                 console.log(result);
                 res.status(200).json({
                     success: true,
-                    document: result
+                    document: result,
+                    path: (req.file.path).substring(9)
                 });
             })
             .catch((err) => next(err));
