@@ -1,6 +1,8 @@
 import React from 'react';
 import constants from '../../lib/constants'
 import axios from 'axios'; 
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
  
 class EditProfileInfo extends React.Component {
     constructor(props) {
@@ -52,15 +54,47 @@ class EditProfileInfo extends React.Component {
     }
 
     handleSubmit(event) {
-
+        axios.post(`${constants.HTTP}${constants.HOST}${constants.PORT}/student/updateAccountInfo`, {withCredentials: true})
+        .then((data) => {
+            if (data.data.sucesss) {
+                alert("Image has been successfully uploaded")
+            }
+        })
+        .catch((err) => {
+            alert("Error while uploading image");
+            console.error(err)
+        })
         alert('Information has been saved.');
-        event.preventDefault();
+        // event.preventDefault();
     }
 
     render() {
         return ([
             <div id="profileinputdiv"> 
-                <form  onSubmit={this.handleSubmit}>
+                <Form>
+                        <Form.Group controlId="exampleForm.ControlInput1">
+                            <Form.Label>Email address</Form.Label>
+                            <Form.Control type="email" placeholder="name@example.com" />
+                        </Form.Group>
+                        <Form.Group controlId="exampleForm.ControlSelect1">
+                            <Form.Label>Year</Form.Label>
+                            <Form.Control as="select">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>Other</option>
+                            </Form.Control>
+                        </Form.Group>
+                        <Form.Group controlId="exampleForm.ControlTextarea1">
+                            <Form.Label>Self Introduction</Form.Label>
+                            <Form.Control as="selfintroduction" rows="3" />
+                        </Form.Group>
+                    </Form>
+                    <Button variant="primary" type="submit" onClick={this.handleSubmit}>
+                        Submit
+                    </Button>
+                {/* <form  onSubmit={this.handleSubmit}>
                     <label>
                         <span class="inputdescriptor">Year: </span>
                         <input class="editlabel" placeholder={this.state.year} type="text" onChange={this.handleChange("year")} />
@@ -82,7 +116,7 @@ class EditProfileInfo extends React.Component {
                     </label>
                     <br></br>
                     <input class="inputdescriptor" id="submitbutton" type="submit" value="Submit" />
-                </form>
+                </form> */}
 
             </div>
         ]);

@@ -359,5 +359,44 @@ module.exports = {
         let doc = Profile.findOneAndUpdate(filter, update, {new: true});
         console.log(doc);
     },
+    updateAccountInfo: function(id, req, res) {
+        console.log('LOG: studentHandler->updateProfile');
+        mongoose.connect(constants.MONGO_DB_URL, {useNewUrlParser: true})
+
+        var db = mongoose.connection;
+        db.on( 'error', console.error(bind(console, 'connection error:')));
+        db.once('open', () => console.log('connected to the database'));
+        const filter = { "email": email };
+        const intro = req.body.intro;
+        const major = req.body.major;
+        const year = req.body.year;
+        const campus = req.body.campus;
+        Account.findOneAndUpdate(filter, {description: intro, major: major, year: year, campus: campus}, {new: true})
+            .then(result => {
+                console.log(result);
+                res.send(result);
+            }).catch((error) => {
+                console.warn('WARN: No images related to this email.')
+                res.send({success: false})
+            })
+    },
+    getAccountbyId: function(id, res) {
+        console.log('LOG: studentHandler->getAccountbyEmail1');
+        mongoose.connect(constants.MONGO_DB_URL, {useNewUrlParser: true})
+
+        var db = mongoose.connection
+        db.on( 'error', console.error.bind(console, 'connection error:'))
+
+        db.once('open', () => console.log('connected to the database'))
+        console.log(id)
+        Account.findById(id).then((result) => {
+            console.log("I found the account")
+            res.send(result)
+        }).catch((error) => {
+            console.warn('WARN: This email is not correct!')
+            res.send({success:false})
+        })
+
+    },
     
 }

@@ -16,8 +16,8 @@ export default class PhotoLibrary extends React.Component {
 	}
 
 	componentDidMount(){
-		console.log("Loading photo album for profile.")
-		axios.get(`${constants.HTTP}${constants.HOST}${constants.PORT}/images/all`, {withCredentials: true})
+        console.log("Loading photo album for profile.")
+		axios.get(`${constants.HTTP}${constants.HOST}${constants.PORT}/images/all/${this.props.id}`, {withCredentials: true})
         .then(res => {
 			let filtered = []
 			console.log(res.data)
@@ -36,12 +36,13 @@ export default class PhotoLibrary extends React.Component {
         })
         .finally(() => {
 		})
-		axios.get(`${constants.HTTP}${constants.HOST}${constants.PORT}/student/getAccount`, {withCredentials: true})
+        axios.get(`${constants.HTTP}${constants.HOST}${constants.PORT}/student/getAccount/${this.props.id}`, {withCredentials: true})
 		.then(res => {
 			
             this.setState({
                 account: res.data
-			})
+            })
+            console.log(res)
 			console.log(this.state.account)
         })
         .catch(err => {
@@ -50,7 +51,7 @@ export default class PhotoLibrary extends React.Component {
         .finally(() => {
 		
 		})
-	}
+    }
 
 	render() {
 		const bgcolor = makeStyles(theme => {

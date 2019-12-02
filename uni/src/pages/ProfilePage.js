@@ -19,16 +19,18 @@ class Profile extends React.Component {
         this.state = {
             account: {}
         }
+        console.log(this.props.id)
     }
 
     componentDidMount(){
         console.log("Loading profile page.")
-        axios.get(`${constants.HTTP}${constants.HOST}${constants.PORT}/student/getAccount`, {withCredentials: true})
+        axios.get(`${constants.HTTP}${constants.HOST}${constants.PORT}/student/getAccount/${this.props.id}`, {withCredentials: true})
 		.then(res => {
 			
             this.setState({
                 account: res.data
-			})
+            })
+            console.log(res)
 			console.log(this.state.account)
         })
         .catch(err => {
@@ -56,12 +58,12 @@ class Profile extends React.Component {
     // }
 
     render() {
-        return [<NavBar id ={this.state.account._id}></NavBar>,
-            <ProfilePicture id={this.state.account._id} key={0}/>, 
-            <SelfIntro id={this.state.account._id} key={1}/>, 
-            <Bio id={this.state.account._id} key={2}/>, 
-            <HiddenInfo id={this.state.account._id} key={3}/>, 
-            <PhotoLibrary id={this.state.account._id} key={4}/>]
+        return [<NavBar id ={this.props.id}></NavBar>,
+            <ProfilePicture id={this.props.id} key={0}/>, 
+            <SelfIntro id={this.props.id} key={1}/>, 
+            <Bio id={this.props.id} key={2}/>, 
+            <HiddenInfo id={this.props.id} key={3}/>, 
+            <PhotoLibrary id={this.props.id} key={4}/>]
     } 
   }
 export default Profile;

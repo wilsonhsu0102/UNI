@@ -23,6 +23,25 @@ module.exports = {
         })
         
     },
+    getImagesById: function(id, res) {
+        console.log('LOG: images->getImageById');
+        var result = [];
+        mongoose.connect(constants.MONGO_DB_URL, { useNewUrlParser: true })
+
+        var db = mongoose.connection;
+        db.on( 'error', console.error.bind( console, 'connection error:' ) );
+
+        db.once( 'open', () => console.log('connected to the database'));
+
+        Image.find({id: id}).then(result => {
+            console.log(result);
+            res.send(result);
+        }).catch((error) => {
+            console.warn('WARN: No images related to this email.')
+            res.send({success: false})
+        })
+        
+    },
     uploadPhoto: function(image, res, req) {
         console.log('LOG: images->uploadPhoto');
         var result = [];

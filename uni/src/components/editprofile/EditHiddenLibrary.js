@@ -7,20 +7,12 @@ class EditHiddenLibrary extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
-            profile: {},
-            buttons: [],
+            account: {},
             images: [],
         };
     }
 
     componentDidMount() {
-        this.getProfile().then((result => {
-            this.setState({
-                profile: result,
-            })
-        })).catch((error => {
-            console.log(error)
-        }))
         axios.get(`${constants.HTTP}${constants.HOST}${constants.PORT}/images/all`, {withCredentials: true})
         .then(res => {
             this.setState({
@@ -32,35 +24,29 @@ class EditHiddenLibrary extends React.Component {
         })
         .finally(() => {
         })
-    }
-
-    getProfile(){
-        return new Promise((resolve, reject) => {
-            fetch(constants.HTTP + constants.HOST + constants.PORT + '/student/getProfile', {
-                method: "GET",
-                credentials: 'include',
-                headers: {
-                "Access-Control-Allow-Credentials": "true",
-                "Content-type": "application/json; charset=UTF-8"
-                }})
-                .then(res => res.json())
-                .then(
-                (result) => {
-                    console.log(result)
-                    resolve(result)
-                },
-                (error) => {
-                    reject('issue with getting resource')
-                }
-            )
-        })    
+        axios.get(`${constants.HTTP}${constants.HOST}${constants.PORT}/student/getAccount`, {withCredentials: true})
+		.then(res => {
+			
+            this.setState({
+                account: res.data
+            })
+            console.log(res)
+			console.log(this.state.account)
+        })
+        .catch(err => {
+            console.log(err);
+        })
+        .finally(() => {
+		
+		})
     }
 
 
     uploadImage(e) {
         if (window.confirm('Add photo to interests?')) {
             let imageFormObj = new FormData();
-            imageFormObj.append("email", this.state.profile.email);
+            imageFormObj.append("email", this.state.account.email);
+            imageFormObj.append("id", this.state.account._id);
             imageFormObj.append("type", "hiddenlib");
             imageFormObj.append("imageName", "multer-image-" + Date.now());
             imageFormObj.append("imageData", e[0]);
