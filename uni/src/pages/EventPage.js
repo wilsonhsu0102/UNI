@@ -12,7 +12,6 @@ class Event extends React.Component {
     constructor(props) {
         super(props);
         this.id = this.props.id;
-        this.name = "Wilson Hsu"
         this.state = {
             authenticated: true,
             photo: '',
