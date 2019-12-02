@@ -58,6 +58,7 @@ router.post('/addEvent', function(req, res, next) {
         location: req.body.location,
         attendees: req.body.attendees,
         host: req.body.host,
+        coverPhoto: req.body.coverPhoto,
         date: datetime
     })
 	// Save the user
@@ -65,7 +66,6 @@ router.post('/addEvent', function(req, res, next) {
         console.log(event)
 		res.send(JSON.stringify(event))
 	}, (error) => {
-        console.log('qweqwe')
 		res.status(400).send(error) // 400 for bad request
 	})
 });

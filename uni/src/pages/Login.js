@@ -410,9 +410,9 @@ class Login extends React.Component {
                       </Link>
                     </Grid>
                     <Grid item>
-                      <button id='styled-like-link' href='GAYY' onClick={this.handleShow}>
+                      <Button id='styled-like-link' onClick={this.handleShow}>
                         Don't have an account? Sign Up
-                      </button>
+                      </Button>
                     </Grid>
                   </Grid>
                 </form>

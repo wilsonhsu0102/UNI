@@ -5,6 +5,7 @@ let eventSchema = new mongoose.Schema({
     eventName: String,
     location: String,
     description: String,
+    coverPhoto: String,
     date: String,
     attendees: Array //Emails of attendees
 });

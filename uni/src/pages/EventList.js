@@ -7,6 +7,7 @@ import {Modal} from "react-bootstrap"
 import {FormGroup, FormControl} from "react-bootstrap";
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
+import Button from '@material-ui/core/Button';
 import { SessionContext, getSessionCookie, setSessionCookie, removeSessionCookie } from "../session";
 import PacmanLoader from 'react-spinners/PacmanLoader';
 
@@ -178,7 +179,8 @@ class EventList extends React.Component {
             location: location,
             host: host,
             datetime: this.state.date,
-            attendees: [host]
+            attendees: [host],
+            coverPhoto: ''
         }
         console.log(event)
         console.log(JSON.stringify(event))
@@ -254,6 +256,10 @@ class EventList extends React.Component {
                                 dateFormat="MMMM d, yyyy hh:mm"
                                 placeholderText="Click to select a date"
                                 />
+                            </FormGroup>
+                            <span className= 'create-event-text'> Upload Cover Photo </span>
+                            <FormGroup>
+                                <Button > </Button>
                             </FormGroup>
                     </Modal.Body>
                     <Modal.Footer>
