@@ -257,17 +257,7 @@ class Admin extends React.Component {
 			return [<NavBar id={this.id}></NavBar>,<div id='AdminBody'>
 			<h4 id='PageHeader'>Admin Dashboard - Your ID: <span id='AdminId'><strong>{this.id}</strong></span></h4>
 			<h4 id='UserListHeader'>User List</h4>
-			<h4 id='AdminEventListHeader'>Event List</h4>
-			<br></br>
-			<form id='UserForm'>
-				<input id='newUser' type='text' placeholder='Full Name'/>
-				<button className='TableButton' onClick={ this.addUser }>Add User</button>
-			</form>
-			<form id='EventAddForm'>
-				<input id='newEventName' type='text' placeholder='Event Name'/>
-				<input id='newHostName' type='text' placeholder='Host Name'/>
-				<button className='TableButton' onClick={ this.addEvent }>Add Event</button>
-			</form>
+			
 			<br></br>
 			<table id='UserList'>
 				<tbody>
@@ -288,6 +278,8 @@ class Admin extends React.Component {
 					{ this.state.userList }
 				</tbody>
 			</table>
+			<br></br>
+			<h4 id='AdminEventListHeader'>Event List</h4>
 			<table id='AdminEventList'>
 				<tbody>
 					<tr>
