@@ -27,6 +27,7 @@ const app = express();
 
 app.use(bodyParser.json())
 app.use(cors({credentials: true, origin: 'http://uni-uoft.herokuapp.com'}));
+//app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 //app.options('*', cors());
 
 

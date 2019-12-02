@@ -101,6 +101,7 @@ class Login extends React.Component {
           email: email,
           password: password
         }
+        console.log('logging in')
         fetch(constants.HTTP + constants.HOST + constants.PORT + '/student/login', {
                 method: 'post',
                 credentials: 'include',
@@ -112,9 +113,10 @@ class Login extends React.Component {
                 .then(res => res.json())
                 .then((result) => {
                     if (result.success) {
-                      console.log('login successful')
-                      setSessionCookie({ email: email });
+                      console.log('login successful', result.admin)
+                      setSessionCookie({ email: email, admin: result.admin });
                       //window.location.href='http://localhost:3000/home';
+                      //window.location.href= constants.HTTP + constants.HOST + ":3000" + '/home'
                       window.location.href= constants.HTTP + constants.HOST + constants.PORT + '/home'
                       //window.location.href='http://uni-uoft.herokuapp.com/home';
                     } else {

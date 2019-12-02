@@ -3,78 +3,143 @@ import Login from '../pages/Login'
 import '../components/AdminPage.css'
 import NavBar from '../components/navbar';
 import PermissionDenied from '../pages/PermissionDenied'
-import { SessionContext, getSessionCookie, setSessionCookie } from "../session";
-
-
-const mockUsers = [{'name': 'Wilson Hsu'}, {'name': 'Twice'}, {'name': 'Higher Brothers'}, {'name': 'BTS'},
-				   {'name': 'Rich Brian'}, {'name': 'Blackpink'}, {'name': 'Shawn Mendes'}, {'name': 'Jay Chou'},
-				   {'name': 'Victor Huang'}, {'name': 'Got7'}, {'name': 'Day6'}, {'name': 'Itzy'} ]
-const mockEvents = [{'eventName': 'Free BBT', 'hostName': 'Wilson Hsu' }, {'eventName': 'Once Fanmeet', 'hostName': 'Twice' }, 
-					{'eventName': 'IGOT7 Fanmeet', 'hostName': 'Got7' }, {'eventName': 'Free Pants', 'hostName': 'Rich Brian' }]
+import { SessionContext, getSessionCookie, setSessionCookie, removeSessionCookie } from "../session";
+import constants from '../lib/constants'
 					
 class Admin extends React.Component {
     constructor(props) {
-        super(props);
-		this.id = this.props.id;
-		if (this.id == null){
-			this.id = this.props.location.state.id
-		}
-		this.users = mockUsers;
-		this.startEvents = mockEvents;
-		//Fills in mock data
-		let emptyUserList = [];
-		let id = 0;
-		for (let i = 0; i < this.users.length; i++) {
-			emptyUserList.push(<tr id={'User:' + this.users[i].name + 'ID:' + id} key={'User:' + this.users[i].name + 'ID:' + id}>
-								<td className = 'TableContents'>{this.users[i].name}</td>
-								<td className = 'TableButtonCell'>{id++}</td>
-								<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.goToProfile}>To Profile</button></td>
-								<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.removeUser}>X</button></td></tr>);	
-		}
-		let emptyEventList = [];
-		let cEID = 0;
-		for (let i = 0; i < this.startEvents.length; i++) {
-			emptyEventList.push(<tr id={'Event:' + this.startEvents[i].eventName + 'EventID:' + cEID} key={'Event:' + this.startEvents[i].eventName + 'EventID:' + cEID}>
-								<td className = 'TableContents'>{this.startEvents[i].eventName}</td>
-								<td className = 'TableButtonCell'>{cEID++}</td>
-								<td className = 'TableContents'>{this.startEvents[i].hostName}</td>
-								<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.goToEvent}>To Event</button></td>
-								<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.goToProfile}>To Profile</button></td>
-								<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.removeEvent}>X</button></td></tr>);
-		}
+		super(props);
+		
 		this.state = {
-			userList: emptyUserList,
-			userId: id,
-			numUsers: id,
-			eventId: cEID,
-			numEvents: cEID,
-			eventList: emptyEventList,
+			userList: [],
+			userId: 0,
+			numUsers: 0,
+			eventId: 0,
+			numEvents: 0,
+			eventList: [],
 			statsTable: []
 		}
-		this.state.statsTable.push(<tr id={'AdminStatisticTNU'} key={'AdminStatisticTNU'}>
-						<td className = 'TableContents'> {'Total Number of Users'}</td>
-						<td className = 'TableContents'>{ this.state.numUsers }</td></tr>);
-		this.state.statsTable.push(<tr id={'AdminStatisticTNE'} key={'AdminStatisticTNE'}>
-						<td className = 'TableContents'> {'Total Number of Events'}</td>
-						<td className = 'TableContents'>{ this.state.numEvents }</td></tr>);
 		
-        console.log('Admin ID: ' + this.id);
-    }
+		
+	}
+	
+	componentDidMount(){
+		this.getStudents().then((result) => {
+			const users = result.students
+			console.log('users', users)
+			let numUsers = 0;
+			let userList = []
+			for (let i = 0; i < users.length; i++) {
+				userList.push(<tr id={users[i]._id} key={'User:' + users[i].name + 'ID:' + users[i]._id}>
+									<td className = 'TableContents'>{users[i].name}</td>
+									<td className = 'TableButtonCell'>{users[i]._id}</td>
+									<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.goToProfile}>To Profile</button></td>
+									<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.removeUser}>X</button></td></tr>);	
+				numUsers++
+			}
+			
+			this.getEvents().then((events) => {
+				const startEvents = events.events
+				let numEvents = 0;
+				let eventList = []
+				for (let i = 0; i < startEvents.length; i++) {
+					let cEID = startEvents[i]._id;
+					eventList.push(<tr id={cEID} key={'Event:' + startEvents[i].eventName + 'EventID:' + cEID}>
+										<td className = 'TableContents'>{startEvents[i].eventName}</td>
+										<td className = 'TableButtonCell'>{cEID}</td>
+										<td className = 'TableContents'>{startEvents[i].hostName}</td>
+										<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.goToEvent}>To Event</button></td>
+										<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.goToProfile}>To Profile</button></td>
+										<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.removeEvent}>X</button></td></tr>);
+					numEvents++
+				}
+
+				this.state.statsTable.push(<tr id={'AdminStatisticTNU'} key={'AdminStatisticTNU'}>
+						<td className = 'TableContents'> {'Total Number of Users'}</td>
+						<td className = 'TableContents'>{ numUsers }</td></tr>);
+				this.state.statsTable.push(<tr id={'AdminStatisticTNE'} key={'AdminStatisticTNE'}>
+						<td className = 'TableContents'> {'Total Number of Events'}</td>
+						<td className = 'TableContents'>{ numEvents }</td></tr>);
+
+				
+				this.setState({
+					userList: userList,
+					eventList: eventList
+				})
+
+
+			})
+			
+			
+		}).catch((error) => {
+			console.log(error)  // handle any rejects that come up in the chain.
+		})
+	}
+	
+	  getStudents(){
+		  return new Promise((resolve, reject) => {
+			  console.log(constants.HTTP + constants.HOST + constants.PORT + '/student/all')
+			  fetch(constants.HTTP + constants.HOST + constants.PORT + '/student/all', {
+				  method: "GET",
+				  credentials: 'include',
+				  headers: {
+				  "Access-Control-Allow-Credentials": "true",
+				  "Content-type": "application/json; charset=UTF-8"
+				  }})
+				  .then(res => res.json())
+				  .then(
+					
+				  (result) => {
+					  console.log(result)
+					  resolve({
+						  students: result.students
+					  })
+				  },
+				  (error) => {
+					  //removeSessionCookie()
+					  console.log('rejected', error)
+					  reject(error + 'issue with getting resource')
+				  }
+			  )
+		  })
+		  
+	  }
+
+	  getEvents(){
+		return new Promise((resolve, reject) => {
+			fetch(constants.HTTP + constants.HOST + constants.PORT + '/events/all', {
+				method: "GET",
+				credentials: 'include',
+				headers: {
+				"Access-Control-Allow-Credentials": "true",
+				"Content-type": "application/json; charset=UTF-8"
+				}})
+				.then(res => res.json())
+				.then(
+					
+				(result) => {
+					resolve({
+						events: result
+					})
+				},
+				(error) => {
+					//removeSessionCookie()
+					reject(error + 'issue with getting resource')
+				}
+			)
+		})
+		
+	}
 
 	goToProfile(e) {
 		let rowId = e.target.parentElement.parentElement.id;
-		//If statement is for mock data, will be changed later
-		if(rowId === 'User:Wilson HsuID:0' || rowId === 'Event:Free BBTEventID:0'){
-			window.location.href='http://localhost:3000/profile/0';
-		}
+		window.location.href= constants.HTTP + constants.HOST + constants.PORT + '/profile/' + rowId;
     }
 	
 	goToEvent(e) {
 		let rowId = e.target.parentElement.parentElement.id;
 		//If statement is for mock data, will be changed later
-		if(rowId === 'Event:Free BBTEventID:0'){
-			window.location.href='http://localhost:3000/event/0';
-		}
+		window.location.href= constants.HTTP + constants.HOST + constants.PORT + '/event/' + rowId;
     }
 	
 	addUser = (e) => {
@@ -183,12 +248,12 @@ class Admin extends React.Component {
 		}
 		return statTable;
 	}
-/*
-	renderCondition() {
-		
-		console.log("render condition connections", this.props)
+	renderCondition = () => {
 		const session = getSessionCookie()
-		if (session !== undefined) {
+		console.log(session)
+        if (session && session.admin) {
+            this.host = session;
+            console.log(session)
 			return [<NavBar id={this.id}></NavBar>,<div id='AdminBody'>
 			<h4 id='PageHeader'>Admin Dashboard - Your ID: <span id='AdminId'><strong>{this.id}</strong></span></h4>
 			<h4 id='UserListHeader'>User List</h4>
@@ -249,104 +314,13 @@ class Admin extends React.Component {
 				</tbody>
 			</table>
 			<br></br>
-			<h4 id='OverallStatsHeader'>Overall Stats</h4>
-			<br></br>
-			<table id='OverallStatsTable'>
-				<tbody>
-					<tr>
-						<th className = 'TableContents'>
-							Statistic Name
-						</th>
-						<th className = 'TableContents'>
-							Statistic
-						</th>
-					</tr>
-					{this.state.statsTable}
-				</tbody>
-			</table>
 		</div>]
-		} else {
-			return <Login></Login>
-		}
-	}
-	*/
+        }
+        removeSessionCookie()
+        return <Login></Login>
+      }
     render()  {
-		return [<NavBar id={this.id}></NavBar>,<div id='AdminBody'>
-			<h4 id='PageHeader'>Admin Dashboard - Your ID: <span id='AdminId'><strong>{this.id}</strong></span></h4>
-			<h4 id='UserListHeader'>User List</h4>
-			<h4 id='AdminEventListHeader'>Event List</h4>
-			<br></br>
-			<form id='UserForm'>
-				<input id='newUser' type='text' placeholder='Full Name'/>
-				<button className='TableButton' onClick={ this.addUser }>Add User</button>
-			</form>
-			<form id='EventAddForm'>
-				<input id='newEventName' type='text' placeholder='Event Name'/>
-				<input id='newHostName' type='text' placeholder='Host Name'/>
-				<button className='TableButton' onClick={ this.addEvent }>Add Event</button>
-			</form>
-			<br></br>
-			<table id='UserList'>
-				<tbody>
-					<tr>
-						<th className = 'TableContents'>
-							Name
-						</th>
-						<th className = 'TableButtonCell'>
-							UserID
-						</th>
-						<th className = 'TableButtonCell'>
-							Profile Link
-						</th>
-						<th className = 'TableButtonCell'>
-							Remove
-						</th>
-					</tr>
-					{ this.state.userList }
-				</tbody>
-			</table>
-			<table id='AdminEventList'>
-				<tbody>
-					<tr>
-						<th className = 'TableContents'>
-							Event Name
-						</th>
-						<th className = 'TableButtonCell'>
-							EventID
-						</th>
-						<th className = 'TableContents'>
-							Host Name
-						</th>
-						<th className = 'TableButtonCell'>
-							Event Link
-						</th>
-						<th className = 'TableButtonCell'>
-							Profile Link
-						</th>
-						<th className = 'TableButtonCell'>
-							Remove
-						</th>
-					</tr>
-					{ this.state.eventList }
-				</tbody>
-			</table>
-			<br></br>
-			<h4 id='OverallStatsHeader'>Overall Stats</h4>
-			<br></br>
-			<table id='OverallStatsTable'>
-				<tbody>
-					<tr>
-						<th className = 'TableContents'>
-							Statistic Name
-						</th>
-						<th className = 'TableContents'>
-							Statistic
-						</th>
-					</tr>
-					{this.state.statsTable}
-				</tbody>
-			</table>
-		</div>]
+		return this.renderCondition()
     }
   }
 export default Admin;

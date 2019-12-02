@@ -14,7 +14,8 @@ let accountSchema = new mongoose.Schema({
 	connections: Array,
 	pendingConnections: Array,
 	invitations: Array,
-	pendingInvitations: Array
+	pendingInvitations: Array,
+	admin: Boolean
 });
 
 accountSchema.pre('save', function(next) {
