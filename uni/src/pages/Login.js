@@ -60,7 +60,8 @@ class Login extends React.Component {
       this.state = {
         username: '',
         password: '',
-        show: false
+        show: false,
+        showPassword: true
       }
     }
     
@@ -145,6 +146,48 @@ class Login extends React.Component {
     handleShow = () => {
       console.log('qwrqwrqwrq2')
       this.setState({show: true})
+    }
+    showPasswordField = () => {
+      return (<div> <div className="create-account-input-col1">
+        <span className= 'create-account-text' > Password* </span>
+        <FormGroup>
+            <FormControl
+                type="text"
+                id="user-password1"
+            />
+        </FormGroup>
+      </div>
+      
+      <div className="create-account-input-col2">
+        <span className= 'create-account-text' > Confirm Password* </span>
+        <FormGroup>
+            <FormControl
+                type="text"
+                id="user-password2"
+            />
+        </FormGroup>
+      </div> </div>);
+    }
+    noShowPasswordField = () => {
+      return (<div> <div className="create-account-input-col1">
+        <span className= 'create-account-text' > Password* </span>
+        <FormGroup>
+            <FormControl
+                type="password"
+                id="user-password1"
+            />
+        </FormGroup>
+      </div>
+      
+      <div className="create-account-input-col2">
+        <span className= 'create-account-text' > Confirm Password* </span>
+        <FormGroup>
+            <FormControl
+                type="password"
+                id="user-password2"
+            />
+        </FormGroup>
+      </div> </div>);
     }
 
     handleSave = () => {
@@ -277,24 +320,13 @@ class Login extends React.Component {
                         />
                 </FormGroup>
               </div>
-              <div className="create-account-input-col1">
-                <span className= 'create-account-text' > Password* </span>
-                <FormGroup>
-                    <FormControl
-                        type="password"
-                        id="user-password1"
-                    />
-                </FormGroup>
-              </div>
-              <div className="create-account-input-col2">
-                <span className= 'create-account-text' > Confirm Password* </span>
-                <FormGroup>
-                    <FormControl
-                        type="password"
-                        id="user-password2"
-                    />
-                </FormGroup>
-              </div>
+              {this.state.showPassword ? this.showPasswordField() : this.noShowPasswordField()}
+              <FormGroup>
+                <div className='showPassword'> 
+                  <span className='create-account-checkBox'> Show Password </span>
+                  <FormControl className='check-BOX' type="checkbox" onChange={() => { this.setState({ showPassword: (this.state.showPassword ? false : true)})}}/>
+                </div>
+              </FormGroup>
               <div className="create-account-input-col1">
                 <span className= 'create-account-text' > Field of Study* </span>
                 <FormGroup>
@@ -304,7 +336,7 @@ class Login extends React.Component {
                     />
                 </FormGroup>
               </div>
-              <div className="create-account-input-col2">
+              <div className="create-account-input-col2 user-age">
                 <span className= 'create-account-text' > Age* </span>
                 <FormGroup>
                     <FormControl
