@@ -281,7 +281,7 @@ class Login extends React.Component {
                 <span className= 'create-account-text' > Password* </span>
                 <FormGroup>
                     <FormControl
-                        type="text"
+                        type="password"
                         id="user-password1"
                     />
                 </FormGroup>
@@ -290,7 +290,7 @@ class Login extends React.Component {
                 <span className= 'create-account-text' > Confirm Password* </span>
                 <FormGroup>
                     <FormControl
-                        type="text"
+                        type="password"
                         id="user-password2"
                     />
                 </FormGroup>
