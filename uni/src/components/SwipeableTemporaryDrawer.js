@@ -32,8 +32,7 @@ export default function SwipeableTemporaryDrawer(userid) {
     if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
-    const session = getSessionCookie()
-    setState({ ...state, [side]: open, admin: session.admin});
+    setState({ ...state, [side]: open});
   };
 
   const getExtraButton = () => {
@@ -89,7 +88,7 @@ export default function SwipeableTemporaryDrawer(userid) {
         <ListItemText primary="Settings" />
         </ListItem>
         </Link>
-        {this.state.admin ? getExtraButton() : null}
+        {getCookieSession() && getCookieSession().admin ? getExtraButton() : null}
       </List>
       
     </div>
