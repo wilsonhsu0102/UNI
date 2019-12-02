@@ -264,7 +264,7 @@ class EventList extends React.Component {
                         <Modal.Title> Host Event</Modal.Title>
                     </Modal.Header>
                     <Modal.Body className="create-event-body">
-                            <span className='create-event-text'>Event Name</span>
+                            <span className='create-event-text'>Event Name* </span>
                             <FormGroup>
                                 <FormControl
                                     className ="create-event-input"
@@ -272,7 +272,7 @@ class EventList extends React.Component {
                                     id="event-name"
                                     />
                             </FormGroup>
-                            <span className= 'create-event-text' >Event Location</span>
+                            <span className= 'create-event-text' >Event Location* </span>
                             <FormGroup>
                                 <FormControl
                                     className ="create-event-input"
@@ -292,7 +292,7 @@ class EventList extends React.Component {
                             </FormGroup>
                             <div className='event-info'> 
                                 <div className='eventDate'>
-                                    <span className= 'create-event-text'>Event Date</span>
+                                    <span className= 'create-event-text'>Event Date* </span>
                                     <FormGroup>
                                         <DatePicker
                                         onChange={this.handleChange}
