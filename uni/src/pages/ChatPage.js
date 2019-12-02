@@ -17,7 +17,8 @@ class ChatPage extends React.Component {
 		userName: "",
 		connectionData: null,
 		messages: [],
-		timestamp: null
+		timestamp: null,
+		requestDone: false
 		
 	}
 	
@@ -36,7 +37,7 @@ class ChatPage extends React.Component {
 				id1: selfId,
 				id2: student._id
 			}
-			
+			console.log(typeof student._id);
 			//Retrieves messages if data exists, and creates it if it doesn't
 			this.checkChatExists(idObject).then((result) => {
 				if(result === {}){
@@ -46,40 +47,41 @@ class ChatPage extends React.Component {
 					const now = new Date();
 					this.setState({
 						connections: result.messages,
-						timestamp: now
+						timestamp: now,
+						requestDone: true
 					});
 				}
 			}).catch((error) => {
 				removeSessionCookie();
 				console.log(error)  // handle any rejects that come up in the chain.
-			})
+			});
 			
-			/*
 			//Periodically checks if there are new messages to be added
-			this.interval = setInterval(() => 
+			
+			this.interval = setInterval(() => {
 			this.getMessages(idObject).then((result) => {
-				if (this.state.timestamp === null){
-					const now = new Date();
-					this.setState({
-						connections: result.messages,
-						timestamp: now
-					});
-				}
-				else if(datetime.subtract(result.timestamp, this.state.timestamp).toSeconds() >= 0){
-					this.setState({
-						connections: result.messages,
-						timestamp: result.timestamp
-					})
-				}
-			}).catch((error) => {
-				removeSessionCookie()
-				console.log(error)  // handle any rejects that come up in the chain.
-			}), 1000);
-			*/
+			if (this.state.timestamp === null){
+				const now = new Date();
+				this.setState({
+					connections: result.messages,
+					timestamp: now
+				});
+			}
+			else if(result.timestamp !== null && datetime.subtract(result.timestamp, this.state.timestamp).toSeconds() >= 0){
+				this.setState({
+					connections: result.messages,
+					timestamp: result.timestamp
+				})
+			}}).catch((error) => { console.log(error)});
+			}, 3000);
+			
 		}
-		
 	}
 	
+	componentWillUnmount() {
+		clearInterval(this.interval);
+	}
+
 	checkChatExists(idObject){
 		return new Promise((resolve, reject) => {
 			fetch(constants.HTTP + constants.HOST + constants.PORT + '/chats/checkExists', {
@@ -106,7 +108,7 @@ class ChatPage extends React.Component {
 	getMessages(idObject){
 		return new Promise((resolve, reject) => {
 			fetch(constants.HTTP + constants.HOST + constants.PORT + '/chats/getMessages', {
-				method: "GET",
+				method: "POST",
 				body: JSON.stringify(idObject),
 				credentials: 'include',
 				headers: {
@@ -116,7 +118,7 @@ class ChatPage extends React.Component {
             .then(res => res.json())
             .then(
 				(result) => {
-					console.log('messageObject: ', result)
+					//console.log('messageObject: ', result);
 					resolve(result);
 				},
 				(error) => {
@@ -124,7 +126,7 @@ class ChatPage extends React.Component {
 				}
 			)
 		})
-    }
+	}
 
 	renderCondition() {
 		//console.log("render condition connections", this.props)
