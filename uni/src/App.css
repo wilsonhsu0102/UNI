@@ -144,22 +144,6 @@ For Modal
   float: left;
   margin-left: 30px;
 }
-.create-account-input-age {
-  width: 100px;
-  float: left;
-  margin-left: 10px;
-}
-.create-account-input-major {
-  width: 150px;
-  float: left;
-  margin-left: 20px;
-}
-.create-account-button-profile {
-  width: 120px;
-  float: left;
-  margin-left: 20px;
-}
-
 .create-account-input-description {
   width: 430px;
   float: left;
