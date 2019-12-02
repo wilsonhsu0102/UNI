@@ -7,7 +7,6 @@ let ImageSchema = new mongoose.Schema({
     },
     id: {
         type: String,
-        required: true
     },
     imageName: {
         type: String,
