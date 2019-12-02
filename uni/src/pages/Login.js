@@ -17,6 +17,8 @@ import { withStyles } from '@material-ui/styles';
 import constants from '../lib/constants'
 import {Modal} from "react-bootstrap"
 import {FormGroup, FormControl} from "react-bootstrap";
+import ImageUploader from 'react-images-upload';
+import axios from 'axios';
 import { SessionContext, removeSessionCookie, setSessionCookie, getSessionCookie } from "../session";
 import  { Redirect } from 'react-router-dom'
 
@@ -135,39 +137,26 @@ class Login extends React.Component {
           }
           */
     }
-
-    // saveUser(user){
-    //   console.log('qweqwrqwr123')
-    //   return new Promise((resolve, reject) => {
-    //       fetch(constants.HTTP + constants.HOST + constants.PORT + '/student/addUser', {
-    //           method: "POST",
-    //           credentials: 'include',
-    //           body: JSON.stringify(user),
-    //           headers: {
-    //           "Access-Control-Allow-Credentials": "true",
-    //           "Content-type": "application/json; charset=UTF-8"
-    //           }})
-    //           .then(res => { console.log(res); res.json().then( data => {
-    //             console.log('wtf is in here ')
-    //             console.log(data)
-    //             resolve({
-    //               user: data.user
-    //             })
-    //           })})
-    //           .then(
-    //               (result) => {
-    //                   console.log("result: " + result)
-    //                   resolve({
-    //                     user: result
-    //                   })
-    //               },
-    //               (error) => {
-    //                   console.log("errror: " + error)
-    //                   reject(error)
-    //               }
-    //           )
-    //       })
-    // }
+    uploadImage(e) {
+      if (window.confirm('Add photo to profile?')) {
+          let imageFormObj = new FormData();
+          imageFormObj.append("email", this.state.profile.email);
+          imageFormObj.append("type", "profilePicture");
+          imageFormObj.append("imageName", "multer-image-" + Date.now());
+          imageFormObj.append("imageData", e[0]);
+          imageFormObj.append("image", e[0].path);
+          axios.post(`${constants.HTTP}${constants.HOST}${constants.PORT}/images/all`, imageFormObj)
+              .then((data) => {
+                  if (data.data.sucesss) {
+                      alert("Image has been successfully uploaded")
+                  }
+              })
+              .catch((err) => {
+                  alert("Error while uploading image");
+                  console.error(err)
+              })
+      }
+    }
         
     handleClose = () => {
       console.log('qwrqwrqwrq1')
@@ -232,7 +221,6 @@ class Login extends React.Component {
         }})
         .then(res => { 
           res.json().then( data => {
-            console.log('wtf is in here ')
             if (data.msg === 'Email in Use') {
               alert('This Email is already registered')
               return
@@ -252,10 +240,26 @@ class Login extends React.Component {
       this.handleClose()
     }
 
+    
+
     signUpModal = () => {
       const all_ages = []
       for(let i = 1; i < 101; i++) {
         all_ages.push(<option key={'option' + i}> {i} </option>)
+      }
+      const upload_button_style = {
+        width: '140px',
+        backgroundColor: 'rgb(248, 213, 218)',
+        border: '0',
+        padding: '7px 0 9px 0',
+        borderRadius: '5px',
+        color: 'black'
+      }
+      const file_container_style = {
+        padding: '0',
+        margin: '0',
+        width: '140px',
+        height: '37px'
       }
       return (
         <Modal className='edit-modal' show={this.state.show} onHide={this.handleClose} >
@@ -264,22 +268,22 @@ class Login extends React.Component {
           </Modal.Header>
           <Modal.Body>
             <div className="create-account-body">
-              <div className="create-account-input-col1">
-                <span className='create-account-text'> Name </span>
-                <FormGroup>
-                    <FormControl
-                        type="text"
-                        id="user-name"
-                        />
-                </FormGroup>
-              </div>
-              <div  className="create-account-input-col2">
+              <div  className="create-account-input-col1">
                 <span className= 'create-account-text' > Email </span>
                 <FormGroup>
                     <FormControl
                         type="text"
                         id="user-email"
                     />
+                </FormGroup>
+              </div>
+              <div className="create-account-input-col2">
+                <span className='create-account-text'> Name </span>
+                <FormGroup>
+                    <FormControl
+                        type="text"
+                        id="user-name"
+                        />
                 </FormGroup>
               </div>
               <div className="create-account-input-col1">
@@ -300,7 +304,7 @@ class Login extends React.Component {
                     />
                 </FormGroup>
               </div>
-              <div className="create-account-input-col1">
+              <div className="create-account-input-age">
                 <span className= 'create-account-text' > Age </span>
                 <FormGroup>
                     <FormControl
@@ -312,13 +316,31 @@ class Login extends React.Component {
                     </FormControl>
                 </FormGroup>
               </div>
-              <div className="create-account-input-col2">
+              <div className="create-account-input-major">
                 <span className= 'create-account-text' > Field of Study </span>
                 <FormGroup>
                     <FormControl
                         type="text"
                         id="user-major"
                     />
+                </FormGroup>
+              </div>
+              <div className="create-account-button-profile">
+              <span className='create-account-text'> Profile Picture</span>
+                <FormGroup>
+                  <ImageUploader
+                      className='upload-button'
+                      name='Profile Picture'
+                      withIcon={false}
+                      withPreview={false}
+                      withLabel={false}
+                      buttonText='Choose Images'
+                      fileContainerStyle={file_container_style}
+                      buttonStyles={upload_button_style}
+                      onChange={(e) => this.uploadImage(e)}
+                      imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                      maxFileSize={5242880}
+                  />
                 </FormGroup>
               </div>
               <div className="create-account-input-description">

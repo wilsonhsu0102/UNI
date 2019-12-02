@@ -17,9 +17,7 @@ class Event extends React.Component {
             authenticated: true,
             photo: '',
             attendees: [],
-            loading1: true,
-            loading2: true,
-            loading3: true
+            loading: true,
         }
     }
 
@@ -33,44 +31,44 @@ class Event extends React.Component {
                 datetime: this.formatDate(new Date(event.date)),
                 authenticated: true,
                 photo: event.coverPhoto,
-                loading2: false 
+            })
+            this.getHostByEmail()
+            .then(host => {
+                let profile = host.profilePicture
+                if (profile === '') {
+                    profile = require('../images/joker5.jpg')
+                } else {
+                    profile = require('../images/' + profile)
+                }
+                console.log(profile)
+                this.setState({
+                    hostName: host.name,
+                    hostId: host._id,
+                    profilePic: profile,
+                })
+                this.getAttendees()
+                .then(data => {
+                    console.log(data)
+                    this.setState({
+                        attendees: data,
+                        loading: false
+                    })
+                })
+                .catch(err => {
+                    removeSessionCookie()
+                    console.log(err)
+                })
+            }).catch( err => {
+                removeSessionCookie()
+                console.log(err)
             })
         })
         .catch(err => {
             removeSessionCookie()
             console.log(err)
         })
-        this.getHostByEmail()
-        .then(host => {
-            let profile = host.profilePicture
-            if (profile === '') {
-                profile = require('../images/joker5.jpg')
-            } else {
-                profile = require('../images/' + profile)
-            }
-            console.log(profile)
-            this.setState({
-                hostName: host.name,
-                hostId: host._id,
-                profilePic: profile,
-                loading3: false
-            })
-        }).catch( err => {
-            removeSessionCookie()
-            console.log(err)
-        })
-        this.getAttendees()
-        .then(data => {
-            console.log(data)
-            this.setState({
-                attendees: data,
-                loading1: false
-            })
-        })
-        .catch(err => {
-            removeSessionCookie()
-            console.log(err)
-        })
+        
+        
     }
 
     formatDate(date) {
@@ -223,7 +221,7 @@ class Event extends React.Component {
             return [<NavBar id = {this.props.id} key={"NavBar"}></NavBar>, <div className='sweet-loading'>
                 <PacmanLoader
                 color={'rgb(245, 150, 164)'}
-                loading={this.state.loading1 || this.state.loading2 || this.state.loading3}
+                loading={this.state.loading}
                 />
             </div>]
         }
