@@ -7,8 +7,11 @@ import './MessageContainer.css'
 
 /* Component for the Message Container */
 class MessageContainer extends React.Component {
+	sendHandler = (e) =>{
+		console.log("wow");
+	}
     render() {
-		const { userName, connectionData, messages} = this.props.params
+		const { userId, userName, connectionData, messages} = this.props.params
 		console.log(this.props.params);
 		//console.log(connectionData);
 		if(!connectionData){
@@ -22,10 +25,23 @@ class MessageContainer extends React.Component {
 					<p id="connectEmail"> {connectionData.email}</p>
 				</h4>
 				<div id="chatContainer">
+					{ messages.map((message) => {
+						if(message.userID === connectionData._id.toString()){
+							return(
+								ChatMessage(connectionData.name, message.message, true)
+							)
+						}
+						else{
+							return(
+								ChatMessage(userName, message.message, false)
+							)
+						}
+					}) 
+					}
 				</div>
 				<form id="messageForm">
 					<input id="userMessageInput" type="text" placeholder="Type a message"></input>
-					<Button id="sendButton" variant="outlined">SEND</Button>
+					<Button id="sendButton" variant="outlined" onClick={this.clickHandler}>SEND</Button>
 				</form>
             </div>
         );

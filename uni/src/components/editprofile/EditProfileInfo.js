@@ -1,14 +1,35 @@
 import React from 'react';
+import constants from '../../lib/constants'
+import axios from 'axios'; 
  
 class EditProfileInfo extends React.Component {
     constructor(props) {
         super(props);
-        // will retrieve data from database 
-        if (this.props.id !== "1") {
-            this.state = {intro: 'Add a new bio.', year: 3, major: 'Computer Science', campus: 'St. George'};
-        } else {
-            this.state = {intro: 'Add a new bio.', year: 5, major: 'Social Science', campus: 'Missisauga'};
+        this.state = {
+            account: {},
+            intro: '',
+            year: '',
+            major: '',
+            campus: ''
         }
+    }
+
+    componentDidMount(){
+        console.log("Loading info submission forms.")
+        axios.get(`${constants.HTTP}${constants.HOST}${constants.PORT}/student/getAccount`, {withCredentials: true})
+		.then(res => {
+			
+            this.setState({
+                account: res.data
+			})
+			console.log(this.state.account)
+        })
+        .catch(err => {
+            console.log(err);
+        })
+        .finally(() => {
+		
+		})
     }
  
     handleChange(event, field) {
@@ -31,6 +52,7 @@ class EditProfileInfo extends React.Component {
     }
 
     handleSubmit(event) {
+
         alert('Information has been saved.');
         event.preventDefault();
     }

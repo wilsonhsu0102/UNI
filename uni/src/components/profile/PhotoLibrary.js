@@ -10,20 +10,13 @@ export default class PhotoLibrary extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			profile: {},
+			account: {},
 			pictures: [],
 		}
 	}
 
 	componentDidMount(){
-        console.log("the bio for the profile")
-        this.getProfile().then((result) => {
-            this.setState({
-              profile: result
-            })
-        }).catch((error) => {
-            console.log(error)  // handle any rejects that come up in the chain.
-		})
+		console.log("Loading photo album for profile.")
 		axios.get(`${constants.HTTP}${constants.HOST}${constants.PORT}/images/all`, {withCredentials: true})
         .then(res => {
 			let filtered = []
@@ -42,30 +35,22 @@ export default class PhotoLibrary extends React.Component {
             console.log(err);
         })
         .finally(() => {
+		})
+		axios.get(`${constants.HTTP}${constants.HOST}${constants.PORT}/student/getAccount`, {withCredentials: true})
+		.then(res => {
+			
+            this.setState({
+                account: res.data
+			})
+			console.log(this.state.account)
         })
-    }
-    
-      getProfile(){
-          return new Promise((resolve, reject) => {
-              fetch(constants.HTTP + constants.HOST + constants.PORT + '/student/getProfile', {
-                  method: "GET",
-                  credentials: 'include',
-                    headers: {
-                    "Access-Control-Allow-Credentials": "true",
-                    "Content-type": "application/json; charset=UTF-8"
-                    }})
-                  .then(res => res.json())
-                  .then(
-                  (result) => {
-                      resolve(result.pictures.photolib)
-                  },
-                  (error) => {
-                      reject('issue with getting resource')
-                  }
-              )
-          })
-          
-	  }
+        .catch(err => {
+            console.log(err);
+        })
+        .finally(() => {
+		
+		})
+	}
 
 	render() {
 		const bgcolor = makeStyles(theme => {
@@ -82,30 +67,6 @@ export default class PhotoLibrary extends React.Component {
 					))}
 				</GridList>
 			</div>
-			// <div>
-			// 	<table className='photoalbum'>
-			// 		<thead>
-			// 			<tr>
-			// 				<th id='photoalbumheader' className='photoalbum'> <h2> Album </h2> </th>
-			// 			</tr>
-			// 		</thead>
-			// 		<tbody>
-			// 			<tr>
-			// 				{/* <td> <img className='photolibrary' src={this.pictures[0]} alt='Me 1'/> </td>
-			// 				<td> <img className='photolibrary' src={this.pictures[1]} alt='Me 2'/> </td>
-			// 				<td> <img className='photolibrary' src={this.pictures[2]} alt='Me 3'/> </td> */}
-			// 				{/* <img className='photolibrary' src={this.state.pictures[0]}></img> */}
-			// 				{/* {this.state.pictures} */}
-			// 			{/* </tr> */}
-			// 			{/* <tr> */}
-			// 				{/* {td2} */}
-			// 				{/* <td> <img className='photolibrary' src={this.pictures[3]} alt='Me 4'/> </td>
-			// 				<td> <img className='photolibrary' src={this.pictures[4]} alt='Me 5'/> </td>
-			// 				<td> <img className='photolibrary' src={this.pictures[5]} alt='Me 6'/> </td> */}
-			// 			</tr>
-			// 		</tbody>
-			// 	</table>
-			// </div>
 		);	
 	}
 

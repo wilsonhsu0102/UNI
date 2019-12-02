@@ -4,6 +4,7 @@ let profileSchema = new mongoose.Schema({
     profileName: String,
     description: String,
     email: String,
+    profilepic: String,
     pictures: {
         profile: String,
         photolib: Array,

@@ -94,6 +94,16 @@ router.get('/getProfile', authenticate, (req, res) => {
     }
 })
 
+router.get('/getAccount', authenticate, (req, res) => {
+    const email = req.session.email
+    console.log(email)
+    if (email) {
+        students.getAccountbyEmail(email, res)
+    } else {
+        res.sendFile(__dirname + '/permDenied.html')
+    }
+})
+
 router.post('/updateProfile', authenticate, (req, res) => {
     const email = req.session.email
     console.log(email)

@@ -10,27 +10,20 @@ export default class HiddenInfo extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			profile: {},
+			account: {},
 			pictures: []
 		}
 	}
 
 	componentDidMount(){
-        console.log("the bio for the profile")
-        this.getProfile().then((result) => {
-            this.setState({
-              pictures: result
-            })
-        }).catch((error) => {
-            console.log(error)  // handle any rejects that come up in the chain.
-		})
+        console.log("Loading interest album for profile.")
 		axios.get(`${constants.HTTP}${constants.HOST}${constants.PORT}/images/all`, {withCredentials: true})
         .then(res => {
 			let filtered = []
 			console.log(res.data)
 			res.data.forEach((pic) => {
 				if (pic.type === 'hiddenlib') {
-					filtered.push({img: pic.path, title: "", author: "", cols: 1})
+					filtered.push({img: pic.path, title: "", author: "", cols: 2})
 				}
 			})
 			console.log(filtered)
@@ -42,7 +35,21 @@ export default class HiddenInfo extends React.Component {
             console.log(err);
         })
         .finally(() => {
+		})
+		axios.get(`${constants.HTTP}${constants.HOST}${constants.PORT}/student/getAccount`, {withCredentials: true})
+		.then(res => {
+			
+            this.setState({
+                account: res.data
+			})
+			console.log(this.state.account)
         })
+        .catch(err => {
+            console.log(err);
+        })
+        .finally(() => {
+		
+		})
     }
     
       getProfile(){
@@ -57,7 +64,7 @@ export default class HiddenInfo extends React.Component {
                   .then(res => res.json())
                   .then(
                   (result) => {
-                      resolve(result.pictures.hiddenlib)
+                      resolve(result)
                   },
                   (error) => {
                       reject('issue with getting resource')
@@ -74,7 +81,7 @@ export default class HiddenInfo extends React.Component {
 		return (
 			<div className="hiddengridlistdiv" style={{backgroundColor: bgcolor}}>
 				<h2> Interests </h2>
-				<GridList cellHeight={160} className="hiddengridlist" cols={2}>
+				<GridList cellHeight={160} className="hiddengridlist" cols={4}>
 					{this.state.pictures.map(tile => (
 						<GridListTile key={tile.img} cols = {tile.cols || 1}>
 							<img src={tile.img} alt={tile.title}></img>
@@ -82,32 +89,6 @@ export default class HiddenInfo extends React.Component {
 					))}
 				</GridList>
 			</div>
-
-
-
-			// <div>
-			// 	<table className='hiddenalbum'>
-			// 		<thead>
-			// 			<tr>
-			// 				<th id='hiddenalbumheader' className='photoalbum'> <h2> Interests </h2> </th>
-			// 			</tr>
-			// 		</thead>
-			// 		<tbody>
-			// 			<tr>
-			// 				{td}
-			// 				{/* <td> <img className='hiddenlibrary' src={this.pictures[0]} alt='Hidden 1'/> </td>
-			// 				<td> <img className='hiddenlibrary' src={this.pictures[1]} alt='Hidden 2'/> </td>
-			// 				<td> <img className='hiddenlibrary' src={this.pictures[2]} alt='Hidden 3'/> </td> */}
-			// 			</tr>
-			// 			<tr>
-			// 				{td2}
-			// 				{/* <td> <img className='hiddenlibrary' src={this.pictures[3]} alt='Hidden 4'/> </td>
-			// 				<td> <img className='hiddenlibrary' src={this.pictures[4]} alt='Hidden 5'/> </td>
-			// 				<td> <img className='hiddenlibrary' src={this.pictures[5]} alt='Hidden 6'/> </td> */}
-			// 			</tr>
-			// 		</tbody>
-			// 	</table>
-			// </div>
 		);	
 	}
 

@@ -1,9 +1,12 @@
 var express = require('express');
 var Image = require('../models/image');
+var Profile = require('../models/profile')
+var Account = require('../models/account')
 var router = express.Router();
 const multer = require('multer');
 const path = require('path');
 const images = require('../lib/imageHandler');
+const student = require('../lib/studentHandler')
 const fs = require('fs');
 
 // Middleware for authentication of resources
@@ -77,6 +80,22 @@ router.route("/all")
             type: req.body.type,
             path: (req.file.path).substring(9)
         });
+
+        if (req.body.type === 'profilepic') {
+            // update student profile field
+            Account.findOne({"email": req.body.email}).then((student) => {
+                student.profilePicture = req.file.path.substring(9);
+                student.save().then((result) => {
+                    console.log(result)
+                }).catch((err) => {
+                    console.log(err);
+                    next(err);
+                })
+            }).catch((error) => {
+                console.warn('WARN: This email is not correct!')
+                res.send({success:false})
+            })
+        }
 
         newImage.save()
             .then((result) => {

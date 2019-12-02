@@ -8,20 +8,11 @@ class EditProfilePicture extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
-            profile: {},
-            buttons: [],
-            images: [],
+            account: {},
         };
     }
 
     componentDidMount() {
-        this.getProfile().then((result => {
-            this.setState({
-                profile: result,
-            })
-        })).catch((error => {
-            console.log(error)
-        }))
         axios.get(`${constants.HTTP}${constants.HOST}${constants.PORT}/images/all`, {withCredentials: true})
         .then(res => {
             this.setState({
@@ -33,28 +24,20 @@ class EditProfilePicture extends React.Component {
         })
         .finally(() => {
         })
-    }
-
-    getProfile(){
-        return new Promise((resolve, reject) => {
-            fetch(constants.HTTP + constants.HOST + constants.PORT + '/student/getProfile', {
-                method: "GET",
-                credentials: 'include',
-                headers: {
-                "Access-Control-Allow-Credentials": "true",
-                "Content-type": "application/json; charset=UTF-8"
-                }})
-                .then(res => res.json())
-                .then(
-                (result) => {
-                    console.log(result)
-                    resolve(result)
-                },
-                (error) => {
-                    reject('issue with getting resource')
-                }
-            )
-        })    
+        axios.get(`${constants.HTTP}${constants.HOST}${constants.PORT}/student/getAccount`, {withCredentials: true})
+		.then(res => {
+			
+            this.setState({
+                account: res.data
+			})
+			console.log(this.state.account)
+        })
+        .catch(err => {
+            console.log(err);
+        })
+        .finally(() => {
+		
+		})
     }
 
     uploadImage(e) {
@@ -81,7 +64,7 @@ class EditProfilePicture extends React.Component {
     render() {
         return (
             <div class='editprofilepicturediv'>
-                <img id='editcurrentprofilepic' src={this.state.profile.profilePicture} alt='Me'/>
+                <img id='editcurrentprofilepic' src={this.state.account.profilePicture} alt='Me'/>
                 <span id='editprofilepictureheader'><h3>Change My Profile Picture</h3></span>
                 <ImageUploader
                     className='editprofilepicture'

@@ -37,18 +37,14 @@ router.post('/checkExists', authenticate, (req, res) => {
     }
 })
 
-router.get('/getMessages', authenticate, function(req, res, next) {
-	const id = req.session.user;
+router.post('/getMessages', authenticate, (req, res) => {
+    const id = req.session.user;
 	const idObject = req.body;
-    let messageObject = {
-		messages: [],
-		timestamp: null
-	};
-	if (id) {  
+    if (id) {
+		console.log("wow");
 		chats.getMessages(idObject, res);
     } else {
         res.sendFile(__dirname + '/permDenied.html')
     }
-});
-
+})
 module.exports = router;

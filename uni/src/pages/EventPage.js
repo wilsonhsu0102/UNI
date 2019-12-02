@@ -38,7 +38,7 @@ class Event extends React.Component {
                 if (profile === '') {
                     profile = require('../images/joker5.jpg')
                 } else {
-                    profile = require('../images/' + profile)
+                    profile = require('../../public' + profile)
                 }
                 console.log(profile)
                 this.setState({

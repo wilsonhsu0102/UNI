@@ -25,7 +25,7 @@ class Cards extends Component {
           <div style={{ height: '30px' , width: '100vw'}}></div>
         <FrontSide
           style={{
-            backgroundImage: 'url('+ require('../images/'+imageURL)+ ')',
+            backgroundImage: 'url('+ require('../../public' + imageURL)+ ')',
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
             position: 'relative'
