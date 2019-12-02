@@ -12,6 +12,34 @@
 	text-align: center;
 }
 
+.gridlist {
+	width: 475px;
+	height: 350px;
+}
+
+.gridlistdiv {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	overflow: hidden;
+	float:right;
+	/* background-color: theme.palette.background.paper; */
+}
+
+.hiddengridlist {
+	width: 475px;
+	height: 350px;
+}
+
+.hiddengridlistdiv {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	overflow: hidden;
+	float: left;
+	/* background-color: theme.palette.background.paper; */
+}
+
 .hiddenalbum {
 	float: left;
 	margin-left: 5%;
