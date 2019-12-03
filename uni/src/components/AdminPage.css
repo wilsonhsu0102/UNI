@@ -54,11 +54,8 @@
 }
 
 #AdminEventListHeader{
-	float:left;
 	margin-top: 100px;
 	width: 200px;
-	float: right;
-	position: relative;
 	right: 553px;
 	text-decoration: underline;
 }
