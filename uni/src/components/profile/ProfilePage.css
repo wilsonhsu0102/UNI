@@ -13,7 +13,7 @@
 }
 
 .gridlist {
-	width: 475px;
+	width: 550px;
 	height: 350px;
 }
 
@@ -27,7 +27,7 @@
 }
 
 .hiddengridlist {
-	width: 475px;
+	width: 550px;
 	height: 350px;
 }
 
@@ -119,6 +119,7 @@
 	padding: 20px;
 }
 
+
 #editprofilebutton {
 	position: absolute;
 	left: 85%;
@@ -147,4 +148,8 @@
 	padding-top: 10px;
 	padding-bottom: 2px;
 	margin-bottom: 25px;
+}
+
+#interestheader {
+	float: left;
 }
