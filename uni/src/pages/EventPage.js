@@ -15,6 +15,7 @@ class Event extends React.Component {
         this.state = {
             authenticated: true,
             photo: '',
+            profilePic: '',
             attendees: [],
             loading: true,
         }
@@ -34,13 +35,11 @@ class Event extends React.Component {
             })
             this.getHostByEmail()
             .then(host => {
-                let profile = host.profilePicture
-                profile = require('../../public' + profile)
-                console.log(profile)
+                console.log(host)
                 this.setState({
                     hostName: host.name,
                     hostId: host._id,
-                    profilePic: profile,
+                    profilePic: host.profilePicture,
                 })
                 this.getAttendees()
                 .then(data => {
@@ -239,7 +238,7 @@ class Event extends React.Component {
                             {this.state.eventName}
                         </div>
                         <div className="coverPhoto"> 
-                            <EventPhoto photo={this.state.photo}/> 
+                            <img id="eventPic" src={`data:image/png;base64,${this.state.photo}`} alt="Cover for the event"/>
                         </div>
                         <h3> Event Description: </h3>
                         <div className="description">
@@ -249,7 +248,9 @@ class Event extends React.Component {
                     </div>
                     <div className="sideBlock">
                         <div className="hostProfile">
-                            <button className="profileButton" onClick={this.goToProfile.bind(this, this.state.hostId)}> <img src={this.state.profilePic} alt="profile for host"/> </button>
+                            <button className="profileButton" onClick={this.goToProfile.bind(this, this.state.hostId)}> 
+                                <img src={`data:image/png;base64,${this.state.profilePic}`} alt="profile for host"/> 
+                            </button>
                             <h3 className="hostName"> Host: {this.state.hostName} </h3>
                             <div className='eventDetail'>
                                 <p> Location: {this.state.location} </p>

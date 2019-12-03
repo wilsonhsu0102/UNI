@@ -23,11 +23,11 @@ mongoose.connect(process.env.MONGODB_URI || constants.MONGO_DB_URL);
 
 const app = express();
 
-app.use(bodyParser.json())
+app.use(bodyParser.json({limit: '50mb', extended: true}))
 app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 //app.options('*', cors());
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(session({
   secret: 'oursecret',
   resave: false,

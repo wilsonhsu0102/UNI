@@ -138,11 +138,13 @@ class EventList extends React.Component {
     }
 
     uploadImage(e) {
-        if (window.confirm('Add photo to profile?')) {
+        if (window.confirm('Use this as cover photo?')) {
             let imageFormObj = new FormData();
+            let time = Date.now()
             imageFormObj.append("email", this.host.email);
             imageFormObj.append("type", "event");
-            imageFormObj.append("imageName", "multer-image-" + Date.now());
+            imageFormObj.append("id", time)
+            imageFormObj.append("imageName", "multer-image-" + time);
             imageFormObj.append("imageData", e[0]);
             imageFormObj.append("image", e[0].path);
             axios.post(`${constants.HTTP}${constants.HOST}${constants.PORT}/images/all`, imageFormObj)
@@ -196,12 +198,6 @@ class EventList extends React.Component {
         if (description === '') {
             description = '[ No Description ]'
         }
-        if (photo === '') {
-            photo = '/uploads/defaultcoverpicture.jpg'
-        } else {
-            photo = photo.replace(/\\/g, "\/")
-        }
-        console.log(photo)
         if (!host) {
             alert("Please log in")
             return
