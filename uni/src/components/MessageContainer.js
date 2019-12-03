@@ -32,13 +32,13 @@ class MessageContainer extends React.Component {
 		clearInterval(this.interval);
 	}
 
-	messageChangeHandler = event => {
+	messageChangeHandler(event) {
         this.setState({
 			message: event.target.value
         });
     }
 	
-	sendHandler = event => {
+	sendHandler(event) {
 		if (this.state.message !== ""){
 			const now = new Date();
 			const messObj = {
