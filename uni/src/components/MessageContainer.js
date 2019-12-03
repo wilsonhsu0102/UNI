@@ -9,8 +9,11 @@ import './MessageContainer.css'
 /* Component for the Message Container */
 class MessageContainer extends React.Component {
 	scrollHandler = event => {
-        let box = document.querySelector("#chatContainer");
-		box.scrollTop = box.scrollHeight;
+		let box = document.querySelector("#chatContainer");
+		if (!box) {
+			box.scrollTop = box.scrollHeight;
+		}
+		
     }
 	
 	mightScroll(){
@@ -26,7 +29,7 @@ class MessageContainer extends React.Component {
 			if (!this.props.params.messages) {
 				this.props.params.messages = []
 			}
-			this.mightScroll();
+			//this.mightScroll();
 			
 		}, 2000);
 			
