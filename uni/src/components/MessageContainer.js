@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import ChatMessage from './ChatMessage'
 import './MessageContainer.css'
+const datetime = require('date-and-time');
 
 /* Component for the Message Container */
 class MessageContainer extends React.Component {
