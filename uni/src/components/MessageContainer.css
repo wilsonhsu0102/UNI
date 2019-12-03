@@ -8,6 +8,7 @@
 @media only screen and (min-height: 770px) {
   #messageForm {
 	position: absolute;
+	min-width: 800px;
 	width: 80%;
 	top: 94%;
 	}
@@ -71,18 +72,22 @@
 
 .yourMess{
 	position: relative;
+	right: 15px;
 	text-align: right;
-	left: 1100px;
+	float: right;
+	clear: right;
 	width: 400px;
 	border-radius: 20px;
 	background-color: HotPink;
 	overflow-wrap: anywhere;
+	margin-bottom: 15px;
 }
 
 .connectionMess{
 	position: relative;
 	left: 20px;
 	width: 400px;
+	clear: right;
 	border-radius: 20px;
 	background-color: Gainsboro;
 	overflow-wrap: anywhere;

@@ -74,13 +74,11 @@ class ChatPage extends React.Component {
 						else if((result.timestamp !== null)){
 							const databaseTime = datetime.parse(result.timestamp, 'YYYY/MM/DD HH:mm:ss');
 							const stateTime = datetime.parse(this.state.timestamp, 'YYYY/MM/DD HH:mm:ss');
-							if (datetime.subtract(databaseTime, stateTime).toSeconds >= 0){
-								this.setState({
-									messages: result.messages,
-									timestamp: result.timestamp
-								})
-								console.log(this.state.messages);
-							}
+							this.setState({
+								messages: result.messages,
+								timestamp: result.timestamp
+							})
+							console.log(this.state.messages);
 						}
 					}).catch((error) => { console.log(error)});
 				}}, 1000);
@@ -160,18 +158,15 @@ class ChatPage extends React.Component {
 						timestamp: now,
 						message: ""
 					});
-					console.log(this.state.messages);
 				}
 				else if((result.timestamp !== null)){
 					const databaseTime = datetime.parse(result.timestamp, 'YYYY/MM/DD HH:mm:ss');
 					const stateTime = datetime.parse(this.state.timestamp, 'YYYY/MM/DD HH:mm:ss');
-					if (datetime.subtract(databaseTime, stateTime).toSeconds >= 0){
-						this.setState({
-							messages: result.messages,
-							timestamp: result.timestamp
-						})
-					}
-					console.log(this.state.messages);
+					this.setState({
+						messages: result.messages,
+						timestamp: result.timestamp,
+						message: ""
+					});
 				}
 				document.querySelector("#userMessageInput").value = "";
 			}).catch((error) => { console.log(error)});
