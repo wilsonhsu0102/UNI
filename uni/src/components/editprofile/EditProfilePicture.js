@@ -43,7 +43,8 @@ class EditProfilePicture extends React.Component {
     uploadImage(e) {
         if (window.confirm('Update your profile picture?')) {
             let imageFormObj = new FormData();
-            imageFormObj.append("email", this.state.profile.email);
+            imageFormObj.append("email", this.state.account.email);
+            imageFormObj.append("id", this.state.account._id);
             imageFormObj.append("type", "profilepic");
             imageFormObj.append("imageName", "multer-image-" + Date.now());
             imageFormObj.append("imageData", e[0]);

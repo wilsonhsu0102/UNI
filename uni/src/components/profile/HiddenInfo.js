@@ -10,69 +10,22 @@ export default class HiddenInfo extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			account: {},
-			pictures: []
+			account: this.props.account,
+			pictures: this.props.images
 		}
 	}
 
 	componentDidMount(){
-        console.log("Loading interest album for profile.")
-		axios.get(`${constants.HTTP}${constants.HOST}${constants.PORT}/images/all`, {withCredentials: true})
-        .then(res => {
-			let filtered = []
-			console.log(res.data)
-			res.data.forEach((pic) => {
-				if (pic.type === 'hiddenlib') {
-					filtered.push({img: pic.path, title: "", author: "", cols: 2})
-				}
-			})
-			console.log(filtered)
-            this.setState({
-                pictures: filtered
-            })
-        })
-        .catch(err => {
-            console.log(err);
-        })
-        .finally(() => {
+		let filtered = []	
+		this.state.pictures.forEach((pic) => {
+			if (pic.type === 'hiddenlib') {
+				filtered.push({img: pic.path, title: "", author: "", cols: 2})
+			}
 		})
-		axios.get(`${constants.HTTP}${constants.HOST}${constants.PORT}/student/getAccount`, {withCredentials: true})
-		.then(res => {
-			
-            this.setState({
-                account: res.data
-			})
-			console.log(this.state.account)
+        this.setState({
+            pictures: filtered
         })
-        .catch(err => {
-            console.log(err);
-        })
-        .finally(() => {
-		
-		})
     }
-    
-      getProfile(){
-          return new Promise((resolve, reject) => {
-              fetch(constants.HTTP + constants.HOST + constants.PORT + '/student/getProfile', {
-                  method: "GET",
-                  credentials: 'include',
-                    headers: {
-                    "Access-Control-Allow-Credentials": "true",
-                    "Content-type": "application/json; charset=UTF-8"
-                    }})
-                  .then(res => res.json())
-                  .then(
-                  (result) => {
-                      resolve(result)
-                  },
-                  (error) => {
-                      reject('issue with getting resource')
-                  }
-              )
-          })
-          
-      }	
 
 	render() {
 		const bgcolor = makeStyles(theme => {

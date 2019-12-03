@@ -12,7 +12,6 @@ class Event extends React.Component {
     constructor(props) {
         super(props);
         this.id = this.props.id;
-        this.name = "Wilson Hsu"
         this.state = {
             authenticated: true,
             photo: '',
@@ -24,6 +23,7 @@ class Event extends React.Component {
     componentDidMount() {
         this.getEventById()
         .then(event => {
+            console.log(event.coverPhoto)
             this.setState({
                 eventName: event.eventName,
                 description: event.description,
@@ -35,11 +35,7 @@ class Event extends React.Component {
             this.getHostByEmail()
             .then(host => {
                 let profile = host.profilePicture
-                if (profile === '') {
-                    profile = require('../images/joker5.jpg')
-                } else {
-                    profile = require('../../public' + profile)
-                }
+                profile = require('../../public' + profile)
                 console.log(profile)
                 this.setState({
                     hostName: host.name,

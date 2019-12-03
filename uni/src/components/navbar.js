@@ -3,9 +3,42 @@ import Logo from '../images/logo.png';
 import SwipeableTemporaryDrawer from './SwipeableTemporaryDrawer'
 import { Link } from 'react-router-dom';
 import { SessionContext, getSessionCookie, setSessionCookie, removeSessionCookie } from "../session";
-
+import { getSessionCookie } from '../session';
+import constants from '../lib/constants'
+import axios from 'axios'; 
 
 class NavBar extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            account: {}
+        }
+        
+    }
+
+    componentDidMount(){
+        console.log("Loading profile page.")
+        axios.get(`${constants.HTTP}${constants.HOST}${constants.PORT}/student/getAccount`, {withCredentials: true})
+		.then(res => {
+			
+            this.setState({
+                account: res.data
+            })
+            console.log(res)
+			console.log(this.state.account)
+        })
+        .catch(err => {
+            console.log(err);
+        })
+        .finally(() => {
+		
+		})
+    }
+
+    goToProfile(profileId) {
+        window.location.href = constants.HTTP + constants.HOST + constants.WEBSITE_PORT + '/profile/' + profileId;
+    }
+
     render()  {
         const session = getSessionCookie()
         return (
@@ -17,14 +50,8 @@ class NavBar extends React.Component {
                 </li>
                 </ul>
                 <ul className="right"> 
-                <li>
-                <input style={{width: "400px", fontSize: "11pt", height:"32px"}} type="text" className="input" onChange={this.handleChange} placeholder=" Search..." />
-                </li>
                 <li> 
-                    <Link to={{pathname:"/profile/"+this.props.id, state: { id:this.props.id }}}>
-
-                        <button className="Header-button"> Profile </button>
-                    </Link>
+                    <button className="Header-button" onClick={this.goToProfile.bind(this, this.state.account._id)}> Profile </button>
                 </li>
                 <li> 
                     <Link to={{pathname:'/eventList', state: { id:this.props.id }}}>

@@ -5,6 +5,9 @@ let ImageSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    id: {
+        type: String,
+    },
     imageName: {
         type: String,
         default: "none",

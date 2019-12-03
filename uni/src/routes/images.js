@@ -75,6 +75,7 @@ router.route("/all")
         console.log("POSTING")
         const newImage = new Image({
             email: req.body.email,
+            id: req.body.id,
             imageName: req.body.imageName,
             imageData: req.file,
             type: req.body.type,
@@ -102,7 +103,8 @@ router.route("/all")
                 console.log(result);
                 res.status(200).json({
                     success: true,
-                    document: result
+                    document: result,
+                    path: (req.file.path).substring(9)
                 });
             })
             .catch((err) => next(err));
@@ -113,6 +115,16 @@ router.get('/all', (req, res) => {
     console.log(email)
     if (email) {
         images.getImagesByEmail(email, res)
+    } else {
+        res.sendFile(__dirname + '/permDenied.html')
+    }
+})
+
+router.get('/all/:id', (req, res) => {
+    const id = req.params.id;
+    console.log("IMAGE GET BY ID: " + id)
+    if (id) {
+        images.getImagesById(id, res)
     } else {
         res.sendFile(__dirname + '/permDenied.html')
     }

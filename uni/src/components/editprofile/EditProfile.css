@@ -19,6 +19,7 @@
     left: 20%;
     top: 5%;
     text-align: center;
+    float: right;
 }
 
 
@@ -35,6 +36,7 @@
     position: relative;
     left: 20%;
     text-align: center;
+    float: right;
 }
 
 .editprofilepicturediv {

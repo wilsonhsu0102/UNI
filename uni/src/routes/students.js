@@ -94,11 +94,32 @@ router.get('/getProfile', authenticate, (req, res) => {
     }
 })
 
-router.get('/getAccount', authenticate, (req, res) => {
+router.get('/getAccount/:id', authenticate, (req, res) => {
+    console.log(req.params.id)
+    const id = req.params.id
+    console.log("HI")
+    console.log(id)
+    if (id) {
+        students.getAccountbyId(id, res)
+    } else {
+        res.sendFile(__dirname + '/permDenied.html')
+    }
+})
+router.get('/getAccount/', authenticate, (req, res) => {
     const email = req.session.email
     console.log(email)
     if (email) {
         students.getAccountbyEmail(email, res)
+    } else {
+        res.sendFile(__dirname + '/permDenied.html')
+    }
+})
+
+router.post('/updateAccountInfo', authenticate, (req, res) => {
+    const email = req.session.email
+    console.log(email)
+    if (email) {
+        students.updateAccountInfo(email, req, res)
     } else {
         res.sendFile(__dirname + '/permDenied.html')
     }

@@ -60,7 +60,8 @@ class Login extends React.Component {
       this.state = {
         username: '',
         password: '',
-        show: false
+        show: false,
+        showPassword: false
       }
     }
     
@@ -146,27 +147,6 @@ class Login extends React.Component {
           }
           */
     }
-    uploadImage(e) {
-      if (window.confirm('Add photo to profile?')) {
-          let imageFormObj = new FormData();
-          imageFormObj.append("email", this.state.profile.email);
-          imageFormObj.append("type", "profilePicture");
-          imageFormObj.append("imageName", "multer-image-" + Date.now());
-          imageFormObj.append("imageData", e[0]);
-          imageFormObj.append("image", e[0].path);
-          axios.post(`${constants.HTTP}${constants.HOST}${constants.PORT}/images/all`, imageFormObj)
-              .then((data) => {
-                  if (data.data.sucesss) {
-                      alert("Image has been successfully uploaded")
-                  }
-              })
-              .catch((err) => {
-                  alert("Error while uploading image");
-                  console.error(err)
-              })
-      }
-    }
-        
     handleClose = () => {
       console.log('qwrqwrqwrq1')
       this.setState({show: false})
@@ -176,6 +156,48 @@ class Login extends React.Component {
       console.log('qwrqwrqwrq2')
       this.setState({show: true})
     }
+    showPasswordField = () => {
+      return (<div> <div className="create-account-input-col1">
+        <span className= 'create-account-text' > Password* </span>
+        <FormGroup>
+            <FormControl
+                type="text"
+                id="user-password1"
+            />
+        </FormGroup>
+      </div>
+      
+      <div className="create-account-input-col2">
+        <span className= 'create-account-text' > Confirm Password* </span>
+        <FormGroup>
+            <FormControl
+                type="text"
+                id="user-password2"
+            />
+        </FormGroup>
+      </div> </div>);
+    }
+    noShowPasswordField = () => {
+      return (<div> <div className="create-account-input-col1">
+        <span className= 'create-account-text' > Password* </span>
+        <FormGroup>
+            <FormControl
+                type="password"
+                id="user-password1"
+            />
+        </FormGroup>
+      </div>
+      
+      <div className="create-account-input-col2">
+        <span className= 'create-account-text' > Confirm Password* </span>
+        <FormGroup>
+            <FormControl
+                type="password"
+                id="user-password2"
+            />
+        </FormGroup>
+      </div> </div>);
+    }
 
     handleSave = () => {
       const name = document.querySelector("#user-name").value;
@@ -183,15 +205,18 @@ class Login extends React.Component {
       const email = document.querySelector("#user-email").value;
       const password1 = document.querySelector('#user-password1').value;
       const password2 = document.querySelector('#user-password2').value;
+      const year = document.querySelector('#user-year').value; 
+      const campus = document.querySelector('#user-campus').value;
       const age = document.querySelector('#user-age').value;
       const major = document.querySelector('#user-major').value;
       const profilePicture = '/uploads/defaultprofilepicture.png'
+      const regex = RegExp('.@.')
       console.log('qwrqwrqwrq')
       if (name === '') {
           alert("Name cannot be empty")
           return
-      } else if (email === '') {
-          alert("Email cannot be empty")
+      } else if (!regex.test(email)) {
+          alert("Invalid Email")
           return
       } else if(password1 !== password2){
           alert("Passwords entered does not match")
@@ -199,10 +224,10 @@ class Login extends React.Component {
       } else if (age === '') {
         alert("Please enter your age")
         return
-      } else if (major === '') {
-        alert('Please enter your field of study')
+      } else if (major === '' || year === '' || campus === '') {
+        alert('Please complete your academic background')
         return
-      }
+      } 
       if (description === '') {
           description = '[ No Description ]'
       }
@@ -212,6 +237,8 @@ class Login extends React.Component {
           description: description,
           password: password1,
           profilePicture: profilePicture,
+          year: year,
+          campus: campus,
           age: age,
           major: major,
           connections: [],
@@ -257,6 +284,12 @@ class Login extends React.Component {
       for(let i = 1; i < 101; i++) {
         all_ages.push(<option key={'option' + i}> {i} </option>)
       }
+      const all_year = [
+      <option key={'year 1'}> year 1 </option>
+      , <option key={'year 2'}> year 2 </option>
+      , <option key={'year 3'}> year 3 </option>
+      , <option key={'year 4'}> year 4 </option>
+      , <option key={'graduate'}> graduate </option>]
       const upload_button_style = {
         width: '140px',
         backgroundColor: 'rgb(248, 213, 218)',
@@ -279,7 +312,7 @@ class Login extends React.Component {
           <Modal.Body>
             <div className="create-account-body">
               <div  className="create-account-input-col1">
-                <span className= 'create-account-text' > Email </span>
+                <span className= 'create-account-text' > Email* </span>
                 <FormGroup>
                     <FormControl
                         type="text"
@@ -288,7 +321,7 @@ class Login extends React.Component {
                 </FormGroup>
               </div>
               <div className="create-account-input-col2">
-                <span className='create-account-text'> Name </span>
+                <span className='create-account-text'> Name* </span>
                 <FormGroup>
                     <FormControl
                         type="text"
@@ -296,26 +329,24 @@ class Login extends React.Component {
                         />
                 </FormGroup>
               </div>
+              {this.state.showPassword ? this.showPasswordField() : this.noShowPasswordField()}
+              <FormGroup>
+                <div className='showPassword'> 
+                  <span className='create-account-checkBox'> Show Password </span>
+                  <FormControl className='check-BOX' type="checkbox" onChange={() => { this.setState({ showPassword: (this.state.showPassword ? false : true)})}}/>
+                </div>
+              </FormGroup>
               <div className="create-account-input-col1">
-                <span className= 'create-account-text' > Password </span>
+                <span className= 'create-account-text' > Field of Study* </span>
                 <FormGroup>
                     <FormControl
                         type="text"
-                        id="user-password1"
+                        id="user-major"
                     />
                 </FormGroup>
               </div>
-              <div className="create-account-input-col2">
-                <span className= 'create-account-text' > Confirm Password </span>
-                <FormGroup>
-                    <FormControl
-                        type="text"
-                        id="user-password2"
-                    />
-                </FormGroup>
-              </div>
-              <div className="create-account-input-age">
-                <span className= 'create-account-text' > Age </span>
+              <div className="create-account-input-col2 user-age">
+                <span className= 'create-account-text' > Age* </span>
                 <FormGroup>
                     <FormControl
                         as='select'
@@ -326,31 +357,25 @@ class Login extends React.Component {
                     </FormControl>
                 </FormGroup>
               </div>
-              <div className="create-account-input-major">
-                <span className= 'create-account-text' > Field of Study </span>
+              <div className="create-account-input-col1">
+                <span className= 'create-account-text' > Campus* </span>
                 <FormGroup>
                     <FormControl
                         type="text"
-                        id="user-major"
+                        id="user-campus"
                     />
                 </FormGroup>
               </div>
-              <div className="create-account-button-profile">
-              <span className='create-account-text'> Profile Picture</span>
+              <div className="create-account-input-col2">
+                <span className= 'create-account-text' > Year in Uni* </span>
                 <FormGroup>
-                  <ImageUploader
-                      className='upload-button'
-                      name='Profile Picture'
-                      withIcon={false}
-                      withPreview={false}
-                      withLabel={false}
-                      buttonText='Choose Images'
-                      fileContainerStyle={file_container_style}
-                      buttonStyles={upload_button_style}
-                      onChange={(e) => this.uploadImage(e)}
-                      imgExtension={['.jpg', '.gif', '.png', '.gif']}
-                      maxFileSize={5242880}
-                  />
+                    <FormControl
+                        as='select'
+                        type="text"
+                        id="user-year"
+                    >
+                      {all_year}
+                    </FormControl>
                 </FormGroup>
               </div>
               <div className="create-account-input-description">

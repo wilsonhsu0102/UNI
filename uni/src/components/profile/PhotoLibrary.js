@@ -10,47 +10,23 @@ export default class PhotoLibrary extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			account: {},
-			pictures: [],
+			account: this.props.account,
+			pictures: this.props.images,
 		}
 	}
 
 	componentDidMount(){
-		console.log("Loading photo album for profile.")
-		axios.get(`${constants.HTTP}${constants.HOST}${constants.PORT}/images/all`, {withCredentials: true})
-        .then(res => {
-			let filtered = []
-			console.log(res.data)
-			res.data.forEach((pic) => {
-				if (pic.type === 'photolib') {
-					filtered.push({img: pic.path, title: "", author: "", cols: 2})
-				}
-			})
-			console.log(filtered)
-            this.setState({
-                pictures: filtered
-            })
-        })
-        .catch(err => {
-            console.log(err);
-        })
-        .finally(() => {
+		let filtered = []
+		this.state.pictures.forEach((pic) => {
+			if (pic.type === 'photolib') {
+				filtered.push({img: pic.path, title: "", author: "", cols: 2})
+			}
 		})
-		axios.get(`${constants.HTTP}${constants.HOST}${constants.PORT}/student/getAccount`, {withCredentials: true})
-		.then(res => {
-			
-            this.setState({
-                account: res.data
-			})
-			console.log(this.state.account)
-        })
-        .catch(err => {
-            console.log(err);
-        })
-        .finally(() => {
-		
+		console.log(filtered)
+		this.setState({
+			pictures: filtered
 		})
-	}
+    }
 
 	render() {
 		const bgcolor = makeStyles(theme => {
