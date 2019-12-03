@@ -56,15 +56,15 @@ export default function SwipeableTemporaryDrawer(userid) {
       style={{width: "350px"}}
     >
       <List>
-      <Link to={{pathname:"/home", state: { id: userid.id }}}>
+      <Link to={{pathname:getSessionCookie() && getSessionCookie().admin ? "/admin" : "/connections", state: { id: userid.id }}}>
       <ListItem button>
         <ListItemIcon>
           <ChatIcon />
         </ListItemIcon>
-        <ListItemText primary= "Home" />
+        <ListItemText primary= "Make Connections" />
         </ListItem>
         </Link>
-        <Link to={{pathname: getSessionCookie() && getSessionCookie().admin ? "/admin" : "/connections", state: { id: userid.id }}}>
+        <Link to={{pathname:"/connections", state: { id: userid.id }}}>
         <ListItem button>
         <ListItemIcon>
         <GroupIcon />

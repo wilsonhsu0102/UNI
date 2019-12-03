@@ -255,7 +255,9 @@ class Admin extends React.Component {
             this.host = session;
             console.log(session)
 			return [<NavBar id={this.id}></NavBar>,<div id='AdminBody'>
-			<h4 id='PageHeader'>Admin Dashboard - Your ID: <span id='AdminId'><strong>{this.id}</strong></span></h4>
+			<div style={{width: '100vw', float: 'left'}}>
+				<h4 id='PageHeader'>Admin Dashboard</h4>
+			</div>f
 			<div style={{width: '100vw', float: 'left'}}>
 				<h4 id='UserListHeader'>User List</h4>
 			</div>
