@@ -7,21 +7,23 @@ import './MessageContainer.css'
 
 /* Component for the Message Container */
 class MessageContainer extends React.Component {
-	state = {
-		time: 0,
-		messages: []
+	scrollHandler = event => {
+        let box = document.querySelector("#chatContainer");
+		box.scrollTop = box.scrollHeight;
+    }
+	
+	mightScroll(){
+		let box = document.querySelector("#chatContainer");
+		if ((box.scrollHeight - box.scrollTop <= 900) || box.scrollTop === 0){
+			this.scrollHandler();
+		}
 	}
 	
-	
 	componentDidMount(){
-		
-		//Periodically checks if there are new messages to be added	
+	
 		this.interval = setInterval(() => {
-			this.setState({
-				time: this.state.time + 1,
-				messages: this.props.params.messages
-			})
-		}, 1000);
+			this.mightScroll();
+		}, 2000);
 			
 	}
 	
@@ -30,11 +32,9 @@ class MessageContainer extends React.Component {
 	}
 	
     render() {
-		const { userId, userName, connectionData} = this.props.params
+		const { userId, userName, connectionData, messages} = this.props.params
 		const {sendHandler, messageHandler} = this.props
-		console.log(this.props.params.messages);
-		//console.log(connectionData);
-		if(!connectionData){
+		if(!connectionData || !this.props.params.messages){
 			return (<div id="messageDiv">Loading Page. Please Wait.</div>);
 		}
         return (
@@ -44,19 +44,19 @@ class MessageContainer extends React.Component {
 					{connectionData.name} 
 					<p id="connectEmail"> {connectionData.email}</p>
 				</h4>
-				<div id="chatContainer">
-					{ this.state.messages.map((message) => {
-							if(message.userID === connectionData._id.toString()){
-								return(
-									ChatMessage(connectionData.name, message.message, true)
-								)
-							}
-							else{
-								return(
-									ChatMessage(userName, message.message, false)
-								)
-							}
-						}) 
+				<div id="chatContainer" onClick = {this.scrollHandler}>
+					{messages.map((message) => {
+						if(message.userID === connectionData._id.toString()){
+							return(
+								ChatMessage(connectionData.name, message.message, true)
+							)
+						}
+						else{
+							return(
+								ChatMessage(userName, message.message, false)
+							)
+						}
+					})
 					}
 				</div>
 				<form id="messageForm">
