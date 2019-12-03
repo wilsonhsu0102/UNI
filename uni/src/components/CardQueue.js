@@ -115,6 +115,9 @@ class CardQueue extends React.Component {
   renderCondition = () => {
     const session = getSessionCookie()
     console.log(session)
+    if (this.state.deck === []) {
+      alert('There are currently no more connections to make')
+    }
     if (session) {
       return [<NavBar></NavBar>, <CardList students={ this.state.deck } rejectStudent = {this.rejectStudent} connectStudent = {this.connectStudent}></CardList>]
     }

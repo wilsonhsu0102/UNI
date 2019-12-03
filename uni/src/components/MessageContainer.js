@@ -30,10 +30,47 @@ class MessageContainer extends React.Component {
 	componentWillUnmount() {
 		clearInterval(this.interval);
 	}
+
+	messageChangeHandler = event => {
+        this.setState({
+			message: event.target.value
+        });
+    }
+	
+	sendHandler = event => {
+		if (this.state.message !== ""){
+			const now = new Date();
+			const messObj = {
+				userId: this.state.userId,
+				message: this.state.message,
+				timestamp: now,
+				combinedId: this.state.combinedId
+			}
+			this.messageRequest(messObj).then((result) => {
+				if (this.state.timestamp === null){
+					const now = datetime.parse(new Date(), 'YYYY/MM/DD HH:mm:ss');
+					this.setState({
+						messages: result.messages,
+						timestamp: now,
+						message: ""
+					});
+				}
+				else if((result.timestamp !== null)){
+					const databaseTime = datetime.parse(result.timestamp, 'YYYY/MM/DD HH:mm:ss');
+					const stateTime = datetime.parse(this.state.timestamp, 'YYYY/MM/DD HH:mm:ss');
+					this.setState({
+						messages: result.messages,
+						timestamp: result.timestamp,
+						message: ""
+					});
+				}
+				document.querySelector("#userMessageInput").value = "";
+			}).catch((error) => { console.log(error)});
+		}
+	}
 	
     render() {
 		const { userId, userName, connectionData, messages} = this.props.params
-		const {sendHandler, messageHandler} = this.props
 		if(!connectionData){
 			return (<div id="messageDiv">An error has occurred</div>);
 		} 
@@ -49,8 +86,8 @@ class MessageContainer extends React.Component {
 					
 				</div>
 				<form id="messageForm">
-					<input id="userMessageInput" type="text" placeholder="Type a message" onChange={messageHandler}></input>
-					<Button id="sendButton" variant="outlined" onClick={sendHandler}>SEND</Button>
+					<input id="userMessageInput" type="text" placeholder="Type a message" onChange={this.messageHandler()}></input>
+					<Button id="sendButton" variant="outlined" onClick={this.sendHandler()}>SEND</Button>
 				</form>
 			</div>)
 		}
@@ -77,8 +114,8 @@ class MessageContainer extends React.Component {
 					}
 				</div>
 				<form id="messageForm">
-					<input id="userMessageInput" type="text" placeholder="Type a message" onChange={messageHandler}></input>
-					<Button id="sendButton" variant="outlined" onClick={sendHandler}>SEND</Button>
+					<input id="userMessageInput" type="text" placeholder="Type a message" onChange={this.messageHandler()}></input>
+					<Button id="sendButton" variant="outlined" onClick={this.sendHandler()}>SEND</Button>
 				</form>
             </div>
         );
