@@ -58,7 +58,7 @@ function App() {
             <Route exact path="/connections" component={Connections}/>
           </Switch>
           <Switch>
-            <Route exact path="/profile/:profileId/edit" children={<CallWantedProfileEdit/>}/>
+            <Route exact path="/profile/edit" children={<CallWantedProfileEdit/>}/>
           </Switch>
 		  <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
             { /* Each Route below shows a different component depending on the exact path in the URL  */ }
