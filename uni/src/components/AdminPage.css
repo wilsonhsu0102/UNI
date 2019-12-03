@@ -2,10 +2,10 @@
 	margin-left: 100px;
 	font-family: "Helvetica Neue", Helvetica, sans-serif;
 	min-width: 1320px;
-	overflow: auto;
 }
 
 #UserListHeader, #OverallStatsHeader{
+	float:left;
 	margin-top: 100px;
 	width: 200px;
 	text-decoration: underline;
