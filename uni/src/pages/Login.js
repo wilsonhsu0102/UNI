@@ -209,7 +209,7 @@ class Login extends React.Component {
       const campus = document.querySelector('#user-campus').value;
       const age = document.querySelector('#user-age').value;
       const major = document.querySelector('#user-major').value;
-      const profilePicture = '/uploads/defaultprofilepicture.png'
+      const profilePicture = 'src/routes/public/uploads/defaultprofilepicture.png'
       const regex = RegExp('.@.')
       console.log('qwrqwrqwrq')
       if (name === '') {
