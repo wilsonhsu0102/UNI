@@ -39,7 +39,7 @@ class MessageContainer extends React.Component {
 		} 
 
 		if (!this.props.params.messages) {
-			<div id="messageDiv">
+			return (<div id="messageDiv">
 				<h4 id="connectName">
 					<img id="connectAvatar" src={`data:image/png;base64,${connectionData.profilePicture}`}/>
 					{connectionData.name} 
@@ -52,7 +52,7 @@ class MessageContainer extends React.Component {
 					<input id="userMessageInput" type="text" placeholder="Type a message" onChange={messageHandler}></input>
 					<Button id="sendButton" variant="outlined" onClick={sendHandler}>SEND</Button>
 				</form>
-			</div>
+			</div>)
 		}
         return (
             <div id="messageDiv">
