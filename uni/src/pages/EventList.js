@@ -195,9 +195,9 @@ class EventList extends React.Component {
         }
         if (description === '') {
             description = '[ No Description ]'
-        } 
+        }
         if (photo === '') {
-            photo = '/uploads/defaultprofilepicture.png'
+            photo = '/uploads/defaultcoverpicture.jpg'
         } else {
             photo = photo.replace(/\\/g, "\/")
         }

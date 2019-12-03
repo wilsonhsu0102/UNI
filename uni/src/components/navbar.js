@@ -34,6 +34,10 @@ class NavBar extends React.Component {
 		})
     }
 
+    goToProfile(profileId) {
+        window.location.href = constants.HTTP + constants.HOST + constants.WEBSITE_PORT + '/profile/' + profileId;
+    }
+
     render()  {
         const session = getSessionCookie()
         return (
@@ -46,10 +50,7 @@ class NavBar extends React.Component {
                 </ul>
                 <ul className="right"> 
                 <li> 
-                    <Link to={{pathname:"/profile/"+this.state.account._id, state: { id: this.state.account._id }}}>
-
-                        <button className="Header-button"> Profile </button>
-                    </Link>
+                    <button className="Header-button" onClick={this.goToProfile.bind(this, this.state.account._id)}> Profile </button>
                 </li>
                 <li> 
                     <Link to={{pathname:'/eventList', state: { id:this.props.id }}}>

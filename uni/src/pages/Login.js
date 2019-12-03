@@ -61,7 +61,7 @@ class Login extends React.Component {
         username: '',
         password: '',
         show: false,
-        showPassword: true
+        showPassword: false
       }
     }
     
