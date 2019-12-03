@@ -80,7 +80,7 @@ export default function SwipeableTemporaryDrawer(userid) {
         <ListItemText primary="Events" />
         </ListItem>
         </Link>
-        <Link to={{pathname:"/profile/edit"}}>
+        <Link to={{pathname:"/edit/profile"}}>
         <ListItem button>
         <ListItemIcon>
         <SettingsIcon />
