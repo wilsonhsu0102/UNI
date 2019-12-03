@@ -24,10 +24,14 @@ class MessageContainer extends React.Component {
 	}
 	
 	componentDidMount(){
-	
+		
 		this.interval = setInterval(() => {
 			if (!this.props.params.messages) {
 				this.props.params.messages = []
+			}
+
+			if (!this.props.params) {
+				setState({render: true})
 			}
 			//this.mightScroll();
 			
