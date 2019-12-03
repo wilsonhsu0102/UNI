@@ -31,7 +31,8 @@ class ChatPage extends React.Component {
 			this.setState({
 				userId: selfId,
 				userName: selfName,
-				connectionData: student
+				connectionData: student,
+				messages: []
 			})
 			
 			const idObject = {
