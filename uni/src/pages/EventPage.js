@@ -31,7 +31,6 @@ class Event extends React.Component {
             })
             this.getHostByEmail()
             .then(host => {
-                console.log(profile)
                 this.setState({
                     hostName: host.name,
                     hostId: host._id,
