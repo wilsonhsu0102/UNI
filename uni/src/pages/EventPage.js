@@ -35,7 +35,7 @@ class Event extends React.Component {
             this.getHostByEmail()
             .then(host => {
                 let profile = host.profilePicture
-                profile = require('../../public' + profile)
+                profile = require(path.resolve(__dirname, 'public', 'uploads') + profile)
                 console.log(profile)
                 this.setState({
                     hostName: host.name,
@@ -251,7 +251,7 @@ class Event extends React.Component {
                     </div>
                     <div className="sideBlock">
                         <div className="hostProfile">
-                            <button className="profileButton" onClick={this.goToProfile.bind(this, this.state.hostId)}> <img src={this.state.profilePic} alt="profile for host"/> </button>
+                            <button className="profileButton" onClick={this.goToProfile.bind(this, this.state.hostId)}> <img src={`url(data:image/png;base64,${this.state.profilePic})`} alt="profile for host"/> </button>
                             <h3 className="hostName"> Host: {this.state.hostName} </h3>
                             <div className='eventDetail'>
                                 <p> Location: {this.state.location} </p>
