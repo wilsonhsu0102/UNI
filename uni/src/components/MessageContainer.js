@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Router, Route, browserHistory, IndexRoute} from 'react-router'
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import ChatMessage from './ChatMessage'
@@ -23,6 +24,9 @@ class MessageContainer extends React.Component {
 	
 		this.interval = setInterval(() => {
 			this.mightScroll();
+			if (!this.props.params.messages) {
+				this.props.params.messages = []
+			}
 		}, 2000);
 			
 	}
