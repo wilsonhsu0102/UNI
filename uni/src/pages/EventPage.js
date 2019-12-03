@@ -31,8 +31,6 @@ class Event extends React.Component {
             })
             this.getHostByEmail()
             .then(host => {
-                let profile = host.profilePicture
-                profile = require(path.resolve(__dirname, 'public', 'uploads') + profile)
                 console.log(profile)
                 this.setState({
                     hostName: host.name,
