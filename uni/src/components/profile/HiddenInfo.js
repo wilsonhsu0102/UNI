@@ -37,7 +37,7 @@ export default class HiddenInfo extends React.Component {
 				<GridList cellHeight={160} className="hiddengridlist" cols={4}>
 					{this.state.pictures.map(tile => (
 						<GridListTile key={tile.img} cols = {tile.cols || 1}>
-							<img src={tile.img} alt={tile.title}></img>
+							<img src={`data:image/png;base64,${tile.img}`} alt={tile.title}></img>
 						</GridListTile>
 					))}
 				</GridList>

@@ -73,21 +73,22 @@ const upload = multer({
 router.route("/all")
     .post(upload.single('imageData'), (req, res, next) => {
         console.log("POSTING")
+        const path = fs.readFileSync(req.file.path).toString('base64')
         const newImage = new Image({
             email: req.body.email,
             id: req.body.id,
             imageName: req.body.imageName,
             imageData: req.file,
             type: req.body.type,
-            path: fs.readFileSync(req.file.path).toString('base64')
+            path: path
         });
 
         if (req.body.type === 'profilepic') {
             // update student profile field
             Account.findOne({"email": req.body.email}).then((student) => {
-                student.profilePicture = fs.readFileSync(req.file.path).toString('base64')
+                student.profilePicture = path
                 student.save().then((result) => {
-                    console.log(result)
+                    // console.log(result)
                 }).catch((err) => {
                     console.log(err);
                     next(err);
@@ -97,14 +98,15 @@ router.route("/all")
                 res.send({success:false})
             })
         }
+        console.log(newImage)
 
         newImage.save()
             .then((result) => {
-                console.log(result);
+                // console.log(result);
                 res.status(200).json({
                     success: true,
                     document: result,
-                    path: fs.readFileSync(req.file.path).toString('base64')
+                    path: path
                 });
             })
             .catch((err) => next(err));

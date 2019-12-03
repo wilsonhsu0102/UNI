@@ -1,14 +1,25 @@
 #messageDiv{
 	height: 600px;
+	min-width: 800px;
+	width: 80%;
 	font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 	overflow: auto;
 }
+@media only screen and (min-height: 770px) {
+  #messageForm {
+	position: absolute;
+	min-width: 800px;
+	width: 80%;
+	top: 94%;
+	}
+}
 
-#messageForm {
+@media only screen and (max-height: 769px) {
+  #messageForm {
 	position: absolute;
 	width: 80%;
-	top: 92%;
-	left: 10%;
+	top: 725px;
+	}
 }
 
 #userMessageInput {
@@ -20,10 +31,12 @@
 	width: 75%;
 	margin-right: 5%;
 }
+
 #sendButton {
 	height: 40px;
 	float: right;
 	border-color: black;
+	background-color: HotPink;
 	width: 20%;
 }
 
@@ -35,11 +48,11 @@
 	margin-right: 20px;
 	
 }
+
 #connectName {
+	position: relative;
 	min-width: 20%;
 	min-height: 10%;
-	position: absolute;
-	left: 10%;
 }
 
 #connectEmail {
@@ -49,12 +62,50 @@
 
 #chatContainer{
 	position: absolute;
+	min-width: 800px;
 	width: 80%;
-	height: 70%;
-	top: 20%;
-	left:10%;
+	min-height: 575px;
+	height: 75%;
 	border-style: solid;
 	border-color: black;
 	border-width: 1px;
 	overflow: auto;
+}
+
+.yourMess{
+	position: relative;
+	right: 15px;
+	text-align: right;
+	float: right;
+	clear: right;
+	width: 400px;
+	border-radius: 20px;
+	background-color: HotPink;
+	overflow-wrap: anywhere;
+	margin-bottom: 15px;
+	color: white;
+}
+
+.connectionMess{
+	position: relative;
+	left: 20px;
+	width: 400px;
+	clear: right;
+	border-radius: 20px;
+	background-color: rgb(230,230,230);
+	overflow-wrap: anywhere;
+}
+
+.chatName{
+	position: relative;
+	left: 15px;
+	width: 370px;
+	font-size: 18px;
+}
+
+.chatMessage{
+	position: relative;
+	left: 15px;
+	width: 370px;
+	font-size: 20px;
 }

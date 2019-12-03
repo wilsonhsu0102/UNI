@@ -65,7 +65,7 @@ class EditProfilePicture extends React.Component {
     render() {
         return (
             <div class='editprofilepicturediv'>
-                <img id='editcurrentprofilepic' src={this.state.account.profilePicture} alt='Me'/>
+                <img id='editcurrentprofilepic' src={`data:image/png;base64,${this.state.account.profilePicture}`} alt='Me'/>
                 <span id='editprofilepictureheader'><h3>Change My Profile Picture</h3></span>
                 <ImageUploader
                     className='editprofilepicture'

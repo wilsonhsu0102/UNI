@@ -37,14 +37,25 @@ router.post('/checkExists', authenticate, (req, res) => {
     }
 })
 
-router.post('/getMessages', authenticate, (req, res) => {
+router.get('/getMessages/:combinedId', authenticate, (req, res) => {
     const id = req.session.user;
-	const idObject = req.body;
+	const combinedId = req.params.combinedId;
     if (id) {
-		console.log("wow");
-		chats.getMessages(idObject, res);
+		chats.getMessages(combinedId, res);
     } else {
         res.sendFile(__dirname + '/permDenied.html')
     }
 })
+
+
+router.post('/sendMessage', authenticate, (req, res) => {
+    const id = req.session.user;
+	const messObj = req.body;
+    if (id) {
+		chats.sendMessage(messObj, res);
+    } else {
+        res.sendFile(__dirname + '/permDenied.html')
+    }
+})
+
 module.exports = router;

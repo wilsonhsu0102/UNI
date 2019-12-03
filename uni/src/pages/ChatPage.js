@@ -18,7 +18,8 @@ class ChatPage extends React.Component {
 		connectionData: null,
 		messages: [],
 		timestamp: null,
-		requestDone: false
+		message: "",
+		combinedId: ""
 		
 	}
 	
@@ -37,19 +38,20 @@ class ChatPage extends React.Component {
 				id1: selfId,
 				id2: student._id
 			}
-			console.log(typeof student._id);
 			//Retrieves messages if data exists, and creates it if it doesn't
 			this.checkChatExists(idObject).then((result) => {
 				if(result === {}){
 					console.log("Something went wrong");
 				}
 				else{
-					const now = new Date();
+					const now = datetime.format(new Date(), 'YYYY/MM/DD HH:mm:ss');
 					this.setState({
-						connections: result.messages,
+						messages: result.messages,
 						timestamp: now,
-						requestDone: true
+						combinedId: result.combinedId
 					});
+					console.log(result.combinedId);
+					
 				}
 			}).catch((error) => {
 				removeSessionCookie();
@@ -59,21 +61,27 @@ class ChatPage extends React.Component {
 			//Periodically checks if there are new messages to be added
 			
 			this.interval = setInterval(() => {
-			this.getMessages(idObject).then((result) => {
-			if (this.state.timestamp === null){
-				const now = new Date();
-				this.setState({
-					connections: result.messages,
-					timestamp: now
-				});
-			}
-			else if(result.timestamp !== null && datetime.subtract(result.timestamp, this.state.timestamp).toSeconds() >= 0){
-				this.setState({
-					connections: result.messages,
-					timestamp: result.timestamp
-				})
-			}}).catch((error) => { console.log(error)});
-			}, 3000);
+				if(this.state.combinedId !== null){
+					this.getMessages(this.state.combinedId).then((result) => {
+						if (this.state.timestamp === null){
+							const now = datetime.format(new Date(), 'YYYY/MM/DD HH:mm:ss');
+							this.setState({
+								messages: result.messages,
+								timestamp: now
+							});
+							console.log(this.state.messages);
+						}
+						else if((result.timestamp !== null)){
+							const databaseTime = datetime.parse(result.timestamp, 'YYYY/MM/DD HH:mm:ss');
+							const stateTime = datetime.parse(this.state.timestamp, 'YYYY/MM/DD HH:mm:ss');
+							this.setState({
+								messages: result.messages,
+								timestamp: result.timestamp
+							})
+							console.log(this.state.messages);
+						}
+					}).catch((error) => { console.log(error)});
+				}}, 1000);
 			
 		}
 	}
@@ -105,11 +113,10 @@ class ChatPage extends React.Component {
 		})
 	}
 	
-	getMessages(idObject){
+	getMessages(combinedId){
 		return new Promise((resolve, reject) => {
-			fetch(constants.HTTP + constants.HOST + constants.PORT + '/chats/getMessages', {
-				method: "POST",
-				body: JSON.stringify(idObject),
+			fetch(constants.HTTP + constants.HOST + constants.PORT + '/chats/getMessages/' + combinedId, {
+				method: "GET",
 				credentials: 'include',
 				headers: {
 				"Access-Control-Allow-Credentials": "true",
@@ -127,18 +134,81 @@ class ChatPage extends React.Component {
 			)
 		})
 	}
-
+	
+	messageChangeHandler = event => {
+        this.setState({
+			message: event.target.value
+        });
+    }
+	
+	sendHandler = event => {
+		if (this.state.message !== ""){
+			const now = new Date();
+			const messObj = {
+				userId: this.state.userId,
+				message: this.state.message,
+				timestamp: now,
+				combinedId: this.state.combinedId
+			}
+			this.messageRequest(messObj).then((result) => {
+				if (this.state.timestamp === null){
+					const now = datetime.parse(new Date(), 'YYYY/MM/DD HH:mm:ss');
+					this.setState({
+						messages: result.messages,
+						timestamp: now,
+						message: ""
+					});
+				}
+				else if((result.timestamp !== null)){
+					const databaseTime = datetime.parse(result.timestamp, 'YYYY/MM/DD HH:mm:ss');
+					const stateTime = datetime.parse(this.state.timestamp, 'YYYY/MM/DD HH:mm:ss');
+					this.setState({
+						messages: result.messages,
+						timestamp: result.timestamp,
+						message: ""
+					});
+				}
+				document.querySelector("#userMessageInput").value = "";
+			}).catch((error) => { console.log(error)});
+		}
+	}
+	
+	messageRequest (messObj){
+		return new Promise((resolve, reject) => {
+			fetch(constants.HTTP + constants.HOST + constants.PORT + '/chats/sendMessage', {
+				method: "POST",
+				body: JSON.stringify(messObj),
+				credentials: 'include',
+				headers: {
+				"Access-Control-Allow-Credentials": "true",
+				"Content-type": "application/json; charset=UTF-8"
+			}})
+			.then(res => res.json())
+			.then(
+				(result) => {
+					//console.log('messageObject: ', result);
+					resolve(result);
+				},
+				(error) => {
+					reject('issue with getting resource');
+				}
+			)
+		})
+		
+	}
 	renderCondition() {
 		//console.log("render condition connections", this.props)
 		const session = getSessionCookie();
-		console.log(session);
 		if (!session){
 			return <Login></Login>
 		} else if(!this.props.location.params) {
 			return [<NavBar></NavBar>, <h4>CANNOT BE ACCESSED DIRECTLY</h4>]
 		} else {
 			return [
-			<NavBar></NavBar>, <MessageContainer params = {this.state}></MessageContainer>]
+			<NavBar></NavBar>, 
+			<MessageContainer params = {this.state} 
+							  sendHandler = {this.sendHandler} 
+							  messageHandler = {this.messageChangeHandler}></MessageContainer>]
 		} 
 	}
 

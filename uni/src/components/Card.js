@@ -19,13 +19,12 @@ class Cards extends Component {
         ref={(r) => this.flippy = r} // to use toggle method like this.flippy.toggle()
         // if you pass isFlipped prop component will be controlled component.
         // and other props, which will go to div
-        
         style={{ width: '400px', height: '600px' , margin: "0 auto", display: show}} /// these are optional style, it is not necessary
       >
           <div style={{ height: '30px' , width: '100vw'}}></div>
         <FrontSide
           style={{
-            backgroundImage: 'url('+ imageURL + ')',
+            backgroundImage: `url(data:image/png;base64,${imageURL})`,
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
             position: 'relative'

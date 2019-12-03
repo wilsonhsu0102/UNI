@@ -15,7 +15,7 @@ export default function AlignItemsList(key, student, selfId, selfName) {
       <List>
         <ListItem alignItems="flex-start" style={{paddingLeft: "30px"}}>
           <ListItemAvatar>
-            <Avatar alt={student.name} src={require('../../public' + student.profilePicture)} />
+            <Avatar alt={student.name} src={`data:image/png;base64,${student.profilePicture}`} />
           </ListItemAvatar>
           <ListItemText
             primary=" — New connection... Say hi!"
@@ -34,9 +34,7 @@ export default function AlignItemsList(key, student, selfId, selfName) {
             }
           />
 		  <Link to={{pathname:"/chat/"+student.email, params: { selfId: selfId, selfName: selfName,connectId: student._id, student: student}}}>
-		    <Button variant="outlined" onClick={(e) =>{
-	          console.log(student);
-		    }}> CHAT</Button>
+		    <Button variant="outlined"> CHAT</Button>
           </Link>
         </ListItem>
         <Divider variant="inset" component="li" />
