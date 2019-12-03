@@ -36,7 +36,31 @@ class MessageContainer extends React.Component {
         this.setState({
 			message: event.target.value
         });
-    }
+	}
+	
+	messageRequest (messObj){
+		return new Promise((resolve, reject) => {
+			fetch(constants.HTTP + constants.HOST + constants.PORT + '/chats/sendMessage', {
+				method: "POST",
+				body: JSON.stringify(messObj),
+				credentials: 'include',
+				headers: {
+				"Access-Control-Allow-Credentials": "true",
+				"Content-type": "application/json; charset=UTF-8"
+			}})
+			.then(res => res.json())
+			.then(
+				(result) => {
+					//console.log('messageObject: ', result);
+					resolve(result);
+				},
+				(error) => {
+					reject('issue with getting resource');
+				}
+			)
+		})
+		
+	}
 	
 	sendHandler = event => {
 		if (this.state.message !== ""){
