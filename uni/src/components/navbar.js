@@ -2,7 +2,6 @@ import React from 'react';
 import Logo from '../images/logo.png';
 import SwipeableTemporaryDrawer from './SwipeableTemporaryDrawer'
 import { Link } from 'react-router-dom';
-import { SessionContext, getSessionCookie, setSessionCookie, removeSessionCookie } from "../session";
 import { getSessionCookie } from '../session';
 import constants from '../lib/constants'
 import axios from 'axios'; 

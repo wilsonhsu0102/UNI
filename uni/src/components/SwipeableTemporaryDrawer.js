@@ -61,7 +61,7 @@ export default function SwipeableTemporaryDrawer(userid) {
         <ListItemIcon>
           <ChatIcon />
         </ListItemIcon>
-        <ListItemText primary= "Make Connections" />
+        <ListItemText primary= "Home" />
         </ListItem>
         </Link>
         <Link to={{pathname:"/connections", state: { id: userid.id }}}>
@@ -80,7 +80,7 @@ export default function SwipeableTemporaryDrawer(userid) {
         <ListItemText primary="Events" />
         </ListItem>
         </Link>
-        <Link to={{pathname:"/profile/"+userid.id+"/edit", state: { id: userid.id }}}>
+        <Link to={{pathname:"/profile/edit"}}>
         <ListItem button>
         <ListItemIcon>
         <SettingsIcon />
