@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import Flippy, { FrontSide, BackSide } from 'react-flippy';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import CancelIcon from '@material-ui/icons/Cancel';
-
+import path from 'path'
 class Cards extends Component {
 
   render() {
@@ -25,7 +25,7 @@ class Cards extends Component {
           <div style={{ height: '30px' , width: '100vw'}}></div>
         <FrontSide
           style={{
-            backgroundImage: 'url('+ require(imageURL)+ ')',
+            backgroundImage: 'url('+ path.resolve(__dirname, require(imageURL)) + ')',
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
             position: 'relative'
