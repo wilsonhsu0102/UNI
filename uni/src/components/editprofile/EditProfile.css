@@ -1,55 +1,24 @@
-.editlabel {
-    width: 400px;
-    position: absolute;
-    left: 10%;
-    margin-left: 20px;
-}
-
-.edithiddenlibrary {
-    margin: auto;
-    position: relative;
-    float: right;
-    width: 50%;
-    margin-right: 20%;
-}
-
+/* changes */
 .edithiddenlibrarydiv {
-    width: 90%;
-    position: relative;
-    left: 20%;
-    top: 5%;
     text-align: center;
     float: right;
-}
-
-
-.editphotolibrary {
-    margin: auto;
     position: relative;
+    right: 50px;
     width: 50%;
-    margin-right: 20%;
-    top: -30%;
 }
-
 .editphotolibrarydiv {
-    width: 90%;
-    position: relative;
-    left: 20%;
     text-align: center;
     float: right;
+    position: relative;
+    right: 50px;
+    width: 50%;
+    margin-bottom: 50px;
 }
 
 .editprofilepicturediv {
     margin-top: 3%;
     text-align: center;
     margin-bottom: 2%;
-}
-
-.inputdescriptor {
-    color: grey;
-    position: relative;
-    text-align: left;
-    width: 200px;
 }
 
 #editcurrentprofilepic {
@@ -60,37 +29,28 @@
 	width: 200px;
 }
 
-#editintro {
-    height: 300px;
-}
-
-#edithiddenlibraryheader {
-    position: relative;
-    left: 5%;
-}
-
-#editphotolibraryheader {
-    position: relative;
-    right: 1.5%;
-}
-
 #editprofilepictureheader {
     position: relative;
 }
 
 #profileinputdiv {
     float: left;
+    width: 575px;
+    height: 500px;
     margin-left: 2%;
+    margin-top: 10px;
 }
 
 #submitbutton {
-    width: 100px;
-    color:black;
-    border-radius: 8px;
-    background-color: #555555;
-    color:white;
+    padding: 6px 23px;
+    background: #3f4257;
+    border-radius: 30px;
+    color: white;
+    font-weight: 300;
+    font-size: 14px;
+    margin: 10px 0;
+    transition: all 0.2s ease-in;
+    cursor: pointer;
+    outline: none;
+    border: none;
 }
-
-#submitbutton:hover {
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-  }
