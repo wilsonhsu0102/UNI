@@ -34,7 +34,7 @@ class MessageContainer extends React.Component {
     render() {
 		const { userId, userName, connectionData, messages} = this.props.params
 		const {sendHandler, messageHandler} = this.props
-		if(!connectionData || !this.props.params.messages){
+		if(!connectionData){
 			return (<div id="messageDiv">Loading Page. Please Wait.</div>);
 		}
         return (
