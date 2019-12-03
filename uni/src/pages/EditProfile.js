@@ -57,7 +57,7 @@ class EditProfile extends React.Component {
       renderCondition = () => {
         const session = getSessionCookie()
         if (session) {
-            return ([<NavBar id={this.state.id}></NavBar>,<EditProfilePicture id={this.state.id}/>, <EditProfileInfo id={this.state.id}/>, <EditPhotoLibrary id={this.id}/>, <EditHiddenLibrary id={this.id}/>]);
+            return ([<NavBar id={this.state.id} key={"NavBar"}></NavBar>,<EditProfilePicture id={this.state.id}/>, <EditProfileInfo id={this.state.id}/>, <EditPhotoLibrary id={this.id}/>, <EditHiddenLibrary id={this.id}/>]);
 
         }
         removeSessionCookie()
