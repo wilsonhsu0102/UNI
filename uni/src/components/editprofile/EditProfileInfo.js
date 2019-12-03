@@ -145,32 +145,9 @@ class EditProfileInfo extends React.Component {
                             <Form.Control as="textarea" rows="3" placeholder={this.state.account.description} id='selfintro'/>
                         </Form.Group>
                     </Form>
-                    <Button variant="primary" type="submit" onClick={this.handleSubmit}>
+                    <Button variant="primary" type="submit" onClick={this.handleSubmit} id='submitbutton'>
                         Submit
                     </Button>
-                {/* <form  onSubmit={this.handleSubmit}>
-                    <label>
-                        <span class="inputdescriptor">Year: </span>
-                        <input class="editlabel" placeholder={this.state.year} type="text" onChange={this.handleChange("year")} />
-                    </label>
-                    <br></br>
-                    <label>
-                    <span class="inputdescriptor">Major: </span> 
-                        <input class="editlabel" placeholder={this.state.major} type="text" onChange={this.handleChange("major")} />
-                    </label>
-                    <br></br>
-                    <label>
-                    <span class="inputdescriptor">Campus: </span>
-                        <input class="editlabel" type="text" placeholder={this.state.campus} onChange={this.handleChange("campus")} />
-                    </label>
-                    <br></br>
-                    <label>
-                    <span class="inputdescriptor">Self Introduction: </span>
-                        <input class="editlabel" id="editintro" type="text" placeholder={this.state.intro} onChange={this.handleChange("intro")} />
-                    </label>
-                    <br></br>
-                    <input class="inputdescriptor" id="submitbutton" type="submit" value="Submit" />
-                </form> */}
 
             </div>
         ]);
