@@ -140,7 +140,7 @@ class EventList extends React.Component {
     }
 
     uploadImage(e) {
-        if (window.confirm('Add photo to profile?')) {
+        if (window.confirm('Add photo as the cover photo?')) {
             let imageFormObj = new FormData();
             imageFormObj.append("email", this.host.email);
             imageFormObj.append("type", "event");
