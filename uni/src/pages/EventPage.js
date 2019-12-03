@@ -13,6 +13,7 @@ class Event extends React.Component {
         this.state = {
             authenticated: true,
             photo: '',
+            profilePic: '',
             attendees: [],
             loading: true,
         }
@@ -31,10 +32,11 @@ class Event extends React.Component {
             })
             this.getHostByEmail()
             .then(host => {
+                console.log(host)
                 this.setState({
                     hostName: host.name,
                     hostId: host._id,
-                    profilePic: host.profilePicture
+                    profilePic: host.profilePicture,
                 })
                 this.getAttendees()
                 .then(data => {
@@ -235,7 +237,7 @@ class Event extends React.Component {
                             {this.state.eventName}
                         </div>
                         <div className="coverPhoto"> 
-                            <img id="eventPic" src={`data:image/png;base64,${this.state.photo}`} alt="Cover for the event"/> 
+                            <img id="eventPic" src={`data:image/png;base64,${this.state.photo}`} alt="Cover for the event"/>
                         </div>
                         <h3> Event Description: </h3>
                         <div className="description">
