@@ -35,7 +35,7 @@ class NavBar extends React.Component {
     }
 
     goToProfile(profileId) {
-        window.location.href = constants.HTTP + constants.HOST + constants.WEBSITE_PORT + '/profile/' + profileId;
+        window.location.href = constants.HTTP + constants.HOST + '/profile/' + profileId;
     }
 
     render()  {
