@@ -25,7 +25,7 @@ mongoose.connect(process.env.MONGODB_URI || constants.MONGO_DB_URL);
 
 const app = express();
 
-app.use(bodyParser.json())
+app.use(bodyParser.json({limit: '50mb', extended: true}))
 app.use(cors({credentials: true, origin: 'http://uni-uoft.herokuapp.com'}));
 //app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 //app.options('*', cors());
