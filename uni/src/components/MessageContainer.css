@@ -31,6 +31,7 @@
 	width: 75%;
 	margin-right: 5%;
 }
+
 #sendButton {
 	height: 40px;
 	float: right;
@@ -47,6 +48,7 @@
 	margin-right: 20px;
 	
 }
+
 #connectName {
 	position: relative;
 	min-width: 20%;

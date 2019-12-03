@@ -34,9 +34,7 @@ export default function AlignItemsList(key, student, selfId, selfName) {
             }
           />
 		  <Link to={{pathname:"/chat/"+student.email, params: { selfId: selfId, selfName: selfName,connectId: student._id, student: student}}}>
-		    <Button variant="outlined" onClick={(e) =>{
-	          console.log(student);
-		    }}> CHAT</Button>
+		    <Button variant="outlined"> CHAT</Button>
           </Link>
         </ListItem>
         <Divider variant="inset" component="li" />
