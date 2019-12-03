@@ -148,7 +148,7 @@ class EditProfileInfo extends React.Component {
                     <Button variant="primary" type="submit" onClick={this.handleSubmit} id='submitbutton'>
                         Submit
                     </Button>
-
+                    {/* removed old form */}
             </div>
         ]);
     }
