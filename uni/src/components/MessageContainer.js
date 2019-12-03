@@ -32,13 +32,13 @@ class MessageContainer extends React.Component {
 		clearInterval(this.interval);
 	}
 
-	messageChangeHandler(event) {
+	messageChangeHandler = event => {
         this.setState({
 			message: event.target.value
         });
     }
 	
-	sendHandler(event) {
+	sendHandler = event => {
 		if (this.state.message !== ""){
 			const now = new Date();
 			const messObj = {
@@ -87,8 +87,8 @@ class MessageContainer extends React.Component {
 					
 				</div>
 				<form id="messageForm">
-					<input id="userMessageInput" type="text" placeholder="Type a message" onChange={this.messageHandler()}></input>
-					<Button id="sendButton" variant="outlined" onClick={this.sendHandler()}>SEND</Button>
+					<input id="userMessageInput" type="text" placeholder="Type a message" onChange={this.messageChangeHandler}></input>
+					<Button id="sendButton" variant="outlined" onClick={this.sendHandler}>SEND</Button>
 				</form>
 			</div>)
 		}
@@ -115,8 +115,8 @@ class MessageContainer extends React.Component {
 					}
 				</div>
 				<form id="messageForm">
-					<input id="userMessageInput" type="text" placeholder="Type a message" onChange={this.messageHandler()}></input>
-					<Button id="sendButton" variant="outlined" onClick={this.sendHandler()}>SEND</Button>
+					<input id="userMessageInput" type="text" placeholder="Type a message" onChange={this.messageHandler}></input>
+					<Button id="sendButton" variant="outlined" onClick={this.sendHandler}>SEND</Button>
 				</form>
             </div>
         );
