@@ -15,7 +15,7 @@ export default function AlignItemsList(key, student, selfId, selfName) {
       <List>
         <ListItem alignItems="flex-start" style={{paddingLeft: "30px"}}>
           <ListItemAvatar>
-            <Avatar alt={student.name} src={require('../../public' + student.profilePicture)} />
+            <Avatar alt={student.name} src={`data:image/png;base64,${this.state.account.profilePicture}`} />
           </ListItemAvatar>
           <ListItemText
             primary=" — New connection... Say hi!"

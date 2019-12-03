@@ -15,7 +15,8 @@ export default class ProfilePicture extends React.Component {
 		console.log(this.state.account.profilePicture)
 		return (
 			<div>
-				<img className='profilepic' src={this.state.account.profilePicture} alt='Me'/>
+				<img className='profilepic' src={`data:image/png;base64,${this.state.account.profilePicture}`} alt='Me'/>
+				{/* <img className='profilepic' src={this.state.account.profilePicture} alt='Me'/> */}
 				<h1 className='profilename'> {this.state.account.name} </h1>
 			</div>
 		);	

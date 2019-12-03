@@ -27,7 +27,7 @@ export default class PhotoLibrary extends React.Component {
 			pictures: filtered
 		})
     }
-
+	// `data:image/png;base64,${this.state.account.profilePicture}`
 	render() {
 		const bgcolor = makeStyles(theme => {
 			return theme.palette.background.paper;
@@ -38,7 +38,7 @@ export default class PhotoLibrary extends React.Component {
 				<GridList cellHeight={160} className="gridlist" cols={4}>
 					{this.state.pictures.map(tile => (
 						<GridListTile key={tile.img} cols = {tile.cols || 1}>
-							<img src={tile.img} alt={tile.title}></img>
+							<img src={`data:image/png;base64,${tile.img}`} alt={tile.title}></img>
 						</GridListTile>
 					))}
 				</GridList>
