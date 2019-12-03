@@ -257,7 +257,7 @@ class Admin extends React.Component {
 			return [<NavBar id={this.id}></NavBar>,<div id='AdminBody'>
 			<div style={{width: '100vw', float: 'left'}}>
 				<h4 id='PageHeader'>Admin Dashboard</h4>
-			</div>f
+			</div>
 			<div style={{width: '100vw', float: 'left'}}>
 				<h4 id='UserListHeader'>User List</h4>
 			</div>
