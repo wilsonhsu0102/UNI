@@ -81,6 +81,7 @@
 	background-color: HotPink;
 	overflow-wrap: anywhere;
 	margin-bottom: 15px;
+	color: white;
 }
 
 .connectionMess{
@@ -89,17 +90,20 @@
 	width: 400px;
 	clear: right;
 	border-radius: 20px;
-	background-color: Gainsboro;
+	background-color: rgb(230,230,230);
 	overflow-wrap: anywhere;
 }
+
 .chatName{
 	position: relative;
-	left: 20px;
+	left: 15px;
 	width: 370px;
+	font-size: 18px;
 }
 
 .chatMessage{
 	position: relative;
 	left: 15px;
 	width: 370px;
+	font-size: 20px;
 }
