@@ -78,6 +78,7 @@ class Profile extends React.Component {
         console.log("rendercondition profile page", parseInt(this.state.account._id))
         const session = getSessionCookie()
         if (session) {
+            console.log(this.state.images)
             return [<NavBar id ={this.props.id}></NavBar>,
             <ProfilePicture id={this.props.id} account={this.state.account} images={this.state.images} key={0}/>, 
             <SelfIntro id={this.props.id} account={this.state.account} key={1}/>,

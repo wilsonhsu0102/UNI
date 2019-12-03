@@ -35,7 +35,7 @@ class NavBar extends React.Component {
     }
 
     goToProfile(profileId) {
-        window.location.href = constants.HTTP + constants.HOST + constants.WEBSITE_PORT + '/profile/' + profileId;
+        window.location.href = constants.HTTP + constants.HOST + '/profile/' + profileId;
     }
 
     render()  {
@@ -45,7 +45,7 @@ class NavBar extends React.Component {
             
                 <ul className="left"> 
                 <li>
-                    <SwipeableTemporaryDrawer id={this.props.id}></SwipeableTemporaryDrawer>
+                    <SwipeableTemporaryDrawer></SwipeableTemporaryDrawer>
                 </li>
                 </ul>
                 <ul className="right"> 
@@ -63,7 +63,7 @@ class NavBar extends React.Component {
                     </Link>
                 </li>
                 <li> 
-                    <Link to={{pathname:'/home', state: { id:this.props.id }}}>
+                    <Link to={{pathname: session && session.admin ? '/admin' : '/home', state: { id:this.props.id }}}>
                         <img className="App-logo" src={Logo} alt="app logo"/>
                     </Link>
                 </li>

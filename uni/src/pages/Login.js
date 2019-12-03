@@ -102,6 +102,7 @@ class Login extends React.Component {
           email: email,
           password: password
         }
+        console.log('logging in')
         fetch(constants.HTTP + constants.HOST + constants.PORT + '/student/login', {
                 method: 'post',
                 credentials: 'include',
@@ -113,9 +114,17 @@ class Login extends React.Component {
                 .then(res => res.json())
                 .then((result) => {
                     if (result.success) {
-                      console.log('login successful')
-                      setSessionCookie({ email: email });
-                      window.location.href='http://localhost:3000/home';
+                      console.log('login successful', result.admin)
+                      setSessionCookie({ email: email, admin: result.admin });
+                      //window.location.href='http://localhost:3000/home';
+                      //window.location.href= constants.HTTP + constants.HOST + ":3000" + '/home'
+                      if (result.admin) {
+                        window.location.href= constants.HTTP + constants.HOST + constants.PORT + '/admin'
+                      } else {
+                        window.location.href= constants.HTTP + constants.HOST + constants.PORT + '/home'
+                      }
+                      
+                      //window.location.href='http://uni-uoft.herokuapp.com/home';
                     } else {
                       alert('The email or password you provided was incorrect')
                     }
@@ -200,7 +209,7 @@ class Login extends React.Component {
       const campus = document.querySelector('#user-campus').value;
       const age = document.querySelector('#user-age').value;
       const major = document.querySelector('#user-major').value;
-      const profilePicture = '/uploads/defaultprofilepicture.png'
+      const profilePicture = 'src/routes/public/uploads/defaultprofilepicture.png'
       const regex = RegExp('.@.')
       console.log('qwrqwrqwrq')
       if (name === '') {

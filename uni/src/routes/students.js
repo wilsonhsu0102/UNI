@@ -9,7 +9,7 @@ const fs = require('fs');
 
 // Middleware for authentication of resources
 const authenticate = (req, res, next) => {
-    console.log('authenticating', req.session)
+    console.log('authenticating!!!!!!!!!', req.session)
 	if (req.session.user) {
         console.log(req.session.user)
 		Account.findById(new ObjectID(req.session.user)).then((user) => {
@@ -63,7 +63,7 @@ router.post('/login', (req, res) => {
 // ADD MIDDLEWARE TO USE SESSION TO KNOW WHICH USER YOU ARE GETTING CONNECTIONS
 router.get('/getConnections', authenticate, (req, res) => {
     const id = req.session.user
-    console.log(id)
+    
     if (id) {
         students.getConnections(id, req, res)
     } else {
@@ -74,7 +74,7 @@ router.get('/getConnections', authenticate, (req, res) => {
 
 router.get('/getDeck', authenticate, (req, res) => {
     const id = req.session.user
-    console.log("THIS IS THE id", id)
+    console.log("THIS IS THE id!!!!!!!!!!", id)
     if (id) {
         console.log(id)
         students.getNotConnected(id, req, res)

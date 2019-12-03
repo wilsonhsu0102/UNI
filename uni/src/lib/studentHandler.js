@@ -24,7 +24,7 @@ module.exports = {
                 req.session.save((err) => {
                     if (!err) {
                         console.log('user._id', req.session)
-                        res.send({success: true});
+                        res.send({success: true, admin: user.admin});
                     }
                 });
                 

@@ -1,31 +1,35 @@
 const bodyParser = require('body-parser');
 const express = require('express');
-
+const path = require('path');
 const mongoose = require('mongoose');
-const constants = require('./lib/constants');
-require('./models/event')
-const Account = require('./models/account')
-const Profile = require('./models/profile')
-const Chat = require('./models/chat')
+const constants = require('./uni/src/lib/constants');
+require('./uni/src/models/event')
+const Account = require('./uni/src/models/account')
+const Profile = require('./uni/src/models/profile')
+const Chat = require('./uni/src/models/chat')
 console.log('required')
-var eventListRouter = require('./routes/events');
-var studentListRouter = require('./routes/students');
-var imagesRouter = require('./routes/images');
-var chatsRouter = require('./routes/chats');
+var eventListRouter = require('./uni/src/routes/events');
+var studentListRouter = require('./uni/src/routes/students');
+var imagesRouter = require('./uni/src/routes/images');
+var chatsRouter = require('./uni/src/routes/chats');
 const cors = require('cors')
 const session = require('express-session')
 const fs = require('fs')
 
 
-
+ 
 mongoose.Promise = global.Promise;
+console.log('process.env.MONGODB_URI', process.env.MONGODB_URI)
+console.log('constants.MONGO_DB_URL', constants.MONGO_DB_URL)
 mongoose.connect(process.env.MONGODB_URI || constants.MONGO_DB_URL);
 
 const app = express();
 
 app.use(bodyParser.json())
-app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
+app.use(cors({credentials: true, origin: 'http://uni-uoft.herokuapp.com'}));
+//app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 //app.options('*', cors());
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
@@ -37,6 +41,14 @@ app.use(session({
       httpOnly: true
   }
 }));
+
+app.use(express.static(path.join(__dirname, 'uni', 'build')));
+
+/*
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'uni', 'build', 'index.html'));
+});
+*/
 
 
 const PORT = process.env.PORT || 5000;
@@ -50,6 +62,10 @@ app.use('/events', eventListRouter);
 app.use('/student', studentListRouter);
 app.use('/images', imagesRouter);
 app.use('/chats', chatsRouter);
+
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'uni', 'build', 'index.html'));
+});
 
 let db = mongoose.connection;
 

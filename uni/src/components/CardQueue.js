@@ -45,7 +45,7 @@ class CardQueue extends React.Component {
               },
               (error) => {
                   removeSessionCookie()
-                  reject('issue with getting resource')
+                  reject(error + 'issue with getting resource')
               }
           )
       })

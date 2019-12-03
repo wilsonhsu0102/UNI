@@ -34,7 +34,7 @@ const authenticate = (req, res, next) => {
 // set the storage engine
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, '../public/uploads/');
+        cb(null, path.resolve(__dirname, 'public', 'uploads'));
     },
     filename: function(req, file, cb) {
         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
@@ -61,7 +61,7 @@ function checkFileType(file, cb){
 const upload = multer({
     storage: storage,
     limits: {
-        fileSize: 1024 * 1024 * 5
+        fileSize: 1024 * 1024 * 100
     },
     fileFilter: function(req, file, cb) {
         checkFileType(file, cb);

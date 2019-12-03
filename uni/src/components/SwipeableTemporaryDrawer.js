@@ -13,6 +13,7 @@ import TodayIcon from '@material-ui/icons/Today';
 import GroupIcon from '@material-ui/icons/Group';
 import SettingsIcon from '@material-ui/icons/Settings';
 // import {  Nav } from 'react-bootstrap';
+import { SessionContext, getSessionCookie, setSessionCookie, removeSessionCookie } from "../session";
 import { Link } from 'react-router-dom';
 
 
@@ -31,13 +32,12 @@ export default function SwipeableTemporaryDrawer(userid) {
     if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
-
-    setState({ ...state, [side]: open });
+    setState({ ...state, [side]: open});
   };
 
   const getExtraButton = () => {
     console.log("extra button")
-    return <Link to={{pathname:"/admin/"+userid.id, state: { id: userid.id }}}>
+    return <Link to={{pathname:"/admin"}}>
             <ListItem button>
             <ListItemIcon>
             <SettingsIcon />
@@ -56,12 +56,12 @@ export default function SwipeableTemporaryDrawer(userid) {
       style={{width: "350px"}}
     >
       <List>
-      <Link to={{pathname:"/home", state: { id: userid.id }}}>
+      <Link to={{pathname:getSessionCookie() && getSessionCookie().admin ? "/admin" : "/connections", state: { id: userid.id }}}>
       <ListItem button>
         <ListItemIcon>
           <ChatIcon />
         </ListItemIcon>
-        <ListItemText primary="Make Connections" />
+        <ListItemText primary= "Home" />
         </ListItem>
         </Link>
         <Link to={{pathname:"/connections", state: { id: userid.id }}}>
@@ -80,7 +80,7 @@ export default function SwipeableTemporaryDrawer(userid) {
         <ListItemText primary="Events" />
         </ListItem>
         </Link>
-        <Link to={{pathname:"/profile/"+userid.id+"/edit", state: { id: userid.id }}}>
+        <Link to={{pathname:"/profile/edit"}}>
         <ListItem button>
         <ListItemIcon>
         <SettingsIcon />
@@ -88,7 +88,7 @@ export default function SwipeableTemporaryDrawer(userid) {
         <ListItemText primary="Settings" />
         </ListItem>
         </Link>
-        {parseInt(userid.id) === 0 ? getExtraButton() : null}
+        {getSessionCookie() && getSessionCookie().admin ? getExtraButton() : null}
       </List>
       
     </div>

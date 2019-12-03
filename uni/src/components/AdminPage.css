@@ -2,14 +2,13 @@
 	margin-left: 100px;
 	font-family: "Helvetica Neue", Helvetica, sans-serif;
 	min-width: 1320px;
-	overflow: auto;
 }
 
 #UserListHeader, #OverallStatsHeader{
+	float:left;
 	margin-top: 100px;
 	width: 200px;
 	text-decoration: underline;
-	display: inline-block;
 }
 
 #UserForm {
@@ -20,14 +19,14 @@
 }
 
 #UserList{
-	display: inline-block;
+	float: left;
 	margin-top: 30px;
 	border-collapse: collapse;
 	border: 1px solid black;
 	overflow: auto;
 	/* height: 400px; */
 	max-height: 400px;
-	width: 487px;
+	width: 700px;
 }
 
 #UserList td, #UserList th, #AdminEventList td, #AdminEventList th,
@@ -43,23 +42,20 @@
 }
 
 #AdminEventList{
-	display: inline-block;
 	margin-top: 30px;
-	float: right;
+	float: left;
 	position: relative;
 	border-collapse: collapse;
 	border: 1px solid black;
 	overflow: auto;
 	/* height: 400px; */
-	width: 754px;
+	width: 700px;
 	max-height: 400px;
 }
 
 #AdminEventListHeader{
 	margin-top: 100px;
 	width: 200px;
-	float: right;
-	position: relative;
 	right: 553px;
 	text-decoration: underline;
 }

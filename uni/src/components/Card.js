@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import Flippy, { FrontSide, BackSide } from 'react-flippy';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import CancelIcon from '@material-ui/icons/Cancel';
-
+import path from 'path'
 class Cards extends Component {
 
   render() {
