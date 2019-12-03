@@ -40,7 +40,7 @@ class MessageContainer extends React.Component {
         return (
             <div id="messageDiv">
 				<h4 id="connectName">
-					<img id="connectAvatar" src={require('../../public' + connectionData.profilePicture)}/>
+					<img id="connectAvatar" src={`data:image/png;base64,${connectionData.profilePicture}`}/>
 					{connectionData.name} 
 					<p id="connectEmail"> {connectionData.email}</p>
 				</h4>
