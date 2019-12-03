@@ -22,7 +22,7 @@ let ImageSchema = new mongoose.Schema({
         required: true
     },
     path: {
-        type: Buffer,
+        type: String,
         required: true
     }
 });
