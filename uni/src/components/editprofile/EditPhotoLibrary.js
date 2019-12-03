@@ -55,7 +55,7 @@ class EditPhotoLibrary extends React.Component {
             imageFormObj.append("image", e[0].path);
             axios.post(`${constants.HTTP}${constants.HOST}${constants.PORT}/images/all`, imageFormObj)
                 .then((data) => {
-                    if (data.data.sucesss) {
+                    if (data) {
                         alert("Image has been successfully uploaded")
                     }
                 })
