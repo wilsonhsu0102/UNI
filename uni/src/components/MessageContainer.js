@@ -35,7 +35,24 @@ class MessageContainer extends React.Component {
 		const { userId, userName, connectionData, messages} = this.props.params
 		const {sendHandler, messageHandler} = this.props
 		if(!connectionData){
-			return (<div id="messageDiv">Loading Page. Please Wait.</div>);
+			return (<div id="messageDiv">An error has occurred</div>);
+		} 
+
+		if (!this.props.params.messages) {
+			<div id="messageDiv">
+				<h4 id="connectName">
+					<img id="connectAvatar" src={`data:image/png;base64,${connectionData.profilePicture}`}/>
+					{connectionData.name} 
+					<p id="connectEmail"> {connectionData.email}</p>
+				</h4>
+				<div id="chatContainer" onClick = {this.scrollHandler}>
+					
+				</div>
+				<form id="messageForm">
+					<input id="userMessageInput" type="text" placeholder="Type a message" onChange={messageHandler}></input>
+					<Button id="sendButton" variant="outlined" onClick={sendHandler}>SEND</Button>
+				</form>
+			</div>
 		}
         return (
             <div id="messageDiv">
