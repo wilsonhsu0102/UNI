@@ -104,7 +104,7 @@ router.route("/all")
                 res.status(200).json({
                     success: true,
                     document: result,
-                    path: (req.file.path).substring(9)
+                    path: (req.file.path).substring(req.file.path).toString('base64')
                 });
             })
             .catch((err) => next(err));
