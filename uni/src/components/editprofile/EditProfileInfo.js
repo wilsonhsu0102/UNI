@@ -14,6 +14,7 @@ class EditProfileInfo extends React.Component {
             major: '',
             campus: ''
         }
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
 
     componentDidMount(){
@@ -34,38 +35,87 @@ class EditProfileInfo extends React.Component {
 		})
     }
  
-    handleChange(event, field) {
-        switch(field) {
-            case "intro":
-                this.setState({intro: event.target.intro})
-                break;
-            case "year":
-                this.setState({year: parseInt(event.target.year)})
-                break;
-            case "major":
-                this.setState({major: event.target.major})
-                break;
-            case "campus":
-                this.setState({campus: event.target.campus})
-                break;
-            default:
-                break;    
-        }
-    }
+    // handleChange(event, field) {
+    //     switch(field) {
+    //         case "intro":
+    //             this.setState({intro: event.target.intro})
+    //             break;
+    //         case "year":
+    //             this.setState({year: event.target.year})
+    //             break;
+    //         case "major":
+    //             this.setState({major: event.target.major})
+    //             break;
+    //         case "campus":
+    //             this.setState({campus: event.target.campus})
+    //             break;
+    //         default:
+    //             break;    
+    //     }
+    // }
 
-    handleSubmit(event) {
-        axios.post(`${constants.HTTP}${constants.HOST}${constants.PORT}/student/updateAccountInfo`, {withCredentials: true})
-        .then((data) => {
-            if (data.data.sucesss) {
-                alert("Image has been successfully uploaded")
-            }
-        })
-        .catch((err) => {
-            alert("Error while uploading image");
-            console.error(err)
-        })
-        alert('Information has been saved.');
-        // event.preventDefault();
+    handleSubmit() {
+        const description = document.querySelector("#selfintro").value;
+        const major = document.querySelector("#major").value;
+        const year = document.querySelector("#year").value;
+        const campus = document.querySelector("#campus").value;
+        if (description === '') {
+            this.state.intro = this.state.account.description;
+        } else {
+            this.state.intro = description;
+        }
+        if (year === '') {
+            this.state.year = this.state.account.year
+        } else {
+            this.state.year = year;
+        }
+        
+        if (major === '') {
+            this.state.major = this.state.account.major
+        } else {
+            this.state.major = major;
+        }
+        
+        if (campus === '') {
+            this.state.campus = this.state.account.campus
+        } else {
+            this.state.campus = campus;
+        }
+
+        // axios.post(`${constants.HTTP}${constants.HOST}${constants.PORT}/student/updateAccountInfo`, {withCredentials: true},
+        //     {body : {intro: this.state.intro, year: this.state.year, major: this.state.major, campus: this.state.campus} })
+        // .then((data) => {
+        //     if (data.data.sucesss) {
+        //         alert("Info has been updated!")
+        //     }
+        // })
+        // .catch((err) => {
+        //     alert("Error while attempting to change info.");
+        //     console.error(err)
+        // })
+
+        const opts = {intro: this.state.intro, year: this.state.year, major: this.state.major, campus: this.state.campus} 
+          fetch(constants.HTTP + constants.HOST + constants.PORT + '/student/updateAccountInfo', {
+                  method: 'post',
+                  credentials: 'include',
+                  body: JSON.stringify(opts),
+                  headers: {
+                  "Access-Control-Allow-Credentials": "true",
+                  "Content-type": "application/json; charset=UTF-8"
+                  }})
+                  .then(res => res.json())
+                  .then((result) => {
+                      if (result) {
+                        alert('Information has been saved.')
+                      } else {
+                        alert('Information failed to save.')
+                      }
+                      
+                  },
+                  (error) => {
+                      alert('Error occurred.')
+                  }
+              )
     }
 
     render() {
@@ -73,22 +123,26 @@ class EditProfileInfo extends React.Component {
             <div id="profileinputdiv"> 
                 <Form>
                         <Form.Group controlId="exampleForm.ControlInput1">
-                            <Form.Label>Email address</Form.Label>
-                            <Form.Control type="email" placeholder="name@example.com" />
+                            <Form.Label>Major</Form.Label>
+                            <Form.Control type="major" placeholder={this.state.account.major} id='major'/>
+                        </Form.Group>
+                        <Form.Group controlId="exampleForm.ControlInput1">
+                            <Form.Label>Campus</Form.Label>
+                            <Form.Control type="campus" placeholder={this.state.account.campus} id='campus'/>
                         </Form.Group>
                         <Form.Group controlId="exampleForm.ControlSelect1">
                             <Form.Label>Year</Form.Label>
-                            <Form.Control as="select">
+                            <Form.Control as="select" id='year'>
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
                             <option>4</option>
                             <option>Other</option>
-                            </Form.Control>
+                            </Form.Control >
                         </Form.Group>
                         <Form.Group controlId="exampleForm.ControlTextarea1">
                             <Form.Label>Self Introduction</Form.Label>
-                            <Form.Control as="selfintroduction" rows="3" />
+                            <Form.Control as="textarea" rows="3" placeholder={this.state.account.description} id='selfintro'/>
                         </Form.Group>
                     </Form>
                     <Button variant="primary" type="submit" onClick={this.handleSubmit}>

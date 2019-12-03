@@ -359,12 +359,12 @@ module.exports = {
         let doc = Profile.findOneAndUpdate(filter, update, {new: true});
         console.log(doc);
     },
-    updateAccountInfo: function(id, req, res) {
-        console.log('LOG: studentHandler->updateProfile');
+    updateAccountInfo: function(email, req, res) {
+        console.log('LOG: studentHandler->updateAccountInfo');
         mongoose.connect(constants.MONGO_DB_URL, {useNewUrlParser: true})
 
         var db = mongoose.connection;
-        db.on( 'error', console.error(bind(console, 'connection error:')));
+        db.on( 'error', console.error.bind(console, 'connection error:'));
         db.once('open', () => console.log('connected to the database'));
         const filter = { "email": email };
         const intro = req.body.intro;
@@ -376,7 +376,7 @@ module.exports = {
                 console.log(result);
                 res.send(result);
             }).catch((error) => {
-                console.warn('WARN: No images related to this email.')
+                console.warn('WARN: No account related to this email.')
                 res.send({success: false})
             })
     },
