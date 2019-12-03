@@ -280,7 +280,7 @@ class Admin extends React.Component {
 					{ this.state.userList }
 				</tbody>
 			</table>
-			<br></br>
+			<div style={{width: '100vw', float: 'left'}}></div>
 			<div style={{width: '100vw', float: 'left'}}>
 				<h4 id='AdminEventListHeader'>Event List</h4>
 			</div>
