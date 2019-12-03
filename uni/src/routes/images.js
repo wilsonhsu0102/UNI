@@ -79,13 +79,13 @@ router.route("/all")
             imageName: req.body.imageName,
             imageData: req.file,
             type: req.body.type,
-            path: (req.file.path).substring(req.file.path).toString('base64')
+            path: new Buffer((req.file.path)).toString('base64')
         });
 
         if (req.body.type === 'profilepic') {
             // update student profile field
             Account.findOne({"email": req.body.email}).then((student) => {
-                student.profilePicture = req.file.path.substring(req.file.path).toString('base64');
+                student.profilePicture = new Buffer((req.file.path)).toString('base64');
                 student.save().then((result) => {
                     console.log(result)
                 }).catch((err) => {
@@ -104,7 +104,7 @@ router.route("/all")
                 res.status(200).json({
                     success: true,
                     document: result,
-                    path: (req.file.path).substring(req.file.path).toString('base64')
+                    path: new Buffer((req.file.path)).toString('base64')
                 });
             })
             .catch((err) => next(err));
