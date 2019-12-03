@@ -256,7 +256,9 @@ class Admin extends React.Component {
             console.log(session)
 			return [<NavBar id={this.id}></NavBar>,<div id='AdminBody'>
 			<h4 id='PageHeader'>Admin Dashboard - Your ID: <span id='AdminId'><strong>{this.id}</strong></span></h4>
-			<h4 id='UserListHeader'>User List</h4>
+			<div style={{width: '100vw', float: 'left'}}>
+				<h4 id='UserListHeader'>User List</h4>
+			</div>
 			
 			<br></br>
 			<table id='UserList'>
@@ -279,7 +281,10 @@ class Admin extends React.Component {
 				</tbody>
 			</table>
 			<br></br>
-			<h4 id='AdminEventListHeader'>Event List</h4>
+			<div style={{width: '100vw', float: 'left'}}>
+				<h4 id='AdminEventListHeader'>Event List</h4>
+			</div>
+			
 			<table id='AdminEventList'>
 				<tbody>
 					<tr>
