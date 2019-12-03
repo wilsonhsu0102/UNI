@@ -201,8 +201,6 @@ class ChatPage extends React.Component {
 		const session = getSessionCookie();
 		if (!session){
 			return <Login></Login>
-		} else if(!this.props.location.params) {
-			return [<NavBar></NavBar>, <h4>CANNOT BE ACCESSED DIRECTLY</h4>]
 		} else {
 			return [
 			<NavBar></NavBar>, 
