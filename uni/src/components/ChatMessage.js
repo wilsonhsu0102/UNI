@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './MessageContainer.css'
 
 export default function ChatMessage(name, message, connection) {
 	if(connection){
