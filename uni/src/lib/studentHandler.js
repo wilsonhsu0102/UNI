@@ -139,7 +139,7 @@ module.exports = {
                 let notConnected = []
                 console.log('connected!!!!!!!!', connected)
                 for (let i = 0; i < allStudents.length; i++) {
-                    if (!connected.includes(allStudents[i]._id)) {
+                    if (!connected.includes(allStudents[i]._id) && allStudents[i]._id != id) {
                         console.log(allStudents[i]._id)
                         notConnected.push(allStudents[i])
                     }
