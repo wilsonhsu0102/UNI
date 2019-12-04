@@ -93,6 +93,7 @@ For a standard user:
    and also choose to attend by clicking "Going"
 
 6. They can view their connections by clicking on "Connections" in the side navigation bar
+
 7. They can click "Chat" on each of their connections, in which they are sent to the chat page
    so that they can send messages to their connections
 
