@@ -142,7 +142,7 @@ class ChatPage extends React.Component {
 	
 	sendHandler = event => {
 		if (this.state.message !== ""){
-			const now = new Date();
+			const now = datetime.parse(new Date(), 'YYYY/MM/DD HH:mm:ss');
 			const messObj = {
 				userId: this.state.userId,
 				message: this.state.message,
