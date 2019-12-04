@@ -41,7 +41,8 @@ class MessageContainer extends React.Component {
 	}
 	
     render() {
-		const { userId, userName, connectionData, messages} = this.props.params
+		const { userId, userName, connectionData} = this.props.params
+		let messages = this.props.messages
 		const {sendHandler, messageHandler} = this.props
 		console.log(this.props.params)
 		if(!connectionData || !this.props.messages){
