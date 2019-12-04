@@ -105,4 +105,4 @@ For an admin:
 
 1. After logging in, they will be at the Admin View, where the can add/remove users and events and see statistics for the webapp
 2. Admins have the "Admin" button in the side navigation bar while standard users do not
-3. They can access all pages that a standard user can
+3. They can access all pages that a standard user can except for the cards page to create new connections.
