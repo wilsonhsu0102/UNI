@@ -50,7 +50,7 @@ class Admin extends React.Component {
 										<td className = 'TableContents' style={{overflow: 'scroll'}}>{startEvents[i].hostName}</td>
 										<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.goToEvent}>To Event</button></td>
 										<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.goToProfile}>To Profile</button></td>
-										<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.removeEvent}>X</button></td></tr>);
+										</tr>);
 					numEvents++
 				}
 
@@ -205,7 +205,7 @@ class Admin extends React.Component {
 						<td className = 'TableContents'>{newHostName}</td>
 						<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.goToEvent}>To Event</button></td>
 						<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.goToProfile}>To Profile</button></td>
-						<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.removeEvent}>X</button></td></tr>);	
+						</tr>);	
 		currId++;
 		currNumEvents++;
 		currStatsTable = this.updateTable([...this.state.statsTable], 'AdminStatisticTNE', 'Total Number of Events', currNumEvents);
@@ -275,9 +275,6 @@ class Admin extends React.Component {
 						<th className = 'TableButtonCell'>
 							Profile Link
 						</th>
-						<th className = 'TableButtonCell'>
-							Remove
-						</th>
 					</tr>
 					{ this.state.userList }
 				</tbody>
@@ -304,9 +301,6 @@ class Admin extends React.Component {
 						</th>
 						<th className = 'TableButtonCell'>
 							Profile Link
-						</th>
-						<th className = 'TableButtonCell'>
-							Remove
 						</th>
 					</tr>
 					{ this.state.eventList }
