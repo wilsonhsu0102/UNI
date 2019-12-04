@@ -142,19 +142,19 @@ class ChatPage extends React.Component {
 	
 	sendHandler = event => {
 		if (this.state.message !== ""){
-			const now = datetime.parse(new Date(), 'YYYY/MM/DD HH:mm:ss');
+			//const now = datetime.parse(new Date(), 'YYYY/MM/DD HH:mm:ss');
 			const messObj = {
 				userId: this.state.userId,
 				message: this.state.message,
-				timestamp: now,
+				timestamp: 'now',
 				combinedId: this.state.combinedId
 			}
 			this.messageRequest(messObj).then((result) => {
 				if (this.state.timestamp === null){
-					const now = datetime.parse(new Date(), 'YYYY/MM/DD HH:mm:ss');
+					//const now = datetime.parse(new Date(), 'YYYY/MM/DD HH:mm:ss');
 					this.setState({
 						messages: result.messages,
-						timestamp: now,
+						timestamp: 'now',
 						message: ""
 					});
 				}
