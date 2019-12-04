@@ -25,8 +25,8 @@ module.exports = {
             if(chatObj === null){
 				Chat.create({ combinedUserID: combined1, messageArray: [], timestamp: null}).then((newChatObj) => {
 					let messageObj = {
-						messages: newChat.messageArray,
-						timestamp: newChat.timestamp,
+						messages: newChatObj.messageArray,
+						timestamp: newChatObj.timestamp,
 						combinedId: combined1
 					}
 					res.json(messageObj);
@@ -89,7 +89,6 @@ module.exports = {
 			const sortedMessArray = newMessageArray.sort(timeSort);
 			const newTimestamp = sortedMessArray[sortedMessArray.length - 1].timestamp;
 			Chat.findOneAndUpdate({"combinedUserID": messObj.combinedId}, {$set: {messageArray: sortedMessArray, timestamp: newTimestamp}}, {new: true}).then((updatedChatObj) => {
-				console.log(updatedChatObj.messageArray.length > chatObj.messageArray);
 				let messageObj = {
 					messages: updatedChatObj.messageArray,
 					timestamp: updatedChatObj.timestamp
