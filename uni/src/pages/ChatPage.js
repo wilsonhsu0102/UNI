@@ -205,12 +205,20 @@ class ChatPage extends React.Component {
 		} else if(!this.props.location.params) {
 			return [<NavBar></NavBar>, <h4>CANNOT BE ACCESSED DIRECTLY</h4>]
 		} else {
+			const {student, selfId, selfName} = this.props.location.params;
+			const params = {
+				userName: selfName,
+				userId: selfId,
+				connectionData: student
+			}
+
 			return [
 			<NavBar></NavBar>, 
-			<MessageContainer params = {this.state} 
+			<MessageContainer params = {params}
+							  messages = {this.state.messages}
 							  sendHandler = {this.sendHandler} 
 							  messageHandler = {this.messageChangeHandler}></MessageContainer>]
-		} 
+		}
 	}
 
 	render() {

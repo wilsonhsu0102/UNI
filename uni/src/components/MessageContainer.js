@@ -26,13 +26,10 @@ class MessageContainer extends React.Component {
 	componentDidMount(){
 		
 		this.interval = setInterval(() => {
-			if (!this.props.params.messages) {
-				this.props.params.messages = []
+			if (!this.props.messages) {
+				this.props.messages = []
 			}
 
-			if (!this.props.params) {
-				setState({render: true})
-			}
 			//this.mightScroll();
 			
 		}, 2000);
@@ -47,7 +44,7 @@ class MessageContainer extends React.Component {
 		const { userId, userName, connectionData, messages} = this.props.params
 		const {sendHandler, messageHandler} = this.props
 		console.log(this.props.params)
-		if(!connectionData || !this.props.params.messages){
+		if(!connectionData || !this.props.messages){
 			return (<div id="messageDiv">Loading Page. Please Wait.</div>);
 		}
         return (
