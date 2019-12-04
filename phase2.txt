@@ -1,0 +1,104 @@
+URL of deployed app:
+http://uni-uoft.herokuapp.com/
+
+# Edits from Phase1:
+Profile View: 
+We removed the edit profile button from the Profile view, but profiles 
+can still be edited through the "Settings" on the side navigation bar
+
+Side Navigation Bar: 
+The button to go back to the Home view was renamed 
+from "Making Connections" to "Home"
+
+All other views still work in the same way as Phase1 but with new features
+
+
+
+# New Features:
+
+Login View:
+Users can now make new accounts by click on the sign up button.
+There they will enter their email, password, and information about themselves.
+They can then use their email and password to login.
+
+Home View:
+When given potential connections, a user can either accept or reject them, 
+if a user accepts, and the other user also accepts on their Home View,
+then a connection will be added to the Connections View
+
+Events List View:
+Users can now create new events by clicking on "Host Event".
+They enter in an event name, location, description, date and can also choose
+a cover photo. When they save changed their event is added to the Event List View.
+
+Events View:
+After a user clicks on an event, then can look at the event information,
+and if they want to attend, they can click the "Going" button,
+and their name will be added to the list of attendees.
+
+Connections View:
+Users can now see their connections, and clicking "Chat" will
+send them to the new View, Chat Page View.
+
+Chat Page View(New View):
+Users can send direct messages to one another on the Chat Page View
+
+
+
+#Routes Overview(in uni/src/routes folder):
+students.js:
+- Used for user authentication and login
+- Used to get potential connections, and to make connections
+- Used to get account information and also to save edits to the account
+- Used to get event host info and attendees to render each event page
+
+events.js:
+- Used to get the event list, and also event info
+- Used to add save new events to the database
+- Used to add new attendees to events
+
+images.js:
+
+chats.js:
+- Used to create a new collection for users that holds all their messages
+- Used to get their messages from the database
+- Used to send their new message and save it to the database
+
+
+
+
+# User Instructions
+Credentials:
+username: user
+password: user
+
+For a standard user:
+
+1. After logging in, they will be at the Home view, where you see potential connections. 
+   You can click on them for more information and either accept or reject them.
+   
+2. They can access their profile by clicking "Profile"
+   on the navigation bar at the top of the window
+   
+3. To edit their profile, they can click "Settings" on the side navigation bar
+   and proceed to make changes there
+   
+4. They can access the event list by clicking "Events" on the top navigation bar
+
+5. They can click on any event on the event list, to see more information,
+   and also choose to attend by clicking "Going"
+
+6. They can view their connections by clicking on "Connections" in the side navigation bar
+7. They can click "Chat" on each of their connections, in which they are sent to the chat page
+   so that they can send messages to their connections
+
+# Admin Instructions
+Credentials:
+username: admin
+password: admin
+
+For an admin:
+
+1. After logging in, they will be at the Admin View, where the can add/remove users and events and see statistics for the webapp
+2. Admins have the "Admin" button in the side navigation bar while standard users do not
+3. They can access all pages that a standard user can
