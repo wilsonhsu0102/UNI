@@ -5,6 +5,7 @@ const Account = require('../models/account')
 const Event = require('../models/event')
 const { ObjectID } = require('mongodb')
 const fs = require('fs');
+const path = require('path');
 
 
 // Middleware for authentication of resources
@@ -37,6 +38,7 @@ router.post('/addUser', function(req, res) {
             res.send({msg: 'Email in Use'})
         } else if (response.found === false) {
             console.log('Did not find this email')
+            req.body.profilePicture = (fs.readFileSync(path.resolve(__dirname, '../images/defaultprofilepic.png'))).toString('base64')
             students.addNewUser(req.body, res)
         }
     }).catch(err => {

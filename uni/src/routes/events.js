@@ -3,6 +3,8 @@ const events = require('../lib/eventHandler')
 const Event = require('../models/event')
 const { ObjectID } = require('mongodb')
 var router = express.Router();
+const fs = require('fs');
+const path = require('path')
 
 // Middleware for authentication of resources
 const authenticate = (req, res, next) => {
@@ -52,13 +54,19 @@ router.post('/addEvent', function(req, res, next) {
 
     const datetime = new Date(req.body.datetime)
     console.log(datetime)
+    let coverPhoto = req.body.coverPhoto
+    if (coverPhoto === '') {
+        // fs.readFileSync(req.file.path).toString('base64')
+        console.log(__dirname)
+        coverPhoto = (fs.readFileSync(path.resolve(__dirname, '../images/defaultcoverpicture.jpg'))).toString('base64')
+    }
     const event = new Event({
         eventName: req.body.name,
         description: req.body.description,
         location: req.body.location,
         attendees: req.body.attendees,
         host: req.body.host,
-        coverPhoto: req.body.coverPhoto,
+        coverPhoto: coverPhoto,
         date: datetime
     })
 	// Save the user
