@@ -34,7 +34,7 @@ class Admin extends React.Component {
 									<td className = 'TableContents' style={{overflow: 'scroll'}}>{users[i].name}</td>
 									<td className = 'TableButtonCell' style={{overflow: 'scroll'}}>{users[i]._id}</td>
 									<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.goToProfile}>To Profile</button></td>
-									<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.removeUser}>X</button></td></tr>);	
+									</tr>);	
 				numUsers++
 			}
 			
@@ -154,7 +154,7 @@ class Admin extends React.Component {
 						<td className = 'TableContents'>{userFullName}</td>
 						<td className = 'TableButtonCell'>{currId}</td>
 						<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.goToProfile}>To Profile</button></td>
-						<td className = 'TableButtonCell'><button className = 'TableButton' onClick = {this.removeUser}>X</button></td></tr>);	
+						</tr>);	
 		currId++;
 		currNumUsers++;
 			currStatsTable = this.updateTable([...this.state.statsTable], 'AdminStatisticTNU', 'Total Number of Users', currNumUsers);
