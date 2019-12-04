@@ -91,6 +91,10 @@ class CardQueue extends React.Component {
               this.setState({
                 deck: filteredDeck
               })
+
+              if (this.state.deck === []) {
+                alert('There are currently no more connections to make')
+              }
           },
           (error) => {
               alert("An error has occured")
@@ -110,14 +114,16 @@ class CardQueue extends React.Component {
       deck: filteredStudents
     })
 
+    if (this.state.deck === []) {
+      alert('There are currently no more connections to make')
+    }
+
   }
 
   renderCondition = () => {
     const session = getSessionCookie()
     console.log(session)
-    if (this.state.deck === []) {
-      alert('There are currently no more connections to make')
-    }
+    
     if (session) {
       return [<NavBar></NavBar>, <CardList students={ this.state.deck } rejectStudent = {this.rejectStudent} connectStudent = {this.connectStudent}></CardList>]
     }
