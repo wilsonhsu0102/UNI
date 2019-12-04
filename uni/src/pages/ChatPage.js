@@ -161,8 +161,6 @@ class ChatPage extends React.Component {
 					});
 				}
 				else if((result.timestamp !== null)){
-					const databaseTime = datetime.parse(result.timestamp, 'YYYY/MM/DD HH:mm:ss');
-					const stateTime = datetime.parse(this.state.timestamp, 'YYYY/MM/DD HH:mm:ss');
 					this.setState({
 						messages: result.messages,
 						timestamp: result.timestamp,
