@@ -92,7 +92,7 @@ class CardQueue extends React.Component {
                 deck: filteredDeck
               })
 
-              if (this.state.deck === []) {
+              if (filteredDeck.length == 0) {
                 alert('There are currently no more connections to make')
               }
           },
@@ -114,7 +114,7 @@ class CardQueue extends React.Component {
       deck: filteredStudents
     })
 
-    if (this.state.deck === []) {
+    if (filteredStudents.length == 0) {
       alert('There are currently no more connections to make')
     }
 

@@ -145,7 +145,7 @@ class ChatPage extends React.Component {
 			const messObj = {
 				userId: this.state.userId,
 				message: this.state.message,
-				timestamp: 'now',
+				timestamp: now,
 				combinedId: this.state.combinedId
 			}
 			this.messageRequest(messObj).then((result) => {
