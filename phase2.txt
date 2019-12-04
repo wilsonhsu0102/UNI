@@ -58,6 +58,10 @@ events.js:
 - Used to add new attendees to events
 
 images.js:
+- Used to filter uploaded files to see if the image fits within a size constraint and is a valid photo
+- Used to add new images to the database and stores which user uploaded the image. Images are stored as Base64.
+- Used to retrieve images from the database uploaded by a particular user
+
 
 chats.js:
 - Used to create a new collection for users that holds all their messages
