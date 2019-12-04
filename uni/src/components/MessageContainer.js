@@ -8,6 +8,10 @@ import './MessageContainer.css'
 
 /* Component for the Message Container */
 class MessageContainer extends React.Component {
+	state = {
+		messages: []
+	}
+	
 	scrollHandler = event => {
 		let box = document.querySelector("#chatContainer");
 		if (!box) {
@@ -27,12 +31,18 @@ class MessageContainer extends React.Component {
 		
 		this.interval = setInterval(() => {
 			if (!this.props.messages) {
-				this.props.messages = []
+				this.setState({
+					messages: []
+				});
 			}
-
+			else{
+				this.setState({
+					messages: this.props.messages
+				});
+			}
 			//this.mightScroll();
 			
-		}, 2000);
+		}, 1000);
 			
 	}
 	
@@ -42,12 +52,8 @@ class MessageContainer extends React.Component {
 	
     render() {
 		const { userId, userName, connectionData} = this.props.params
-		let messages = this.props.messages
 		const {sendHandler, messageHandler} = this.props
 		console.log(this.props.params)
-		if (!messages) {
-			messages = []
-		}
 		if(!connectionData){
 			return (<div id="messageDiv">Loading Page. Please Wait.</div>);
 		}
@@ -59,7 +65,7 @@ class MessageContainer extends React.Component {
 					<p id="connectEmail"> {connectionData.email}</p>
 				</h4>
 				<div id="chatContainer" onClick = {this.scrollHandler}>
-					{messages.map((message) => {
+					{this.state.messages.map((message) => {
 						if(message.userID === connectionData._id.toString()){
 							return(
 								ChatMessage(connectionData.name, message.message, true)

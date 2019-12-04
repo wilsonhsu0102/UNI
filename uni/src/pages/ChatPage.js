@@ -31,8 +31,7 @@ class ChatPage extends React.Component {
 			this.setState({
 				userId: selfId,
 				userName: selfName,
-				connectionData: student,
-				messages: []
+				connectionData: student
 			})
 			
 			const idObject = {
@@ -142,7 +141,7 @@ class ChatPage extends React.Component {
 	
 	sendHandler = event => {
 		if (this.state.message !== ""){
-			//const now = datetime.parse(new Date(), 'YYYY/MM/DD HH:mm:ss');
+			const now = datetime.format(new Date(), 'YYYY/MM/DD HH:mm:ss');
 			const messObj = {
 				userId: this.state.userId,
 				message: this.state.message,
@@ -150,11 +149,21 @@ class ChatPage extends React.Component {
 				combinedId: this.state.combinedId
 			}
 			this.messageRequest(messObj).then((result) => {
-				this.setState({
-					messages: result.messages,
-					timestamp: 'now',
-					message: ""
-				});
+				if (this.state.timestamp === null){
+					const now = datetime.format(new Date(), 'YYYY/MM/DD HH:mm:ss');
+					this.setState({
+						messages: result.messages,
+						timestamp: now,
+						message: ""
+					});
+				}
+				else if((result.timestamp !== null)){
+					this.setState({
+						messages: result.messages,
+						timestamp: result.timestamp,
+						message: ""
+					});
+				}
 				document.querySelector("#userMessageInput").value = "";
 			}).catch((error) => { console.log(error)});
 		}
