@@ -13,7 +13,8 @@ module.exports = {
     init: function() {
         console.log('LOG: db->init');
         console.log('LOG: Initializing DB...');
-        mongoose.connect(constants.MONGO_DB_URL) 
+        mongoose.set('useUnifiedTopology', true);
+        mongoose.connect(constants.MONGO_DB_URL, { useNewUrlParser: true }) 
         var db = mongoose.connection;
         db.on( 'error', console.error.bind( console, 'connection error:' ) );
 
